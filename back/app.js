@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const Card = require('./models/card')
 
-mongoose.connect('mongodb+srv://thomas:thomadmin@cluster0.kovjn.mongodb.net/marketPlaceEngine?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://somemark:somemarkadmin@cluster0.kovjn.mongodb.net/marketPlaceEngine?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
