@@ -4,7 +4,7 @@
       <header>
         <div class="imgMain">
           <img class="imgUpdate" src="../../assets/upload.png" alt="logoCard" />
-          <input type="text" v-model="cardResume.logo" >
+          <input type="text" v-model="cardResume.logo" />
         </div>
       </header>
       <div class="containerMain">
@@ -12,11 +12,11 @@
           <div class="imgScreen radius">
             <div class="bgScreen radius">
               <img class="screen" src="../../assets/upload.png" alt="screen1" />
-              <input type="text" v-model="cardResume.imgSite1" >
+              <input type="text" v-model="cardResume.imgSite1" />
             </div>
             <div class="bgScreen radius">
               <img class="screen" src="../../assets/upload.png" alt="screen2" />
-              <input type="text" v-model="cardResume.imgSite2" >
+              <input type="text" v-model="cardResume.imgSite2" />
             </div>
           </div>
           <div class="sommary radius">
@@ -65,15 +65,15 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-        axios.post('http://localhost:3001/api/card', { body: this.cardResume})
-        .then(response => {})  
-        .catch(e => {
+    async submitForm() {
+        try {
+          await axios.post('http://localhost:3001/api/card', {...this.cardResume})
+        } catch(e) {
           console.log(e);
-        })
+        }
+        }
     },
-  },
-};
+  };
 </script>
 
 <style>
