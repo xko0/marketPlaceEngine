@@ -33,6 +33,12 @@ app.post('/api/card', (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 });
 
+app.get('/api/card/:id', (req, res, next) => {
+    Card.findOne({ _id: req.params.id })
+        .then(card => res.status(200).json(card))
+        .catch(error => res.status(404).json({ error }))
+})
+
 app.get('/api/card', (req, res, next) => {
     Card.find()
         .then(cards => res.status(200).json(cards))
