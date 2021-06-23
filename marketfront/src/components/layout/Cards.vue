@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <div class="card" v-for="(card, cardIndex) in cardResume" :key="cardIndex">
-      <bouton @click="deleteTodo(todo._id)"> Supprimer </bouton>
-      <img src="" alt="" />
-      <h4>{{ Card.titre }}</h4>
-      <h6>{{ Card.categorie }}</h6>
+  <div class="display">
+    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex">
+      <!-- <bouton @click="deleteTodo(todo._id)"> Supprimer </bouton> -->
+      <img :src="card.logo" alt="" />
+      <h1>{{ card.titre }}</h1>
+      <h6>{{ card.categorie }}</h6>
+      <button @click="goCardUrl(card._id)" >En savoir plus</button>
     </div>
   </div>
 </template>
@@ -14,23 +15,55 @@ import axios from "axios"
 export default {
   data() {
     return {
-      cardResume: [],
+      tabCards: [],
+      uneCard: {},
     };
   },
   mounted () {
-    axios.get('http://localhost:3001/api/card', {...this.cardResume});
+    axios.get('http://localhost:3001/api/card')
+          .then(res => {
+            let tab = res.data; // réponse sous forme de tableau
+            this.tabCards = tab.slice(0); // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
+          })
+          .catch(error => {
+            console.error(error)
+          })
+  }, 
+  methods: {
+    goCardUrl(idCard) {
+      this.$router.push(`/description/${idCard}`);
+    }
   },
 };
 </script>
 
 <style>
 .card {
-  margin-top: 8%;
+  margin: 8% 2% 0% 2%;
+  padding: 2%;
   width: 371px;
   height: 238px;
   border-radius: 15px;
   box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.4);
   background-color: var(--whiteCard);
   overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card img {
+  width: 70%;
+  height: auto;
+  margin-bottom: 3%;
+  border-radius: 10px;
+}
+.card button {
+  margin: 3% 0 1% 0;
+}
+.display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>

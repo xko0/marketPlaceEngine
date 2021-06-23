@@ -20,7 +20,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {path: "/", component: Home},
-    {path: "/description", component: UserDescription},
+    {path: "/description/:id", component: UserDescription},
     {path: "/log", component: Log},
     {path: "/adminhome", component: AdminHome},
     {path: "/admincreatecard", component: AdminCreateCard}

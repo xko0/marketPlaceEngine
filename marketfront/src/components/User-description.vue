@@ -1,47 +1,62 @@
 <template>
   <div class="userDescriptionPage">
-    <header>
-      <img class="imgMain" src="../assets/maltLogo.jpeg" alt="logoCard" />
-    </header>
-    <div class="containerMain">
-      <article class="container1 radius">
-        <div class="imgScreen radius">
-          <img class="screen" src="../assets/maltLogo.jpeg" alt="screen1" />
+      <header>
+        <img class="imgMain" :src="this.uneCard.logo" alt="logoCard" />
+      </header>
+      <div class="containerMain">
+        <article class="container1 radius">
+          <div class="imgScreen radius">
+            <img class="screen" :src="this.uneCard.imgSite1" alt="screen1" />
 
-          <img class="screen" src="../assets/maltLogo.jpeg" alt="screen2" />
-        </div>
-        <div class="sommary radius">
-          <h4>Brève description de la marketplace :</h4>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
-            incidunt voluptatum non alias reiciendis. Consequuntur commodi
-            ducimus velit animi libero eos, rem, provident atque nam hic aliquid
-          </p>
-        </div>
-      </article>
-      <aside class="container2 radius">
-        <div>
-          <h4>Chiffre clé :</h4>
-          <p>
-            - Année de création :
-            <br />
-            <br />
-            - Localisation :
-            <br />
-            <br />
-            - Levée de fond :
-            <br />
-            <br />
-            - Categories :
-          </p>
-        </div>
-        <button class="radius">Voir le site !</button>
-      </aside>
-    </div>
+            <img class="screen" :src="this.uneCard.imgSite2" alt="screen2" />
+          </div>
+          <div class="sommary radius">
+            <h4>Brève description de la marketplace :</h4>
+            <p>
+              {{ this.uneCard.resumeMarketPlace }}
+            </p>
+          </div>
+        </article>
+        <aside class="container2 radius">
+          <div>
+            <h4>Chiffre clé :</h4>
+            <p>
+              - Année de création : {{ this.uneCard.anneeCreation }}
+              <br />
+              <br />
+              - Localisation : {{ this.uneCard.localisation }}
+              <br />
+              <br />
+              - Levée de fond : {{ this.uneCard.leveeFonds }}
+              <br />
+              <br />
+              - Categories : {{ this.uneCard.categorie }}
+            </p>
+          </div>
+          <button class="radius">Voir le site !</button>
+        </aside>
+      </div>
   </div>
 </template>
 
-<script></script>
+<script>
+import axios from "axios"
+export default {
+  data() {
+    return {
+      idCard: this.$route.params.id, // on récupère l'id de la carte via l'url
+      uneCard: {}
+    }
+  },
+  mounted () {
+    axios.get(`http://localhost:3001/api/card/${this.idCard}`)
+      .then(res => {
+        this.uneCard = res.data; // on stock l'objet reçu de la bdd dans UneCard
+      })
+      .catch(error => console.error(error))
+  },
+}
+</script>
 
 <style scoped>
 .userDescriptionPage {
