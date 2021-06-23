@@ -37,6 +37,7 @@ export default {
   components: { Cards },
 }
 </script>
+
 <style scoped>
 .admin {
   display: flex;

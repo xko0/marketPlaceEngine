@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" v-for="card in cardResume" :key="card._id">
+    <div class="card" v-for="(card, cardIndex) in cardResume" :key="cardIndex">
       <bouton @click="deleteTodo(todo._id)"> Supprimer </bouton>
       <img src="" alt="" />
       <h4>{{ Card.titre }}</h4>
@@ -10,11 +10,15 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
   data() {
     return {
       cardResume: [],
     };
+  },
+  mounted () {
+    axios.get('http://localhost:3001/api/card', {...this.cardResume});
   },
 };
 </script>

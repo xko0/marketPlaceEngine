@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const CardResume = mongoose.Schema({
+
+const cardResume = mongoose.Schema({
     titre: {
       type: String,
       required: true
@@ -37,4 +38,4 @@ const CardResume = mongoose.Schema({
       required: true
     }
 });
-module.exports = mongoose.model("Card", CardResume);
+module.exports = mongoose.model("Card", cardResume);

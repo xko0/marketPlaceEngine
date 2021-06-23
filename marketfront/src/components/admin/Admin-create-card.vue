@@ -1,42 +1,47 @@
 <template>
   <div>
-    <header>
-      <div class="imgMain">
-        <img class="imgUpdate" src="../../assets/upload.png" alt="logoCard" />
+    <form @submit.prevent="submitForm">
+      <header>
+        <div class="imgMain">
+          <img class="imgUpdate" src="../../assets/upload.png" alt="logoCard" />
+          <input type="text" v-model="cardResume.logo" >
+        </div>
+      </header>
+      <div class="containerMain">
+        <article class="container1 radius">
+          <div class="imgScreen radius">
+            <div class="bgScreen radius">
+              <img class="screen" src="../../assets/upload.png" alt="screen1" />
+              <input type="text" v-model="cardResume.imgSite1" >
+            </div>
+            <div class="bgScreen radius">
+              <img class="screen" src="../../assets/upload.png" alt="screen2" />
+              <input type="text" v-model="cardResume.imgSite2" >
+            </div>
+          </div>
+          <div class="sommary radius">
+            <h4>Résumer du site :</h4>
+            <input v-model="cardResume.titre" type="text" />
+            <textarea
+              type="text"
+              class="inputSite"
+              v-model="cardResume.resumeMarketPlace"
+            />
+          </div>
+        </article>
+        <aside class="container2 radius">
+          <div class="sommaryService">
+            <h4>Résumer des services :</h4>
+            <input type="text" v-model="cardResume.anneeCreation" />
+            <input type="text" v-model="cardResume.localisation" />
+            <input type="text" v-model="cardResume.leveeFonds" />
+            <input type="text" v-model="cardResume.categorie" />
+            <input type="text" v-model="cardResume.urlMarketPlace" />
+          </div>
+          <button type="submit" class="radius">Valider fiche</button>
+        </aside>
       </div>
-    </header>
-    <div class="containerMain">
-      <article class="container1 radius">
-        <div class="imgScreen radius">
-          <div class="bgScreen radius">
-            <img class="screen" src="../../assets/upload.png" alt="screen1" />
-          </div>
-          <div class="bgScreen radius">
-            <img class="screen" src="../../assets/upload.png" alt="screen2" />
-          </div>
-        </div>
-        <div class="sommary radius">
-          <h4>Résumer du site :</h4>
-          <input v-model="cardResume.titre" type="text" />
-          <textarea
-            type="text"
-            class="inputSite"
-            v-model="cardResume.resumeMarketPlace"
-          />
-        </div>
-      </article>
-      <aside class="container2 radius">
-        <div class="sommaryService">
-          <h4>Résumer des services :</h4>
-          <input type="text" v-model="cardResume.anneeCreation" />
-          <input type="text" v-model="cardResume.localisation" />
-          <input type="text" v-model="cardResume.leveeFonds" />
-          <input type="text" v-model="cardResume.categorie" />
-          <input type="text" v-model="cardResume.urlMarketPlace" />
-        </div>
-        <button class="radius" @click="submitForm">Valider fiche</button>
-      </aside>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -53,28 +58,19 @@ export default {
         categorie: "",
         resumeMarketPlace: "",
         urlMarketPlace: "",
+        logo: "",
+        imgSite1: "",
+        imgSite2: ""
       },
-      // tableauCartes: [],
     };
   },
   methods: {
-    //   sauvegardeCarte() {
-    //     this.tableauCartes.push(this.cardResume);
-    //     console.log(this.tableauCartes);
-    //   },
-    async submitForm() {
-      try {
-        const response = await axios.post(
-          "/adminhome",
-          this.cardResume,
-          console.log(this.cardResume)
-        );
-        this.message = response.data;
-        console.log(this.message);
-        alert("envoyé!");
-      } catch (e) {
-        console.log(e);
-      }
+    submitForm() {
+        axios.post('http://localhost:3001/api/card', { body: this.cardResume})
+        .then(response => {})  
+        .catch(e => {
+          console.log(e);
+        })
     },
   },
 };
