@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build ; cd ../back ; npm start",
+    "build": "vue-cli-service build ; cd ../back ; npm start ; cd ../marketfront ; npm run serve",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
