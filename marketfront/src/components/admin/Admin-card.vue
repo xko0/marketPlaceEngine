@@ -1,9 +1,13 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goCardUrl(card._id)">
+    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="modifierCard(card._id)">
+      <!-- <bouton @click="deleteTodo(todo._id)"> Supprimer </bouton> -->
       <img :src="card.logo" alt="" />
       <h1>{{ card.titre }}</h1>
       <h6>{{ card.categorie }}</h6>
+      <div class="displayBtn">
+        <button @click="suppCard(card._id)">Supprimer</button>
+      </div>
     </div>
   </div>
 </template>
@@ -24,14 +28,15 @@ export default {
         let tab = res.data; 
         // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
         this.tabCards = tab.slice(0); 
+        console.log(res.data);
       })
       .catch(error => {
         console.error(error)
       })
   }, 
   methods: {
-    goCardUrl(idCard) {
-      this.$router.push(`/description/${idCard}`);
+    modifierCard(idCard) {
+      this.$router.push(`/adminmodifycard/${idCard}`);
     },
     suppCard(idCard) {
       axios.delete(`http://localhost:3001/api/card/${idCard}`)
@@ -79,5 +84,15 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-
+.displayBtn {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 25%;
+}
+.displayBtn button {
+  width: 40%;
+  border-radius: 15px;
+  margin: 3% 0 0 0;
+}
 </style>

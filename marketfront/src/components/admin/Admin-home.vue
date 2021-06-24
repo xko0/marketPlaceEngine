@@ -27,14 +27,14 @@
         </select>
       </header>
     </div>
-    <Cards />
+    <AdminCards />
   </div>
 </template>
 
 <script>
-import Cards from '../layout/Cards.vue'
+import AdminCards from './Admin-card.vue'
 export default {
-  components: { Cards },
+  components: { AdminCards },
 }
 </script>
 

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="modifyCard">
       <header>
         <div class="imgMain">
-          <img class="imgUpdate" src="../../assets/upload.png" alt="logoCard" />
-          <input type="text" placeholder="Logo" v-model="cardResume.logo" />
+          <img class="imgUpdate" :src="cardResume.logo" alt="logoCard" />
+          <input type="text" placeholder="Logo" v-model="cardResume.logo"/>
         </div>
       </header>
       <div class="containerMain">
@@ -12,30 +12,29 @@
           <div class="imgScreen radius">
             <div class="bgScreen radius">
               <img class="screen" src="../../assets/upload.png" alt="screen1" />
-              <input type="text" placeholder="Image 1" v-model="cardResume.imgSite1" />
+              <input type="text" placeholder="Image 1" v-model="cardResume.imgSite1"/>
             </div>
             <div class="bgScreen radius">
               <img class="screen" src="../../assets/upload.png" alt="screen2" />
-              <input type="text" placeholder="Image 2" v-model="cardResume.imgSite2" />
+              <input type="text" placeholder="Image 2" v-model="cardResume.imgSite2"/>
             </div>
           </div>
           <div class="sommary radius">
             <h4>Résumer du site :</h4>
-            <input v-model="cardResume.titre" placeholder="Nom de la marketplace" type="text" />
-            <textarea type="text" class="inputSite" placeholder="Description de la marketplace" v-model="cardResume.resumeMarketPlace"
-            />
+            <input v-model="cardResume.titre" type="text"/>
+            <textarea type="text" class="inputSite" v-model="cardResume.resumeMarketPlace"/>
           </div>
         </article>
         <aside class="container2 radius">
           <div class="sommaryService">
             <h4>Résumer des services :</h4>
-            <input type="text" placeholder="Année de création" v-model="cardResume.anneeCreation" />
-            <input type="text" placeholder="Localisation" v-model="cardResume.localisation" />
-            <input type="text" placeholder="Levée de fonds" v-model="cardResume.leveeFonds" />
-            <input type="text" placeholder="Catégorie" v-model="cardResume.categorie" />
-            <input type="text" placeholder="Adresse internet" v-model="cardResume.urlMarketPlace" />
+            <input type="text" v-model="cardResume.anneeCreation"/>
+            <input type="text" v-model="cardResume.localisation"/>
+            <input type="text" v-model="cardResume.leveeFonds"/>
+            <input type="text" v-model="cardResume.categorie"/>
+            <input type="text" v-model="cardResume.urlMarketPlace"/>
           </div>
-          <button type="submit" class="radius">Valider fiche</button>
+          <button type="submit" class="radius">Modifier fiche</button>
         </aside>
       </div>
     </form>
@@ -59,19 +58,22 @@ export default {
         imgSite1: "",
         imgSite2: ""
       },
-      idCarte: this.$route.params.id
+      idCard: this.$route.params.id
     };
   },
   mounted () {
-    axios.put(`http://localhost:3001/api/card/${this.idCarte}`)
-         .then(res => console.log(`${res} modifié`))
-         .catch(error => console.error(error))
+    axios.get(`http://localhost:3001/api/card/${this.idCard}`)
+      .then(res => {
+        this.cardResume = {...res.data}; // on stock l'objet reçu de la bdd dans UneCard
+        console.log(this.cardResume);
+      })
+      .catch(error => console.error(error))
   },
   methods: {
-    async submitForm() {
+    async modifyCard() {
       try {
-        await axios.post('http://localhost:3001/api/card', {...this.cardResume});
-        console.log("La marketplace a bien été ajouté !");
+        await axios.put(`http://localhost:3001/api/card/${this.idCard}`);
+        console.log("La marketplace a bien été modifié !");
         this.$router.push('/adminhome'); // redirection vers la page admin-home
       } catch(e) {
         console.log(e);
