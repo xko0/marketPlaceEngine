@@ -33,6 +33,24 @@ app.post('/api/card', (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 });
 
+app.get('/api/card/:id', (req, res, next) => {
+    Card.findOne({ _id: req.params.id })
+        .then(card => res.status(200).json(card))
+        .catch(error => res.status(404).json({ error }));
+})
+
+app.delete('/api/card/:id', (req, res, next) => {
+    Card.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'objet supprimé' }))
+    .catch(error => res.status(400).json({ error }));
+})
+
+app.put('/api/card/:id', (req, res, next) => {
+    Card.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'objet modifié' }))
+    .catch(error => res.status(400).json({ error }));
+})
+
 app.get('/api/card', (req, res, next) => {
     Card.find()
         .then(cards => res.status(200).json(cards))

@@ -5,6 +5,10 @@ const cardResume = mongoose.Schema({
       type: String,
       required: true
     },
+    resumeMarketPlace: {
+      type: String,
+      required: true
+    },
     anneeCreation: {
       type: Number,
       required: false

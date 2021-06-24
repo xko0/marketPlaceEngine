@@ -10,6 +10,7 @@ import AdminHome from './components/admin/Admin-home'
 import Log from './components/admin/Log'
 import Home from './components/Home'
 import UserDescription from './components/User-description'
+import AdminModifyCard from './components/admin/Admin-modify-card'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
@@ -20,10 +21,11 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {path: "/", component: Home},
-    {path: "/description", component: UserDescription},
+    {path: "/description/:id", component: UserDescription},
     {path: "/log", component: Log},
     {path: "/adminhome", component: AdminHome},
-    {path: "/admincreatecard", component: AdminCreateCard}
+    {path: "/admincreatecard", component: AdminCreateCard},
+    {path: "/adminmodifycard/:id", component: AdminModifyCard}
   ]
 })
 
