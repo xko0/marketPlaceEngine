@@ -33,22 +33,6 @@ export default {
     goCardUrl(idCard) {
       this.$router.push(`/description/${idCard}`);
     },
-    suppCard(idCard) {
-      axios.delete(`http://localhost:3001/api/card/${idCard}`)
-      .then(res => {
-        console.log(`${res.data} supprimé`);
-        // "recharge" la liste des cartes => affichage sans la carte supprimée
-        axios.get('http://localhost:3001/api/card')
-          .then(res => {
-            let tab = res.data; // réponse sous forme de tableau
-            this.tabCards = tab.slice(0); // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
-          })
-          .catch(error => {
-            console.error(error)
-          })
-      })
-      .catch(error => console.error(error))
-    }
   },
 };
 </script>
@@ -79,5 +63,4 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-
 </style>

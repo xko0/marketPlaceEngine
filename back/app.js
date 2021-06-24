@@ -23,20 +23,24 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+
+// CARDS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 app.post('/api/card', (req, res, next) => {
     delete req.body._id;
     const card = new Card({
         ...req.body
     });
     card.save()
-        .then(() => res.status(201).json({ message: 'objet enregistré' }))
-        .catch(error => res.status(400).json({ error }));
+    .then(() => res.status(201).json({ message: 'objet enregistré' }))
+    .catch(error => res.status(400).json({ error }));
 });
 
 app.get('/api/card/:id', (req, res, next) => {
     Card.findOne({ _id: req.params.id })
-        .then(card => res.status(200).json(card))
-        .catch(error => res.status(404).json({ error }));
+    .then(card => res.status(200).json(card))
+    .catch(error => res.status(404).json({ error }));
 })
 
 app.delete('/api/card/:id', (req, res, next) => {
@@ -53,8 +57,10 @@ app.put('/api/card/:id', (req, res, next) => {
 
 app.get('/api/card', (req, res, next) => {
     Card.find()
-        .then(cards => res.status(200).json(cards))
-        .catch(error => res.status(400).json({ error }));
+    .then(cards => res.status(200).json(cards))
+    .catch(error => res.status(400).json({ error }));
 });
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 module.exports = app;

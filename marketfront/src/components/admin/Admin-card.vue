@@ -1,13 +1,10 @@
 <template>
   <div class="display">
     <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="modifierCard(card._id)">
-      <!-- <bouton @click="deleteTodo(todo._id)"> Supprimer </bouton> -->
-      <img :src="card.logo" alt="" />
-      <h1>{{ card.titre }}</h1>
-      <h6>{{ card.categorie }}</h6>
-      <div class="displayBtn">
-        <button @click="suppCard(card._id)">Supprimer</button>
-      </div>
+        <img :src="card.logo" alt="" />
+        <h1>{{ card.titre }}</h1>
+        <h6>{{ card.categorie }}</h6>
+        <button class="suppBtn" v-show="suppBtnAffiche" @click="suppCard(card._id)">Supprimer</button>
     </div>
   </div>
 </template>
@@ -19,6 +16,12 @@ export default {
     return {
       tabCards: [],
     };
+  },
+  props: {
+      suppBtnAffiche: {
+          type: Boolean,
+          default: false
+      }
   },
   mounted () {
     axios.get('http://localhost:3001/api/card')
@@ -34,7 +37,9 @@ export default {
   }, 
   methods: {
     modifierCard(idCard) {
+      if(!this.suppBtnAffiche) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
       this.$router.push(`/adminmodifycard/${idCard}`);
+      }
     },
     suppCard(idCard) {
       axios.delete(`http://localhost:3001/api/card/${idCard}`)
@@ -51,7 +56,7 @@ export default {
           })
       })
       .catch(error => console.error(error))
-    }
+    },
   },
 };
 </script>
@@ -67,9 +72,8 @@ export default {
   background-color: var(--whiteCard);
   overflow: visible;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .card img {
   width: 70%;
@@ -82,15 +86,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-.displayBtn {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  height: 25%;
-}
-.displayBtn button {
-  width: 40%;
-  border-radius: 15px;
-  margin: 3% 0 0 0;
+.suppBtn {
+    border-radius: 15px;
 }
 </style>

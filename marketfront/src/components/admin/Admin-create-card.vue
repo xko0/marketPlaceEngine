@@ -66,7 +66,6 @@ export default {
     async submitForm() {
       try {
         await axios.post('http://localhost:3001/api/card', {...this.cardResume});
-        console.log("La marketplace a bien été ajouté !");
         this.$router.push('/adminhome'); // redirection vers la page admin-home
       } catch(e) {
         console.log(e);

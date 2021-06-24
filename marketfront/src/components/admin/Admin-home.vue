@@ -5,18 +5,9 @@
         <router-link to="/admincreatecard">
           <img src="../../assets/plus.png" class="icons plus" alt="bouton plus"/>
         </router-link>
-        <img src="../../assets/moins.png" class="icons moins" alt="bouton moins" />
-        <input
-          class="rechercheAdmin radius"
-          type="text"
-          placeholder="recherche"
-        />
-        <select
-          id="pet-select"
-          class="radius optionCategory"
-          type="select"
-          name=""
-        >
+        <img src="../../assets/moins.png" class="icons moins" alt="bouton moins" @click="suppBtnAffiche = !suppBtnAffiche"/>
+        <input class="rechercheAdmin radius" type="text" placeholder="recherche" />
+        <select id="pet-select" class="radius optionCategory" type="select" name="">
           <option value="">categories</option>
           <option value="dog">Dog</option>
           <option value="cat">Cat</option>
@@ -27,15 +18,20 @@
         </select>
       </header>
     </div>
-    <AdminCards />
+    <AdminCards :suppBtnAffiche="!suppBtnAffiche"/>
   </div>
 </template>
 
 <script>
 import AdminCards from './Admin-card.vue'
 export default {
+  data() {
+    return {
+      suppBtnAffiche: true
+    }
+  },
   components: { AdminCards },
-}
+  }
 </script>
 
 <style scoped>
