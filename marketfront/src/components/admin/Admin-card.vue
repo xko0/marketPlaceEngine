@@ -18,7 +18,6 @@ export default {
   data() {
     return {
       tabCards: [],
-      uneCard: {},
     };
   },
   mounted () {
@@ -28,7 +27,6 @@ export default {
         let tab = res.data; 
         // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
         this.tabCards = tab.slice(0); 
-        console.log(res.data);
       })
       .catch(error => {
         console.error(error)

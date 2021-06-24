@@ -14,12 +14,12 @@ export default {
   data() {
     return {
       tabCards: [],
-      uneCard: {},
     };
   },
   mounted () {
     axios.get('http://localhost:3001/api/card')
       .then(res => {
+        this.tabCards = [];
         // réponse sous forme de tableau
         let tab = res.data; 
         // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template

@@ -62,11 +62,6 @@ export default {
       idCarte: this.$route.params.id
     };
   },
-  mounted () {
-    axios.put(`http://localhost:3001/api/card/${this.idCarte}`)
-         .then(res => console.log(`${res} modifié`))
-         .catch(error => console.error(error))
-  },
   methods: {
     async submitForm() {
       try {
