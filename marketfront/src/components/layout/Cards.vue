@@ -5,7 +5,10 @@
       <img :src="card.logo" alt="" />
       <h1>{{ card.titre }}</h1>
       <h6>{{ card.categorie }}</h6>
-      <button @click="goCardUrl(card._id)" >En savoir plus</button>
+      <div class="displayBtn">
+        <button @click="goCardUrl(card._id)" >En savoir plus</button>
+        <button @click="suppCard(card._id)">Supprimer</button>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +35,22 @@ export default {
   methods: {
     goCardUrl(idCard) {
       this.$router.push(`/description/${idCard}`);
+    },
+    suppCard(idCard) {
+      axios.delete(`http://localhost:3001/api/card/${idCard}`)
+      .then(res => {
+        console.log(`${res} supprimé`);
+        // "recharge" la liste des cartes => affichage sans la carte supprimée
+        axios.get('http://localhost:3001/api/card')
+          .then(res => {
+            let tab = res.data; // réponse sous forme de tableau
+            this.tabCards = tab.slice(0); // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
+          })
+          .catch(error => {
+            console.error(error)
+          })
+      })
+      .catch(error => console.error(error))
     }
   },
 };
@@ -58,12 +77,20 @@ export default {
   margin-bottom: 3%;
   border-radius: 10px;
 }
-.card button {
-  margin: 3% 0 1% 0;
-}
 .display {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.displayBtn {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 25%;
+}
+.displayBtn button {
+  width: 40%;
+  border-radius: 15px;
+  margin: 3% 0 0 0;
 }
 </style>
