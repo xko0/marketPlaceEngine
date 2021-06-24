@@ -1,12 +1,11 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex">
+    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goCardUrl(card._id)">
       <!-- <bouton @click="deleteTodo(todo._id)"> Supprimer </bouton> -->
       <img :src="card.logo" alt="" />
       <h1>{{ card.titre }}</h1>
       <h6>{{ card.categorie }}</h6>
       <div class="displayBtn">
-        <button @click="goCardUrl(card._id)" >En savoir plus</button>
         <button @click="suppCard(card._id)">Supprimer</button>
       </div>
     </div>
@@ -39,7 +38,7 @@ export default {
     suppCard(idCard) {
       axios.delete(`http://localhost:3001/api/card/${idCard}`)
       .then(res => {
-        console.log(`${res} supprimé`);
+        console.log(`${res.data} supprimé`);
         // "recharge" la liste des cartes => affichage sans la carte supprimée
         axios.get('http://localhost:3001/api/card')
           .then(res => {
