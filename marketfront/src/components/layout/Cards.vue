@@ -50,6 +50,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
+.card:hover {
+  transform: scale(1.1);
 }
 .cardLogo {
   width: 371px;

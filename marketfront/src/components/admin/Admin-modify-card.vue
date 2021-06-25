@@ -34,20 +34,26 @@
             <h4>Résumer des services :</h4>
             <div class="detailsMarketPlace">
               <label for="anneeCreation">Année de Création :</label>
-              <input type="number" v-model="cardResume.anneeCreation" name="anneeCreation"/>
+              <input type="number" v-model="cardResume.anneeCreation" id="anneeCreation"/>
             </div>
             <div class="detailsMarketPlace">
               <label for="localisation">Localisation :</label>
-              <input type="text" v-model="cardResume.localisation" name="localisation"/>
+              <input type="text" v-model="cardResume.localisation" id="localisation"/>
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Levée de fonds :</label>
-              <input type="number" v-model="cardResume.leveeFonds" name="leveeFonds"/>
+              <input type="number" v-model="cardResume.leveeFonds" id="leveeFonds"/>
             </div>
             <div class="detailsMarketPlace">
               <label for="categorie">Catégorie :</label>
-              <select type="text" v-model="cardResume.categorie" name="categorie"/>
-              <option value=""></option>
+              <!-- <select type="text" v-model="cardResume.categorie" id="categorie"> -->
+                <!-- <option value="dog">dog</option> -->
+                  <input type="text" name="example" list="exampleList">
+                <datalist id="exampleList">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                </datalist>
+              <!-- </select> -->
             </div>
             <div class="detailsMarketPlace">
               <label for="url">Site internet :</label>
