@@ -18,6 +18,10 @@
               <img class="screen" src="../../assets/upload.png" alt="screen2" />
               <input type="text" placeholder="Image 2" v-model="cardResume.imgSite2"/>
             </div>
+            <div class="bgScreen radius">
+              <img class="screen" src="../../assets/upload.png" alt="screen3" />
+              <input type="text" placeholder="Image 3" v-model="cardResume.imgSite3"/>
+            </div>
           </div>
           <div class="sommary radius">
             <h4>Résumer du site :</h4>

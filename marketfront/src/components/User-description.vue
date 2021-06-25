@@ -8,6 +8,7 @@
           <div class="imgScreen radius">
             <img class="screen" :src="this.uneCard.imgSite1" alt="screen1" />
             <img class="screen" :src="this.uneCard.imgSite2" alt="screen2" />
+            <img class="screen" :src="this.uneCard.imgSite3" alt="screen3" />
           </div>
           <div class="sommary radius">
             <h4>Brève description de la marketplace :</h4>
