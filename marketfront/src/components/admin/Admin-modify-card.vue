@@ -34,7 +34,7 @@
             <input type="text" v-model="cardResume.categorie"/>
             <input type="text" v-model="cardResume.urlMarketPlace"/>
           </div>
-          <button type="submit" class="radius">Modifier fiche</button>
+          <button type="submit" class="radius">Modifier</button>
         </aside>
       </div>
     </form>

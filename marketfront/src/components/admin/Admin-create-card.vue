@@ -35,7 +35,7 @@
             <input type="text" placeholder="Catégorie" v-model="cardResume.categorie" />
             <input type="text" placeholder="Adresse internet" v-model="cardResume.urlMarketPlace" />
           </div>
-          <button type="submit" class="radius">Valider fiche</button>
+          <button type="submit" class="radius">Valider</button>
         </aside>
       </div>
     </form>

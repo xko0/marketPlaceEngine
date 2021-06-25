@@ -1,10 +1,12 @@
 <template>
   <div class="display">
     <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="modifierCard(card._id)">
+        <button class="suppBtn" v-show="suppBtnAffiche" @click="suppCard(card._id)">
+          <img src="../../assets/moins.png" alt="">
+        </button>
         <img :src="card.logo" alt="" />
         <h1>{{ card.titre }}</h1>
         <h6>{{ card.categorie }}</h6>
-        <button class="suppBtn" v-show="suppBtnAffiche" @click="suppCard(card._id)">Supprimer</button>
     </div>
   </div>
 </template>
@@ -74,6 +76,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  /* position: absolute; */
+  z-index: 0;
 }
 .card img {
   width: 70%;
@@ -81,12 +85,25 @@ export default {
   margin-bottom: 3%;
   border-radius: 10px;
 }
-.display {
+/* .display {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
+} */
 .suppBtn {
     border-radius: 15px;
+    background-color: transparent;
+    border: none;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    position: relative;
+    bottom: 70%;
+    left: 55%;
+    z-index: 1;
+}
+.suppBtn img {
+  margin: 0;
+  padding: 0;
 }
 </style>
