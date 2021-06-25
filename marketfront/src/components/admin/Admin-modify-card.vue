@@ -45,15 +45,30 @@
               <input type="number" v-model="cardResume.leveeFonds" id="leveeFonds"/>
             </div>
             <div class="detailsMarketPlace">
-              <label for="categorie">Catégorie :</label>
-              <!-- <select type="text" v-model="cardResume.categorie" id="categorie"> -->
-                <!-- <option value="dog">dog</option> -->
-                  <input type="text" name="example" list="exampleList">
-                <datalist id="exampleList">
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                </datalist>
-              <!-- </select> -->
+              <div class="categories">
+                <label for="categorie">Catégorie :</label>
+                <img src="../../assets/update.png" alt="" @click="$refs.modalName.openModal()">
+                <Modal ref="modalName">
+                  <template v-slot:header>
+                    <h1>Catégories</h1>
+                  </template>
+
+                  <template v-slot:body>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc sed velit dignissim sodales ut eu sem integer vitae. Id aliquet lectus proin nibh nisl condimentum. Fringilla urna porttitor rhoncus dolor purus. Nam aliquam sem et tortor. Nisl vel pretium lectus quam id. Cras pulvinar mattis nunc sed. Quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci. Tristique magna sit amet purus. Fermentum et sollicitudin ac orci phasellus egestas tellus. Erat pellentesque adipiscing commodo elit at imperdiet dui accumsan. Felis eget nunc lobortis mattis aliquam faucibus. Tincidunt eget nullam non nisi est sit amet facilisis. Mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Eget nunc scelerisque viverra mauris in aliquam sem fringilla ut. Nec nam aliquam sem et tortor consequat id. Commodo nulla facilisi nullam vehicula ipsum a. Elementum tempus egestas sed sed. Faucibus purus in massa tempor nec feugiat nisl pretium fusce.</p>
+                  </template>
+
+                  <template v-slot:footer>
+                    <div>
+                      <button @click="$refs.modalName.closeModal()">Fermer</button>
+                    </div>
+                  </template>
+                </Modal>
+              </div>
+              <input type="text" name="example" list="exampleList">
+              <datalist id="exampleList">
+                <option value="A">A</option>
+                <option value="B">B</option>
+              </datalist>
             </div>
             <div class="detailsMarketPlace">
               <label for="url">Site internet :</label>
@@ -69,7 +84,11 @@
 
 <script>
 import axios from "axios";
+import Modal from "../layout/CategorieModal.vue"
 export default {
+  components: {
+    Modal,
+  },
   data() {
     return {
       cardResume: {
@@ -84,7 +103,7 @@ export default {
         imgSite1: "",
         imgSite2: ""
       },
-      idCard: this.$route.params.id
+      idCard: this.$route.params.id,
     };
   },
   mounted () {
@@ -100,10 +119,10 @@ export default {
         .then(() => {
             this.$router.push('/adminhome'); // redirection vers la page admin-home
         })
-      .catch(error => {
-        console.error(error);
-      })
-    }
+        .catch(error => {
+          console.error(error);
+        })
+      },
   },
 };
 </script>
@@ -196,7 +215,18 @@ export default {
 .detailsMarketPlace {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 5% 0;
+}
+.detailsMarketPlace img {
+  width: 25px;
+  margin: 0;
+}
+.categories {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
 }
 p {
   background-color: var(--whiteCard);
