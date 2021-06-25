@@ -7,7 +7,6 @@
         <article class="container1 radius">
           <div class="imgScreen radius">
             <img class="screen" :src="this.uneCard.imgSite1" alt="screen1" />
-
             <img class="screen" :src="this.uneCard.imgSite2" alt="screen2" />
           </div>
           <div class="sommary radius">
@@ -33,7 +32,9 @@
               - Categories : {{ this.uneCard.categorie }}
             </p>
           </div>
-          <button class="radius">Voir le site !</button>
+          <a :href="this.uneCard.urlMarketPlace" target="_blank">
+            <button class="radius">Voir le site !</button>
+          </a>
         </aside>
       </div>
   </div>
@@ -88,11 +89,11 @@ export default {
 .imgScreen {
   background-color: var(--whiteCard);
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 .screen {
-  width: 45%;
+  width: auto;
   height: 15vh;
   background-color: var(--whiteCard);
   border-radius: 10px;
@@ -117,6 +118,9 @@ h4 {
   padding: 1%;
   box-shadow: var(--boxShadow);
   background-color: var(--whiteCard);
+}
+.container2 a {
+  text-align: center;
 }
 p {
   padding-top: 2%;

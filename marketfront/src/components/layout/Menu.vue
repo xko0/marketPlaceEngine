@@ -3,10 +3,10 @@
     <h3>SOMEMARK</h3>
     <div class="logo">
       <router-link to="/adminhome">
-      <img src="../../assets/userLogo.png" alt="LogoUser"/>
+      <img class="logoMenu" src="../../assets/userLogo.png" alt="LogoUser"/>
       </router-link>
       <router-link to="/">
-      <img src="../../assets/homeLogo.png" alt="LogoHome"/>
+      <img class="logoMenu" src="../../assets/homeLogo.png" alt="LogoHome"/>
       </router-link>
     </div>
   </div>
@@ -32,7 +32,7 @@ h3 {
   font-weight: 400;
   padding: 0.5vh;
 }
-img {
+.logoMenu {
   width: 30px;
   height: 30px;
   margin-right: 1vh;

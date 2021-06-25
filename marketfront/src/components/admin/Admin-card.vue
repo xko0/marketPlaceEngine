@@ -90,7 +90,7 @@ export default {
   position: absolute;
   bottom: 80%;
   left: 80%;
-  /* z-index: 1; */
+  z-index: 2;
 }
 .suppBtn img {
   width: 50%;
