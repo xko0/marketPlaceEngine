@@ -2,6 +2,7 @@
   <div id="app">
     <Menu />
     <router-view></router-view>
+    <footer>Copyright SOMEMARK</footer>
   </div>
 </template>
 

@@ -19,6 +19,7 @@
       </header>
     </div>
     <AdminCards :suppBtnAffiche="!suppBtnAffiche"/>
+    
   </div>
 </template>
 

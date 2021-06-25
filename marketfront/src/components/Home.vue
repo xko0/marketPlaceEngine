@@ -48,7 +48,7 @@
         <button type="submit" class="btnForm radius">Envoyer</button>
       </div>
     </article>
-    <footer>Copyright SOMEMARK</footer>
+    
   </div>
 </template>
 

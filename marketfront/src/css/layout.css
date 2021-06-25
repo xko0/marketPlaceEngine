@@ -22,6 +22,7 @@
   
   footer {
     height: 5vh;
+    margin-top: 2%;
     background-color: var(--greyFooter);
     display: flex;
     justify-content: center;
