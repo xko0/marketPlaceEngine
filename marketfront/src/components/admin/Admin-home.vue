@@ -41,6 +41,7 @@ export default {
   position: sticky;
   top: 10px;
   background-color: transparent;
+  z-index: 5;
 }
 .gestionAdmin {
   background-color: transparent;
