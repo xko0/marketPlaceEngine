@@ -32,11 +32,27 @@
         <aside class="container2 radius">
           <div class="sommaryService">
             <h4>Résumer des services :</h4>
-            <input type="text" v-model="cardResume.anneeCreation"/>
-            <input type="text" v-model="cardResume.localisation"/>
-            <input type="text" v-model="cardResume.leveeFonds"/>
-            <input type="text" v-model="cardResume.categorie"/>
-            <input type="text" v-model="cardResume.urlMarketPlace"/>
+            <div class="detailsMarketPlace">
+              <label for="anneeCreation">Année de Création :</label>
+              <input type="number" v-model="cardResume.anneeCreation" name="anneeCreation"/>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="localisation">Localisation :</label>
+              <input type="text" v-model="cardResume.localisation" name="localisation"/>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="leveeFonds">Levée de fonds :</label>
+              <input type="number" v-model="cardResume.leveeFonds" name="leveeFonds"/>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="categorie">Catégorie :</label>
+              <select type="text" v-model="cardResume.categorie" name="categorie"/>
+              <option value=""></option>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="url">Site internet :</label>
+              <input type="text" v-model="cardResume.urlMarketPlace" name="url"/>
+            </div>
           </div>
           <button type="submit" class="radius">Modifier</button>
         </aside>
@@ -171,6 +187,11 @@ export default {
   margin-bottom: 1%;
   overflow: hidden;
 }
+.detailsMarketPlace {
+  display: flex;
+  justify-content: space-between;
+  margin: 5% 0;
+}
 p {
   background-color: var(--whiteCard);
   padding-top: 2%;
@@ -200,4 +221,5 @@ h4 {
   height: 75%;
   resize: none;
 }
+
 </style>
