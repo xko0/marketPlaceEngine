@@ -4,9 +4,9 @@
         <button class="suppBtn" v-show="suppBtnAffiche" @click="suppCard(card._id)">
           <img src="../../assets/moins.png" alt="">
         </button>
-        <img :src="card.logo" alt="" />
+        <img class="cardLogo" :src="card.logo" alt="" />
         <h1>{{ card.titre }}</h1>
-        <h6>{{ card.categorie }}</h6>
+        <h4>{{ card.categorie }}</h4>
     </div>
   </div>
 </template>
@@ -76,33 +76,25 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* position: absolute; */
-  z-index: 0;
+  position: relative;
+  /* z-index: 0; */
 }
-.card img {
-  width: 70%;
-  height: auto;
-  margin-bottom: 3%;
+.cardLogo {
+  width: auto;
+  height: 50%;
   border-radius: 10px;
 }
-/* .display {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-} */
 .suppBtn {
-    border-radius: 15px;
-    background-color: transparent;
-    border: none;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    position: relative;
-    bottom: 70%;
-    left: 55%;
-    z-index: 1;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  bottom: 80%;
+  left: 80%;
+  /* z-index: 1; */
 }
 .suppBtn img {
+  width: 50%;
+  height: auto;
   margin: 0;
   padding: 0;
 }
