@@ -10,9 +10,8 @@
           </div>
           <ul>
               <li v-for="(cat, catIndex) in tabCat" :key="catIndex">
-                <p>{{ cat.nom }}</p>
-                    <input v-model="cat.nom" />
-                    <button @click="modifierCat(cat._id)">Modifier</button>
+                    <input type="text" v-model="cat.nom" />
+                    <p @click="modifierCat(cat._id)">Modifier</p>
                     <img src="../../assets/trash.png" alt="" @click="suppCat(cat._id)">
               </li>
           </ul>
@@ -40,9 +39,6 @@ export default {
       tabCat: []
     };
   },
-  mounted() {
-    this.afficherCat()
-  },
   methods: {
     closeModal() {
       this.show = false;
@@ -50,6 +46,7 @@ export default {
       document.querySelector("form").classList.remove("blur");
     },
     openModal() {
+      this.afficherCat();
       this.show = true;
       document.querySelector("body").classList.add("overflow-hidden");
       document.querySelector("form").classList.add("blur");
@@ -58,6 +55,7 @@ export default {
       axios.get('http://localhost:3001/api/categorie')
       .then(res => {
         // réponse sous forme de tableau
+        console.log(res.data);
         let tab = res.data; 
         // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
         this.tabCat = tab.slice(0); 
@@ -87,13 +85,17 @@ export default {
       .catch(error => console.error(error))
     },
     modifierCat(idCat) {
-      axios.put(`http://localhost:3001/api/categorie/${idCat}`, {...this.catResume})
-        .then(() => {
-          // this.afficherCat();
-        })
-        .catch(error => {
-          console.error(error);
-        })
+      for(let i=0; i<this.tabCat.length; i++) {
+        if(this.tabCat[i]._id === idCat) {
+          axios.put(`http://localhost:3001/api/categorie/${idCat}`, {...this.categorieResume, nom: this.tabCat[i].nom})
+          .then(res => {
+            console.log(`${res} modifié`);
+          })
+          .catch(error => {
+            console.error(error);
+          })
+        }
+      }
     }
   }
 };

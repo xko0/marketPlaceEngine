@@ -49,21 +49,21 @@ app.get('/api/card/:id', (req, res, next) => {
     Card.findOne({ _id: req.params.id })
     .then(card => res.status(200).json(card))
     .catch(error => res.status(404).json({ error }));
-})
+});
 
 // ................................................................................................
 app.delete('/api/card/:id', (req, res, next) => {
     Card.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: 'objet supprimé' }))
     .catch(error => res.status(400).json({ error }));
-})
+});
 
 // ................................................................................................
 app.put('/api/card/:id', (req, res, next) => {
     Card.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'objet modifié' }))
     .catch(error => res.status(400).json({ error }));
-})
+});
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 // CATEGORIES :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -75,9 +75,9 @@ app.post('/api/categorie', (req, res, next) => {
         ...req.body
     });
     categorie.save()
-    .then(() => res.status(201).json({ message: 'categorie enregistrée' }))
+    .then(() => res.status(201).json({ message: 'catégorie enregistrée' }))
     .catch(error => res.status(400).json({ error }));
-})
+});
 
 // ................................................................................................
 app.get('/api/categorie', (req, res, next) => {
@@ -91,14 +91,14 @@ app.delete('/api/categorie/:id', (req, res, next) => {
     Categorie.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: 'catégorie supprimée' }))
     .catch(error => res.status(400).json({ error }));
-})
+});
 
 // ................................................................................................
 app.put('/api/categorie/:id', (req, res, next) => {
     Categorie.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'categorie modifiée' }))
+    .then(() => res.status(200).json({ message: 'catégorie modifiée' }))
     .catch(error => res.status(400).json({ error }));
-})
+});
 
 
 module.exports = app;
