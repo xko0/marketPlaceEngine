@@ -18,6 +18,10 @@
               <img class="screen" src="../../assets/upload.png" alt="screen2" />
               <input type="text" placeholder="Image 2" v-model="cardResume.imgSite2" />
             </div>
+            <div class="bgScreen radius">
+              <img class="screen" src="../../assets/upload.png" alt="screen2" />
+              <input type="text" placeholder="Image 3" v-model="cardResume.imgSite3" />
+            </div>
           </div>
           <div class="sommary radius">
             <h4>Résumer du site :</h4>
@@ -57,7 +61,8 @@ export default {
         urlMarketPlace: "",
         logo: "",
         imgSite1: "",
-        imgSite2: ""
+        imgSite2: "",
+        imgSite3: ""
       },
       idCarte: this.$route.params.id
     };
@@ -75,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .imgMain {
   height: 40vh;
   margin: 0;
@@ -99,8 +104,9 @@ export default {
 
 .container1 {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin-top: 2%;
   margin-left: 2%;
   width: 60%;
@@ -115,13 +121,14 @@ export default {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  height: 15vh;
 }
 .bgScreen {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45%;
-  height: 20vh;
+  width: 30%;
+  height: 25vh;
   background: var(--radial-gradient);
 }
 .screen {
@@ -134,9 +141,9 @@ export default {
 }
 .sommary {
   width: 100%;
-  height: 25vh;
+  height: 22vh;
+  padding: 0 1% 1% 5%;
   flex: fill;
-  padding: 1%;
   overflow: hidden;
   background-color: var(--whiteCard);
 }
@@ -180,7 +187,7 @@ h4 {
   text-align: center;
 }
 .inputSite {
-  width: 100%;
+  width: 95%;
   height: 50%;
   resize: none;
 }

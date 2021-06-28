@@ -40,6 +40,10 @@ const cardResume = mongoose.Schema({
     imgSite2: {
       type: String,
       required: true
+    },
+    imgSite3: {
+      type: String,
+      required: true
     }
 });
 module.exports = mongoose.model("Card", cardResume);
