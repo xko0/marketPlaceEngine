@@ -1,6 +1,5 @@
 <template>
   <div class="menu">
-    <h3>SOMEMARK</h3>
     <div class="logo">
       <router-link to="/adminhome">
       <img class="logoMenu" src="../../assets/userLogo.png" alt="LogoUser"/>
@@ -18,7 +17,7 @@
 .menu {
   background-color: var(--bluePrimary);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: 5vh;
 }
 .logo {

@@ -201,6 +201,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
   width: 32%;
   height: 90%;
   margin-top: 2%;
@@ -213,6 +214,7 @@ export default {
   margin-top: 3%;
   background-color: transparent;
   height: 30vh;
+  width: 90%;
   margin-bottom: 1%;
   overflow: hidden;
 }
@@ -237,7 +239,7 @@ p {
   padding-top: 2%;
 }
 button {
-  margin: auto;
+  /* margin: auto; */
   width: 40%;
   padding: 2%;
   background-color: var(--button);

@@ -5,8 +5,10 @@
           <img src="../../assets/moins.png" alt="">
         </button>
         <img class="cardLogo" :src="card.logo" alt="" />
-        <h1>{{ card.titre }}</h1>
-        <h4>{{ card.categorie }}</h4>
+        <div class="bandeau">
+          <h1>{{ card.titre }}</h1>
+          <h4>{{ card.categorie }}</h4>
+        </div>
     </div>
   </div>
 </template>
@@ -77,7 +79,6 @@ export default {
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  /* z-index: 0; */
 }
 .cardLogo {
   width: auto;

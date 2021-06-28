@@ -2,8 +2,7 @@
   <div>
     <main class="home">
       <h1 id="title">
-        <img src="../assets/projecteur.png" alt="projecteur" />Search
-        Marketplace
+        Search Marketplace
       </h1>
       <h2 id="littleTitle">Trouvez votre marketplace en un clic</h2>
       <div class="search">
@@ -11,7 +10,7 @@
           class="radius searchWord"
           type="search"
           name=""
-          placeholder="Cherchez une marketplace"
+          placeholder="Nom de la marketplace"
         />
         <select
           id="pet-select"
@@ -152,10 +151,15 @@ button {
   background-color: var(--button);
 }
 .btnReferencement {
-  width: 100%;
+  width: 30vh;
   color: black;
   background-color: var(--button);
   border: solid 1px var(--button);
+  position: fixed;
+  top: 5vh;
+  right: 0;
+  padding: 10px;
+  margin-right: 1vh;
 }
 .titleForm {
   background-color: transparent;

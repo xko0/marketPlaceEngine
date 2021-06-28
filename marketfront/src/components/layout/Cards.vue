@@ -2,8 +2,10 @@
   <div class="display">
     <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goCardUrl(card._id)">
       <img class="cardLogo" :src="card.logo" alt="" />
-      <h1>{{ card.titre }}</h1>
-      <h4>{{ card.categorie }}</h4>
+      <div class="bandeau">
+        <h1>{{ card.titre }}</h1>
+        <h4>{{ card.categorie }}</h4>
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +61,6 @@ export default {
   width: 371px;
   height: 238px;
   border-radius: 10px;
-  opacity: 0.5;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -69,10 +70,14 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-.card h1, h4 {
+.bandeau {
   z-index: 1;
-}
-.card h1 {
-  margin-top: 50%;
+  margin-top: 45.3%;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  position: absolute;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-align: center;
 }
 </style>

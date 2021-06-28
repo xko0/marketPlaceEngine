@@ -66,9 +66,9 @@ export default {
   height: 95vh;
 }
 .imgMain {
-  width: 100%;
+  width: auto;
   height: 40vh;
-  margin: 0;
+  margin: auto;
   padding: 0;
 }
 .containerMain {
@@ -128,8 +128,8 @@ p {
 }
 button {
   margin: auto;
-  width: 40%;
-  padding: 2%;
+  width: 120%;
+  padding: 10%;
   background-color: var(--button);
   color: black;
   font-size: 1rem;
