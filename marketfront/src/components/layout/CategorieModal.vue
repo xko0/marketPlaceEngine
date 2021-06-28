@@ -4,6 +4,10 @@
       <div class="modal__dialog">
 
         <div class="modal__body">
+          <div>
+            <input type="text" v-model="categorieResume.nom">
+            <button type="submit" @click="ajoutCat">Ajouter</button>
+          </div>
           <ul>
               <li>
                     <p></p>
@@ -21,11 +25,16 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
   name: "Modal",
   data() {
     return {
-      show: false
+      show: false,
+      categorieResume: {
+        nom: "",
+      },
     };
   },
   methods: {
@@ -38,6 +47,15 @@ export default {
       this.show = true;
       document.querySelector("body").classList.add("overflow-hidden");
       document.querySelector("form").classList.add("blur");
+    },
+    async ajoutCat() {
+      try {
+        await axios.post('http://localhost:3001/api/categorie', {...this.categorieResume});
+        console.log("categorie créée");
+        this.categorieResume.nom = "";
+      } catch(e) {
+        console.log(e);
+      }
     }
   }
 };
