@@ -69,7 +69,7 @@ app.put('/api/card/:id', (req, res, next) => {
 // CATEGORIES :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-app.post('api/categorie', (req, res, next) => {
+app.post('/api/categorie', (req, res, next) => {
     delete req.body._id;
     const categorie = new Categorie({
         ...req.body
