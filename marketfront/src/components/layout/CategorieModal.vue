@@ -9,9 +9,11 @@
             <button type="submit" @click="ajoutCat">Ajouter</button>
           </div>
           <ul>
-              <li>
-                    <p></p>
-                    <img src="../../assets/trash.png" alt="">
+              <li v-for="(cat, catIndex) in tabCat" :key="catIndex">
+                <p>{{ cat.nom }}</p>
+                    <input v-model="cat.nom" />
+                    <button @click="modifierCat(cat._id)">Modifier</button>
+                    <img src="../../assets/trash.png" alt="" @click="suppCat(cat._id)">
               </li>
           </ul>
         </div>
@@ -35,7 +37,11 @@ export default {
       categorieResume: {
         nom: "",
       },
+      tabCat: []
     };
+  },
+  mounted() {
+    this.afficherCat()
   },
   methods: {
     closeModal() {
@@ -48,14 +54,46 @@ export default {
       document.querySelector("body").classList.add("overflow-hidden");
       document.querySelector("form").classList.add("blur");
     },
+    afficherCat() {
+      axios.get('http://localhost:3001/api/categorie')
+      .then(res => {
+        // réponse sous forme de tableau
+        let tab = res.data; 
+        // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
+        this.tabCat = tab.slice(0); 
+      })
+      .catch(error => {
+        console.error(error)
+      })
+    },
     async ajoutCat() {
       try {
         await axios.post('http://localhost:3001/api/categorie', {...this.categorieResume});
         console.log("categorie créée");
         this.categorieResume.nom = "";
+        // on "rafraîchit" la liste des catégories:
+        this.afficherCat();
       } catch(e) {
         console.log(e);
       }
+    },
+    suppCat(idCat) {
+      axios.delete(`http://localhost:3001/api/categorie/${idCat}`)
+      .then(res => {
+        console.log(`${res.data} supprimé`);
+        // "recharge" la liste des catégories => affichage sans la catégorie supprimée
+        this.afficherCat();
+      })
+      .catch(error => console.error(error))
+    },
+    modifierCat(idCat) {
+      axios.put(`http://localhost:3001/api/categorie/${idCat}`, {...this.catResume})
+        .then(() => {
+          // this.afficherCat();
+        })
+        .catch(error => {
+          console.error(error);
+        })
     }
   }
 };

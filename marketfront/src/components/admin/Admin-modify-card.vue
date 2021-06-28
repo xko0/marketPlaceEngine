@@ -10,7 +10,7 @@
 
       <template v-slot:footer>
         <div>
-          <button class="radius" type="submit" @click="$refs.modalName.closeModal()">Sauvegarder et fermer</button>
+          <button class="radius" type="submit" @click="$refs.modalName.closeModal()">Fermer</button>
         </div>
       </template>
     </Modal>
@@ -111,15 +111,15 @@ export default {
       .catch(error => console.error(error))
   },
   methods: {
-      modifyCard(idCard) {
-          axios.put(`http://localhost:3001/api/card/${idCard}`, {...this.cardResume})
+    modifyCard(idCard) {
+        axios.put(`http://localhost:3001/api/card/${idCard}`, {...this.cardResume})
         .then(() => {
             this.$router.push('/adminhome'); // redirection vers la page admin-home
         })
         .catch(error => {
           console.error(error);
         })
-      },
+    },
   },
 };
 </script>

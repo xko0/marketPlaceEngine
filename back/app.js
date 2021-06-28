@@ -86,4 +86,19 @@ app.get('/api/categorie', (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 });
 
+// ................................................................................................
+app.delete('/api/categorie/:id', (req, res, next) => {
+    Categorie.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'catégorie supprimée' }))
+    .catch(error => res.status(400).json({ error }));
+})
+
+// ................................................................................................
+app.put('/api/categorie/:id', (req, res, next) => {
+    Categorie.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'categorie modifiée' }))
+    .catch(error => res.status(400).json({ error }));
+})
+
+
 module.exports = app;
