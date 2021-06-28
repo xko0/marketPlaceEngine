@@ -2,30 +2,27 @@
   <transition name="fade">
     <div class="modal radiusCard" v-if="show">
       <div class="modal__dialog">
+        <h1>Gestion des catégories</h1>
+        <div class="ajoutCat">
+          <input
+            type="text"
+            placeholder="ajouter une categorie"
+            v-model="categorieResume.nom"
+          />
+          <button type="submit" @click="ajoutCat">Ajouter</button>
+        </div>
         <div class="modal__body">
-          <div class="ajoutCat">
-            <input
-              type="text"
-              placeholder="ajouter une categorie"
-              v-model="categorieResume.nom"
-            />
-            <button type="submit" @click="ajoutCat">Ajouter</button>
-          </div>
-          <ul class="listeCat">
+          <ul>
             <li v-for="(cat, catIndex) in tabCat" :key="catIndex">
               <input type="text" v-model="cat.nom" />
               <button @click="modifierCat(cat._id)">Modifier</button>
-              <img
-                src="../../assets/trash.png"
-                alt=""
-                @click="suppCat(cat._id)"
-              />
+              <img src="../../assets/trash.png" alt="" @click="suppCat(cat._id)" />
             </li>
           </ul>
         </div>
 
         <div class="modal__footer">
-          <slot name="footer" />
+            <button class="radius" type="submit" @click="closeModal">Fermer</button>
         </div>
       </div>
     </div>
@@ -98,13 +95,13 @@ export default {
     modifierCat(idCat) {
       for (let i = 0; i < this.tabCat.length; i++) {
         if (this.tabCat[i]._id === idCat) {
-          axios
-            .put(`http://localhost:3001/api/categorie/${idCat}`, {
+          axios.put(`http://localhost:3001/api/categorie/${idCat}`, {
               ...this.categorieResume,
               nom: this.tabCat[i].nom,
             })
             .then((res) => {
               console.log(`${res} modifié`);
+              alert("Catégorie modifiée avec succés")
             })
             .catch((error) => {
               console.error(error);
@@ -118,25 +115,32 @@ export default {
 
 <style scoped>
 .modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #fff;
   width: 70%;
-  padding: 3%;
-  overflow-x: hidden;
-  overflow-y: auto;
   position: fixed;
   top: 20%;
   left: 15%;
   z-index: 9;
   height: 70vh;
 }
+.modal__body ul {
+  height: 25rem;
+  overflow-y: scroll;
+  margin: 1% 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
 .modal__body ul li {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 input {
-  margin: 20px 10px;
+  margin: 10px;
   width: 30%;
   height: 40px;
   border-radius: 15px;
@@ -153,13 +157,18 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.listeCat {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 img {
   cursor: pointer;
+}
+.modal__footer {
+  text-align: center;
+  margin-top: 20px;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
 }
 </style>

@@ -9,9 +9,6 @@
       </template>
 
       <template v-slot:footer>
-        <div>
-          <button class="radius" type="submit" @click="$refs.modalName.closeModal()">Fermer</button>
-        </div>
       </template>
     </Modal>
     <form @submit.prevent="modifyCard(cardResume._id)">
