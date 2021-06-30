@@ -9,8 +9,8 @@ export default new Vuex.Store({
     tabCards: []
   },
   mutations: {
-    GET_CARDS(state, res) {
-      state.tabCards = res;
+    GET_CARDS(state, response) {
+      state.tabCards = response;
     }
   },
   actions: {
@@ -23,15 +23,14 @@ export default new Vuex.Store({
         console.error(error);
       });
     },
-    // deleteCard({ dispatch }, idCard) {
-    //   axios.delete(`http://localhost:3001/api/card/${idCard}`)
-    //   .then(() => {
-    //     // console.log(`${res.data} supprimé`);
-    //     // "recharge" la liste des cartes => affichage sans la carte supprimée
-    //     dispatch('getCards')
-    //   })
-    //   .catch(error => console.error(error))
-    // },
+    deleteCard({ dispatch }, idCard) {
+      axios.delete(`http://localhost:3001/api/card/${idCard}`)
+      .then(() => {
+        // "recharge" la liste des cartes => affichage sans la carte supprimée
+        dispatch('getCards')
+      })
+      .catch(error => console.error(error))
+    },
   },
   modules: {
   }

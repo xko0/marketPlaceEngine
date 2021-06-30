@@ -15,7 +15,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex"
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   computed: {
     ...mapState(['tabCards']),
@@ -32,12 +32,7 @@ export default {
   }, 
   methods: {
     deleteCard(idCard) {
-      axios.delete(`http://localhost:3001/api/card/${idCard}`)
-      .then(() => {
-        // "recharge" la liste des cartes => affichage sans la carte supprimée
-        this.$store.dispatch('getCards')
-      })
-      .catch(error => console.error(error))
+      this.$store.dispatch('deleteCard', idCard)
     },
     modifierCard(idCard) {
       if(!this.suppBtnAffiche) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
