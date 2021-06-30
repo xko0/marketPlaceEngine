@@ -11,6 +11,7 @@ import Log from './components/admin/Log'
 import Home from './components/Home'
 import UserDescription from './components/User-description'
 import AdminModifyCard from './components/admin/Admin-modify-card'
+import store from './store'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
@@ -31,6 +32,7 @@ const router = new VueRouter({
 
 new Vue({
   router,
-  render: h => h(App),
+  store,
+  render: h => h(App)
 }).$mount('#app')
 

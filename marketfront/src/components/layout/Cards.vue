@@ -11,25 +11,14 @@
 </template>
 
 <script>
-import axios from "axios"
+import { mapActions, mapState } from 'vuex'
 export default {
-  data() {
-    return {
-      tabCards: [],
-    };
+  computed: {
+    ...mapState(['tabCards']),
+    ...mapActions(['getCards'])
   },
   mounted () {
-    axios.get('http://localhost:3001/api/card')
-      .then(res => {
-        this.tabCards = [];
-        // réponse sous forme de tableau
-        let tab = res.data; 
-        // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
-        this.tabCards = tab.slice(0); 
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    this.getCards
   }, 
   methods: {
     goCardUrl(idCard) {

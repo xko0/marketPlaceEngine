@@ -1,7 +1,7 @@
 <template>
   <div class="display">
     <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="modifierCard(card._id)">
-        <button class="suppBtn" v-show="suppBtnAffiche" @click="suppCard(card._id)">
+        <button class="suppBtn" v-show="suppBtnAffiche" @click="deleteCard(card._id)">
           <img src="../../assets/moins.png" alt="">
         </button>
         <img class="cardLogo" :src="card.logo" alt="" />
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import axios from "axios"
+import { mapActions, mapState } from "vuex"
+import axios from 'axios'
 export default {
-  data() {
-    return {
-      tabCards: [],
-    };
+  computed: {
+    ...mapState(['tabCards']),
+    ...mapActions(['getCards'])
   },
   props: {
       suppBtnAffiche: {
@@ -28,39 +28,23 @@ export default {
       }
   },
   mounted () {
-    axios.get('http://localhost:3001/api/card')
-      .then(res => {
-        // réponse sous forme de tableau
-        let tab = res.data; 
-        // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
-        this.tabCards = tab.slice(0); 
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    this.getCards
   }, 
   methods: {
+    deleteCard(idCard) {
+      axios.delete(`http://localhost:3001/api/card/${idCard}`)
+      .then(() => {
+        // "recharge" la liste des cartes => affichage sans la carte supprimée
+        this.$store.dispatch('getCards')
+      })
+      .catch(error => console.error(error))
+    },
     modifierCard(idCard) {
       if(!this.suppBtnAffiche) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
       this.$router.push(`/adminmodifycard/${idCard}`);
       }
     },
-    suppCard(idCard) {
-      axios.delete(`http://localhost:3001/api/card/${idCard}`)
-      .then(res => {
-        console.log(`${res.data} supprimé`);
-        // "recharge" la liste des cartes => affichage sans la carte supprimée
-        axios.get('http://localhost:3001/api/card')
-          .then(res => {
-            let tab = res.data; // réponse sous forme de tableau
-            this.tabCards = tab.slice(0); // copie du tableau réponse dans tabCards, sur lequel on boucle dans le template
-          })
-          .catch(error => {
-            console.error(error)
-          })
-      })
-      .catch(error => console.error(error))
-    },
+    
   },
 };
 </script>
