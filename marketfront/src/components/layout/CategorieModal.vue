@@ -56,18 +56,17 @@ export default {
       document.querySelector("form").classList.add("blur");
     },
     afficherCat() {
-      axios
-        .get("http://localhost:3001/api/categorie")
-        .then((res) => {
-          // réponse sous forme de tableau
-          console.log(res.data);
-          let tab = res.data;
-          // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
-          this.tabCat = tab.slice(0);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      axios.get("http://localhost:3001/api/categorie")
+            .then((res) => {
+              // réponse sous forme de tableau
+              console.log(res.data);
+              let tab = res.data;
+              // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
+              this.tabCat = tab.slice(0);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
     },
     async ajoutCat() {
       try {

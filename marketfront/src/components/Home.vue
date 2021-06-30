@@ -6,25 +6,10 @@
       </h1>
       <h2 id="littleTitle">Trouvez votre marketplace en un clic</h2>
       <div class="search">
-        <input
-          class="radius searchWord"
-          type="search"
-          name=""
-          placeholder="Nom de la marketplace"
-        />
-        <select
-          id="pet-select"
-          class="radius searchCategory"
-          type="select"
-          name=""
-        >
-          <option value="">--Categories--</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
+        <input class="radius searchWord" type="search" name="" placeholder="Nom de la marketplace"/>
+        <select id="cat-select" class="radius searchCategory" type="select" name="">
+          <option>--Catégories--</option>
+          <option v-for="(cat, catIndex) in tabCat" :key="catIndex">{{ cat.nom }}</option>
         </select>
       </div>
     </main>
@@ -39,11 +24,7 @@
     <article class="contentFormulaire">
       <div class="formulaire radiusCard">
         <h1 class="titleForm">Etre au courant des nouvelles MarketPlace</h1>
-        <input
-          class="inputForm radius"
-          placeholder="votre email pour une Newletter"
-          type="email"
-        />
+        <input class="inputForm radius" placeholder="votre email pour une Newletter" type="email"/>
         <button type="submit" class="btnForm radius">Envoyer</button>
       </div>
     </article>
@@ -53,8 +34,33 @@
 
 <script>
 import Cards from './layout/Cards.vue'
+import axios from 'axios'
 export default {
-  components: { Cards },
+  data() {
+    return {
+      tabCat: []
+    }
+  },
+  components: { 
+    Cards 
+  },
+  mounted () {
+    this.afficherCat();
+  },
+  methods: {
+    afficherCat() {
+      axios.get("http://localhost:3001/api/categorie")
+      .then((res) => {
+        // réponse sous forme de tableau
+        let tab = res.data;
+        // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
+        this.tabCat = tab.slice(0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+  },
 }
 </script>
 

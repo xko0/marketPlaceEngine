@@ -60,8 +60,9 @@
                 <label for="categorie">Catégorie :</label>
                 <img src="../../assets/update.png" alt="" @click="$refs.modalName.openModal()">
               </div>
-              <select name="" id="" v-model="cardResume.categorie">
-                <option value="A">A</option>
+              <select name="" id="" v-model="cardResume.categorie" @change="afficherCat">
+                <option>--Catégories--</option>
+                <option v-for="(cat, catIndex) in tabCat" :key="catIndex">{{ cat.nom }}</option>
               </select>
             </div>
             <div class="detailsMarketPlace">
@@ -98,6 +99,7 @@ export default {
         imgSite2: ""
       },
       idCard: this.$route.params.id,
+      tabCat: []
     };
   },
   mounted () {
@@ -106,6 +108,7 @@ export default {
         this.cardResume = {...res.data}; // on stock l'objet reçu de la bdd dans cardResume
       })
       .catch(error => console.error(error))
+    this.afficherCat()
   },
   methods: {
     modifyCard(idCard) {
@@ -117,6 +120,18 @@ export default {
           console.error(error);
         })
     },
+    afficherCat() {
+      axios.get("http://localhost:3001/api/categorie")
+      .then((res) => {
+        // réponse sous forme de tableau
+        let tab = res.data;
+        // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
+        this.tabCat = tab.slice(0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
   },
 };
 </script>
@@ -255,6 +270,9 @@ h4 {
   width: 100%;
   height: 75%;
   resize: none;
+}
+select {
+  width: 182px;
 }
 
 </style>

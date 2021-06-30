@@ -8,13 +8,8 @@
         <img src="../../assets/moins.png" class="icons moins" alt="bouton moins" @click="suppBtnAffiche = !suppBtnAffiche"/>
         <input class="rechercheAdmin radius" type="text" placeholder="recherche" />
         <select id="pet-select" class="radius optionCategory" type="select" name="">
-          <option value="">categories</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
+          <option>--Categories--</option>
+          <option v-for="(cat, catIndex) in tabCat" :key="catIndex">{{ cat.nom }}</option>
         </select>
       </header>
     </div>
@@ -25,14 +20,35 @@
 
 <script>
 import AdminCards from './Admin-card.vue'
+import axios from 'axios'
 export default {
   data() {
     return {
-      suppBtnAffiche: true
+      suppBtnAffiche: true,
+      tabCat: []
     }
   },
-  components: { AdminCards },
-  }
+  components: { 
+    AdminCards 
+  },
+  mounted () {
+    this.afficherCat();
+  },
+  methods: {
+    afficherCat() {
+      axios.get("http://localhost:3001/api/categorie")
+      .then((res) => {
+        // réponse sous forme de tableau
+        let tab = res.data;
+        // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
+        this.tabCat = tab.slice(0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+  },
+}
 </script>
 
 <style scoped>
