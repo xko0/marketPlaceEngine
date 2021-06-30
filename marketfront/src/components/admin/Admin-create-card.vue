@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="postCard">
       <header>
         <div class="imgMain">
           <img class="imgUpdate" src="../../assets/upload.png" alt="logoCard" />
@@ -47,36 +47,17 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapState } from 'vuex'
 export default {
-  data() {
-    return {
-      cardResume: {
-        titre: "",
-        anneeCreation: "",
-        localisation: "",
-        leveeFonds: "",
-        categorie: "",
-        resumeMarketPlace: "",
-        urlMarketPlace: "",
-        logo: "",
-        imgSite1: "",
-        imgSite2: "",
-        imgSite3: ""
-      },
-      idCarte: this.$route.params.id
-    };
+  computed: {
+    ...mapState(['cardResume']),
   },
   methods: {
-    async submitForm() {
-      try {
-        await axios.post('http://localhost:3001/api/card', {...this.cardResume});
-        this.$router.push('/adminhome'); // redirection vers la page admin-home
-      } catch(e) {
-        console.log(e);
-      }
+    postCard() {
+      this.$store.dispatch('postCard')
+      this.$router.push('/adminhome') // redirection vers la page admin-home
     }
-  },
+  }
 };
 </script>
 

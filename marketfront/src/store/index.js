@@ -26,6 +26,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    postCard({ state }) {
+      axios.post('http://localhost:3001/api/card', {...state.cardResume})
+      .then(() => {})
+      .catch((error) => {
+        console.error(error);
+      })
+    },
     getCards({ commit }) {
       axios.get("http://localhost:3001/api/card")
       .then((res) => {
@@ -33,7 +40,7 @@ export default new Vuex.Store({
       })
       .catch((error) => {
         console.error(error);
-      });
+      })
     },
     getCard({ state }, idCard) {
       axios.get(`http://localhost:3001/api/card/${idCard}`)

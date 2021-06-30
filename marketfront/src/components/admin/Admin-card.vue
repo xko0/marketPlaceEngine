@@ -15,7 +15,6 @@
 
 <script>
 import { mapActions, mapState } from "vuex"
-// import axios from 'axios'
 export default {
   computed: {
     ...mapState(['tabCards']),
@@ -39,7 +38,6 @@ export default {
       this.$router.push(`/adminupdateCard/${idCard}`);
       }
     },
-    
   },
 };
 </script>
