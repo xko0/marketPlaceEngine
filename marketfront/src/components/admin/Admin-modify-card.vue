@@ -11,7 +11,7 @@
       <template v-slot:footer>
       </template>
     </Modal>
-    <form @submit.prevent="modifyCard(cardResume._id)">
+    <form @submit.prevent="updateCard(cardResume._id)">
       <header>
         <div class="imgMain">
           <img class="imgUpdate" :src="cardResume.logo" alt="logoCard" />
@@ -80,45 +80,27 @@
 <script>
 import axios from "axios";
 import Modal from "../layout/CategorieModal.vue"
+import { mapState } from 'vuex'
 export default {
   components: {
     Modal,
   },
   data() {
     return {
-      cardResume: {
-        titre: "",
-        anneeCreation: "",
-        localisation: "",
-        leveeFonds: "",
-        categorie: "",
-        resumeMarketPlace: "",
-        urlMarketPlace: "",
-        logo: "",
-        imgSite1: "",
-        imgSite2: ""
-      },
-      idCard: this.$route.params.id,
+      idCardUrl: this.$route.params.id,
       tabCat: []
     };
   },
+  computed: {
+    ...mapState(['cardResume'])
+  },
   mounted () {
-    axios.get(`http://localhost:3001/api/card/${this.idCard}`)
-      .then(res => {
-        this.cardResume = {...res.data}; // on stock l'objet reçu de la bdd dans cardResume
-      })
-      .catch(error => console.error(error))
-    this.afficherCat()
+    this.$store.dispatch('getCard', this.idCardUrl)
   },
   methods: {
-    modifyCard(idCard) {
-        axios.put(`http://localhost:3001/api/card/${idCard}`, {...this.cardResume})
-        .then(() => {
-            this.$router.push('/adminhome'); // redirection vers la page admin-home
-        })
-        .catch(error => {
-          console.error(error);
-        })
+    updateCard(idCard) {
+      this.$store.dispatch('updateCard', idCard)
+      this.$router.push('/adminhome'); // redirection vers la page admin-home
     },
     afficherCat() {
       axios.get("http://localhost:3001/api/categorie")

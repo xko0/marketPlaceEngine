@@ -1,7 +1,7 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="modifierCard(card._id)">
-        <button class="suppBtn" v-show="suppBtnAffiche" @click="deleteCard(card._id)">
+    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goToupdateCard(card._id)">
+        <button class="suppBtn" v-show="displayDeleteBtn" @click="deleteCard(card._id)">
           <img src="../../assets/moins.png" alt="">
         </button>
         <img class="cardLogo" :src="card.logo" alt="" />
@@ -22,7 +22,7 @@ export default {
     ...mapActions(['getCards'])
   },
   props: {
-      suppBtnAffiche: {
+      displayDeleteBtn: {
           type: Boolean,
           default: false
       }
@@ -34,9 +34,9 @@ export default {
     deleteCard(idCard) {
       this.$store.dispatch('deleteCard', idCard)
     },
-    modifierCard(idCard) {
-      if(!this.suppBtnAffiche) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
-      this.$router.push(`/adminmodifycard/${idCard}`);
+    goToupdateCard(idCard) {
+      if(!this.displayDeleteBtn) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
+      this.$router.push(`/adminupdateCard/${idCard}`);
       }
     },
     
