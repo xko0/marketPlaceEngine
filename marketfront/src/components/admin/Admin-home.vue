@@ -5,7 +5,7 @@
         <router-link to="/admincreatecard">
           <img src="../../assets/plus.png" class="icons plus" alt="bouton plus"/>
         </router-link>
-        <img src="../../assets/moins.png" class="icons moins" alt="bouton moins" @click="suppBtnAffiche = !suppBtnAffiche"/>
+        <img src="../../assets/moins.png" class="icons moins" alt="bouton moins" @click="displayDeleteBtn = !displayDeleteBtn"/>
         <input class="rechercheAdmin radius" type="text" placeholder="recherche" />
         <select id="pet-select" class="radius optionCategory" type="select" name="">
           <option>--Categories--</option>
@@ -13,7 +13,7 @@
         </select>
       </header>
     </div>
-    <AdminCards :suppBtnAffiche="!suppBtnAffiche"/>
+    <AdminCards :displayDeleteBtn="!displayDeleteBtn"/>
     
   </div>
 </template>
@@ -24,7 +24,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      suppBtnAffiche: true,
+      displayDeleteBtn: true,
       tabCat: []
     }
   },

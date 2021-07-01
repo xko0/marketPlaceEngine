@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="postCard">
       <header>
         <div class="imgMain">
           <img class="imgUpdate" src="../../assets/upload.png" alt="logoCard" />
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -61,22 +61,21 @@ export default {
         urlMarketPlace: "",
         logo: "",
         imgSite1: "",
-        imgSite2: "",
-        imgSite3: ""
-      },
-      idCarte: this.$route.params.id
-    };
-  },
-  methods: {
-    async submitForm() {
-      try {
-        await axios.post('http://localhost:3001/api/card', {...this.cardResume});
-        this.$router.push('/adminhome'); // redirection vers la page admin-home
-      } catch(e) {
-        console.log(e);
+        imgSite2: ""
       }
     }
   },
+  methods: {
+    postCard() {
+      axios.post('http://localhost:3001/api/card', {...this.cardResume})
+      .then(() => {
+        this.$router.push('/adminhome') // redirection vers la page admin-home
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+  }
 };
 </script>
 
