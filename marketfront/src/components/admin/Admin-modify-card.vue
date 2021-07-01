@@ -80,7 +80,6 @@
 <script>
 import axios from "axios";
 import Modal from "../layout/CategorieModal.vue"
-import { mapState } from 'vuex'
 export default {
   components: {
     Modal,
@@ -88,19 +87,34 @@ export default {
   data() {
     return {
       idCardUrl: this.$route.params.id,
-      tabCat: []
+      tabCat: [],
+      cardResume: {
+        titre: "",
+        anneeCreation: "",
+        localisation: "",
+        leveeFonds: "",
+        categorie: "",
+        resumeMarketPlace: "",
+        urlMarketPlace: "",
+        logo: "",
+        imgSite1: "",
+        imgSite2: ""
+      }
     };
   },
-  computed: {
-    ...mapState(['cardResume'])
-  },
   mounted () {
-    this.$store.dispatch('getCard', this.idCardUrl)
+    let cardFind = this.$store.state.tabCards.find(card => card._id === this.idCardUrl)
+    this.cardResume = {...cardFind}
   },
   methods: {
     updateCard(idCard) {
-      this.$store.dispatch('updateCard', idCard)
-      this.$router.push('/adminhome'); // redirection vers la page admin-home
+      axios.put(`http://localhost:3001/api/card/${idCard}`, {...this.cardResume})
+      .then(() => {
+        this.$router.push('/adminhome'); // redirection vers la page admin-home
+      })
+      .catch(error => {
+        console.error(error);
+      })
     },
     afficherCat() {
       axios.get("http://localhost:3001/api/categorie")

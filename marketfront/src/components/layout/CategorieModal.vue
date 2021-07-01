@@ -92,6 +92,7 @@ export default {
         .catch((error) => console.error(error));
     },
     modifierCat(idCat) {
+      // filter() est mieux !
       for (let i = 0; i < this.tabCat.length; i++) {
         if (this.tabCat[i]._id === idCat) {
           axios.put(`http://localhost:3001/api/categorie/${idCat}`, {
@@ -171,3 +172,6 @@ h1 {
   margin-bottom: 10px;
 }
 </style>
+
+
+

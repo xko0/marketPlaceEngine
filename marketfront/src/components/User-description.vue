@@ -1,19 +1,20 @@
 <template>
   <div class="userDescriptionPage">
       <header>
-        <img class="imgMain" :src="this.uneCard.logo" alt="logoCard" />
+        <img class="imgMain" :src="this.card.logo" alt="logoCard" />
       </header>
       <div class="containerMain">
         <article class="container1 radius">
           <div class="imgScreen radius">
-            <img class="screen" :src="this.uneCard.imgSite1" alt="screen1" />
-            <img class="screen" :src="this.uneCard.imgSite2" alt="screen2" />
-            <img class="screen" :src="this.uneCard.imgSite3" alt="screen3" />
+            <img class="screen" :src="this.card.imgSite1" alt="screen1" />
+            <img class="screen" :src="this.card.imgSite2" alt="screen2" />
+            <img class="screen" :src="this.card.imgSite3" alt="screen3" />
           </div>
           <div class="sommary radius">
             <h4>Brève description de la marketplace :</h4>
+            <p>{{ this.card.titre }}</p>
             <p>
-              {{ this.uneCard.resumeMarketPlace }}
+              {{ this.card.resumeMarketPlace }}
             </p>
           </div>
         </article>
@@ -21,19 +22,19 @@
           <div>
             <h4>Chiffre clé :</h4>
             <p>
-              - Année de création : {{ this.uneCard.anneeCreation }}
+              - Année de création : {{ this.card.anneeCreation }}
               <br />
               <br />
-              - Localisation : {{ this.uneCard.localisation }}
+              - Localisation : {{ this.card.localisation }}
               <br />
               <br />
-              - Levée de fond : {{ this.uneCard.leveeFonds }}
+              - Levée de fond : {{ this.card.leveeFonds }}
               <br />
               <br />
-              - Categories : {{ this.uneCard.categorie }}
+              - Categories : {{ this.card.categorie }}
             </p>
           </div>
-          <a :href="this.uneCard.urlMarketPlace" target="_blank">
+          <a :href="this.card.urlMarketPlace" target="_blank">
             <button class="radius">Voir le site !</button>
           </a>
         </aside>
@@ -42,20 +43,16 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
   data() {
     return {
-      idCard: this.$route.params.id, // on récupère l'id de la carte via l'url
-      uneCard: {}
+      idCardUrl: this.$route.params.id, // on récupère l'id de la carte via l'url
+      card: {}
     }
   },
   mounted () {
-    axios.get(`http://localhost:3001/api/card/${this.idCard}`)
-      .then(res => {
-        this.uneCard = res.data; // on stock l'objet reçu de la bdd dans UneCard
-      })
-      .catch(error => console.error(error))
+    let cardFind = this.$store.state.tabCards.find(card => card._id === this.idCardUrl)
+    this.card = {...cardFind}
   },
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goToupdateCard(card._id)">
+    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goToUpdateCard(card._id)">
         <button class="suppBtn" v-show="displayDeleteBtn" @click="deleteCard(card._id)">
           <img src="../../assets/moins.png" alt="">
         </button>
@@ -33,7 +33,7 @@ export default {
     deleteCard(idCard) {
       this.$store.dispatch('deleteCard', idCard)
     },
-    goToupdateCard(idCard) {
+    goToUpdateCard(idCard) {
       if(!this.displayDeleteBtn) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
       this.$router.push(`/adminupdateCard/${idCard}`);
       }

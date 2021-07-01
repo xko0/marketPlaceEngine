@@ -47,15 +47,33 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import axios from 'axios'
 export default {
-  computed: {
-    ...mapState(['cardResume']),
+  data() {
+    return {
+      cardResume: {
+        titre: "",
+        anneeCreation: "",
+        localisation: "",
+        leveeFonds: "",
+        categorie: "",
+        resumeMarketPlace: "",
+        urlMarketPlace: "",
+        logo: "",
+        imgSite1: "",
+        imgSite2: ""
+      }
+    }
   },
   methods: {
     postCard() {
-      this.$store.dispatch('postCard')
-      this.$router.push('/adminhome') // redirection vers la page admin-home
+      axios.post('http://localhost:3001/api/card', {...this.cardResume})
+      .then(() => {
+        this.$router.push('/adminhome') // redirection vers la page admin-home
+      })
+      .catch((error) => {
+        console.error(error);
+      })
     }
   }
 };
