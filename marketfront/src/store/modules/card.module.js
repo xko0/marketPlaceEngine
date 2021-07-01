@@ -12,7 +12,7 @@ const card = {
   },
   actions: {
     getCards({ commit }) {
-      axios
+      return axios
         .get("http://localhost:3001/api/card")
         .then((res) => {
           commit("SAVE_CARDS", res.data);
@@ -22,7 +22,7 @@ const card = {
         });
     },
     deleteCard({ dispatch }, idCard) {
-      axios
+      return axios
         .delete(`http://localhost:3001/api/card/${idCard}`)
         .then(() => {
           // "recharge" la liste des cartes => affichage sans la carte supprimée
