@@ -103,7 +103,7 @@ export default {
     };
   },
   mounted () {
-    let cardFind = this.$store.state.tabCards.find(card => card._id === this.idCardUrl)
+    let cardFind = this.$store.state.card.tabCards.find(card => card._id === this.idCardUrl)
     this.cardResume = {...cardFind}
   },
   methods: {

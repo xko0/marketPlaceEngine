@@ -17,8 +17,8 @@
 import { mapActions, mapState } from "vuex"
 export default {
   computed: {
-    ...mapState(['tabCards']),
-    ...mapActions(['getCards'])
+    ...mapState('card', ['tabCards']),
+    ...mapActions('card', ['getCards']),
   },
   props: {
       displayDeleteBtn: {
