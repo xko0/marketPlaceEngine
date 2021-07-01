@@ -3,11 +3,11 @@ import axios from "axios";
 const card = {
   namespaced: true,
   state: {
-    tabCards: [],
+    cardsArray: [],
   },
   mutations: {
     SAVE_CARDS(state, response) {
-      state.tabCards = response;
+      state.cardsArray = response;
     },
   },
   actions: {

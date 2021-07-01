@@ -1,6 +1,6 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goToUpdateCard(card._id)">
+    <div class="card" v-for="(card, cardIndex) in cardsArray" :key="cardIndex" @click="goToUpdateCard(card._id)">
         <button class="suppBtn" v-show="displayDeleteBtn" @click="deleteCard(card._id)">
           <img src="../../assets/moins.png" alt="">
         </button>
@@ -17,7 +17,7 @@
 import { mapActions, mapState } from "vuex"
 export default {
   computed: {
-    ...mapState('card', ['tabCards']),
+    ...mapState('card', ['cardsArray']),
     ...mapActions('card', ['getCards']),
   },
   props: {
@@ -31,7 +31,7 @@ export default {
   }, 
   methods: {
     deleteCard(idCard) {
-      this.$store.dispatch('deleteCard', idCard)
+      this.$store.dispatch('card/deleteCard', idCard)
     },
     goToUpdateCard(idCard) {
       if(!this.displayDeleteBtn) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché

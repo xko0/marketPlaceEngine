@@ -99,8 +99,7 @@ export default {
               ...this.categorieResume,
               nom: this.tabCat[i].nom,
             })
-            .then((res) => {
-              console.log(`${res} modifié`);
+            .then(() => {
               alert("Catégorie modifiée avec succés")
             })
             .catch((error) => {
