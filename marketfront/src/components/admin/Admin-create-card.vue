@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal ref="modalName"/>
     <form @submit.prevent="postCard">
       <header>
         <div class="imgMain">
@@ -33,11 +34,37 @@
         <aside class="container2 radius">
           <div class="sommaryService">
             <h4>Résumer des services :</h4>
-            <input type="text" placeholder="Année de création" v-model="cardResume.anneeCreation" />
+            <!-- <input type="text" placeholder="Année de création" v-model="cardResume.anneeCreation" />
             <input type="text" placeholder="Localisation" v-model="cardResume.localisation" />
             <input type="text" placeholder="Levée de fonds" v-model="cardResume.leveeFonds" />
             <input type="text" placeholder="Catégorie" v-model="cardResume.categorie" />
-            <input type="text" placeholder="Adresse internet" v-model="cardResume.urlMarketPlace" />
+            <input type="text" placeholder="Adresse internet" v-model="cardResume.urlMarketPlace" /> -->
+            <div class="detailsMarketPlace">
+              <label for="anneeCreation">Année de Création :</label>
+              <input type="number" v-model="cardResume.anneeCreation" id="anneeCreation"/>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="localisation">Localisation :</label>
+              <input type="text" v-model="cardResume.localisation" id="localisation"/>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="leveeFonds">Levée de fonds :</label>
+              <input type="number" v-model="cardResume.leveeFonds" id="leveeFonds"/>
+            </div>
+            <div class="detailsMarketPlace">
+              <div class="categories">
+                <label for="categorie">Catégorie :</label>
+                <img src="../../assets/update.png" alt="" @click="$refs.modalName.openModal()">
+              </div>
+              <select name="" id="" v-model="cardResume.categorie">
+                <option>--Catégories--</option>
+                <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
+              </select>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="url">Site internet :</label>
+              <input type="text" v-model="cardResume.urlMarketPlace" name="url"/>
+            </div>
           </div>
           <button type="submit" class="radius">Valider</button>
         </aside>
@@ -48,7 +75,13 @@
 
 <script>
 import axios from 'axios'
+import Modal from "../layout/CategorieModal.vue"
+import { mapState } from 'vuex'
+
 export default {
+  components: {
+    Modal,
+  },
   data() {
     return {
       cardResume: {
@@ -64,6 +97,12 @@ export default {
         imgSite2: ""
       }
     }
+  },
+  mounted () {
+    this.$store.dispatch('categorie/getCategories')
+  },
+  computed: {
+    ...mapState('categorie', ['categoriesArray']),
   },
   methods: {
     postCard() {

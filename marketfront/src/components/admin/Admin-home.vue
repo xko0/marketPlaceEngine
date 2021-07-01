@@ -9,7 +9,7 @@
         <input class="rechercheAdmin radius" type="text" placeholder="recherche" />
         <select id="pet-select" class="radius optionCategory" type="select" name="">
           <option>--Categories--</option>
-          <option v-for="(cat, catIndex) in tabCat" :key="catIndex">{{ cat.nom }}</option>
+          <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
         </select>
       </header>
     </div>
@@ -20,33 +20,25 @@
 
 <script>
 import AdminCards from './Admin-card.vue'
-import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
+
 export default {
   data() {
     return {
       displayDeleteBtn: true,
-      tabCat: []
     }
+  },
+  computed: {
+    ...mapState('categorie',['categoriesArray'])
   },
   components: { 
     AdminCards 
   },
   mounted () {
-    this.afficherCat();
+    this.getCategories;
   },
   methods: {
-    afficherCat() {
-      axios.get("http://localhost:3001/api/categorie")
-      .then((res) => {
-        // réponse sous forme de tableau
-        let tab = res.data;
-        // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
-        this.tabCat = tab.slice(0);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }
+    ...mapActions(['categorie/getCategories'])
   },
 }
 </script>

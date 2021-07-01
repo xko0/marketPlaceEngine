@@ -3,26 +3,32 @@
     <div class="modal radiusCard" v-if="show">
       <div class="modal__dialog">
         <h1>Gestion des catégories</h1>
-        <div class="ajoutCat">
+        <div class="addCategory">
           <input
             type="text"
             placeholder="ajouter une categorie"
             v-model="categorieResume.nom"
           />
-          <button type="submit" @click="ajoutCat">Ajouter</button>
+          <button type="submit" @click="addCategory">Ajouter</button>
         </div>
         <div class="modal__body">
           <ul>
-            <li v-for="(cat, catIndex) in tabCat" :key="catIndex">
+            <li v-for="(cat, catIndex) in categoriesArray" :key="catIndex">
               <input type="text" v-model="cat.nom" />
-              <button @click="modifierCat(cat._id)">Modifier</button>
-              <img src="../../assets/trash.png" alt="" @click="suppCat(cat._id)" />
+              <button @click="updateCategory(cat._id)">Modifier</button>
+              <img
+                src="../../assets/trash.png"
+                alt=""
+                @click="deleteCategory(cat._id)"
+              />
             </li>
           </ul>
         </div>
 
         <div class="modal__footer">
-            <button class="radius" type="submit" @click="closeModal">Fermer</button>
+          <button class="radius" type="submit" @click="closeModal">
+            Fermer
+          </button>
         </div>
       </div>
     </div>
@@ -31,6 +37,7 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   name: "Modal",
@@ -40,8 +47,10 @@ export default {
       categorieResume: {
         nom: "",
       },
-      tabCat: [],
     };
+  },
+  computed: {
+    ...mapState("categorie", ["categoriesArray"]),
   },
   methods: {
     closeModal() {
@@ -50,58 +59,37 @@ export default {
       document.querySelector("form").classList.remove("blur");
     },
     openModal() {
-      this.afficherCat();
       this.show = true;
       document.querySelector("body").classList.add("overflow-hidden");
       document.querySelector("form").classList.add("blur");
     },
-    afficherCat() {
-      axios.get("http://localhost:3001/api/categorie")
-            .then((res) => {
-              // réponse sous forme de tableau
-              console.log(res.data);
-              let tab = res.data;
-              // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
-              this.tabCat = tab.slice(0);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-    },
-    async ajoutCat() {
-      try {
-        await axios.post("http://localhost:3001/api/categorie", {
+    addCategory() {
+      return axios
+        .post("http://localhost:3001/api/categorie", {
           ...this.categorieResume,
-        });
-        console.log("categorie créée");
-        this.categorieResume.nom = "";
-        // on "rafraîchit" la liste des catégories:
-        this.afficherCat();
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    suppCat(idCat) {
-      axios
-        .delete(`http://localhost:3001/api/categorie/${idCat}`)
-        .then((res) => {
-          console.log(`${res.data} supprimé`);
-          // "recharge" la liste des catégories => affichage sans la catégorie supprimée
-          this.afficherCat();
         })
-        .catch((error) => console.error(error));
+        .then(() => {
+          this.categorieResume.nom = "";
+          // on "rafraîchit" la liste des catégories:
+          this.$store.dispatch('categorie/getCategories');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    modifierCat(idCat) {
+    deleteCategory(idCat) {
+      this.$store.dispatch("categorie/deleteCategory", idCat);
+    },
+    updateCategory(idCat) {
       // filter() est mieux !
-      for (let i = 0; i < this.tabCat.length; i++) {
-        if (this.tabCat[i]._id === idCat) {
-          axios.put(`http://localhost:3001/api/categorie/${idCat}`, {
+      for (let i = 0; i < this.categoriesArray.length; i++) {
+        if (this.categoriesArray[i]._id === idCat) {
+          return axios
+            .put(`http://localhost:3001/api/categorie/${idCat}`, {
               ...this.categorieResume,
-              nom: this.tabCat[i].nom,
+              nom: this.categoriesArray[i].nom,
             })
-            .then(() => {
-              alert("Catégorie modifiée avec succés")
-            })
+            .then(() => {})
             .catch((error) => {
               console.error(error);
             });
@@ -152,7 +140,7 @@ button {
   padding: 0;
   cursor: pointer;
 }
-.ajoutCat {
+.addCategory {
   display: flex;
   justify-content: center;
   align-items: center;

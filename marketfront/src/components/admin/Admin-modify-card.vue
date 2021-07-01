@@ -1,16 +1,6 @@
 <template>
   <div>
-    <Modal ref="modalName">
-      <template v-slot:header>
-        <h1>Catégories</h1>
-      </template>
-
-      <template v-slot:body>
-      </template>
-
-      <template v-slot:footer>
-      </template>
-    </Modal>
+    <Modal ref="modalName"/>
     <form @submit.prevent="updateCard(cardResume._id)">
       <header>
         <div class="imgMain">
@@ -60,9 +50,9 @@
                 <label for="categorie">Catégorie :</label>
                 <img src="../../assets/update.png" alt="" @click="$refs.modalName.openModal()">
               </div>
-              <select name="" id="" v-model="cardResume.categorie" @change="afficherCat">
+              <select name="" id="" v-model="cardResume.categorie">
                 <option>--Catégories--</option>
-                <option v-for="(cat, catIndex) in tabCat" :key="catIndex">{{ cat.nom }}</option>
+                <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
               </select>
             </div>
             <div class="detailsMarketPlace">
@@ -80,6 +70,8 @@
 <script>
 import axios from "axios";
 import Modal from "../layout/CategorieModal.vue"
+import { mapActions, mapState } from 'vuex';
+
 export default {
   components: {
     Modal,
@@ -87,7 +79,6 @@ export default {
   data() {
     return {
       idCardUrl: this.$route.params.id,
-      tabCat: [],
       cardResume: {
         titre: "",
         anneeCreation: "",
@@ -105,6 +96,11 @@ export default {
   mounted () {
     let cardFind = this.$store.state.card.cardsArray.find(card => card._id === this.idCardUrl)
     this.cardResume = {...cardFind}
+    this.getCategories
+  },
+  computed: {
+    ...mapState('categorie', ['categoriesArray']),
+    ...mapActions('categorie', ['getCategories'])
   },
   methods: {
     updateCard(idCard) {
@@ -116,18 +112,6 @@ export default {
         console.error(error);
       })
     },
-    afficherCat() {
-      axios.get("http://localhost:3001/api/categorie")
-      .then((res) => {
-        // réponse sous forme de tableau
-        let tab = res.data;
-        // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
-        this.tabCat = tab.slice(0);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }
   },
 };
 </script>

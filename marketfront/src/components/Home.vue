@@ -9,7 +9,7 @@
         <input class="radius searchWord" type="search" name="" placeholder="Nom de la marketplace"/>
         <select id="cat-select" class="radius searchCategory" type="select" name="">
           <option>--Catégories--</option>
-          <option v-for="(cat, catIndex) in tabCat" :key="catIndex">{{ cat.nom }}</option>
+          <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
         </select>
       </div>
     </main>
@@ -38,7 +38,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      tabCat: []
+      categoriesArray: []
     }
   },
   components: { 
@@ -53,8 +53,8 @@ export default {
       .then((res) => {
         // réponse sous forme de tableau
         let tab = res.data;
-        // copie du tableau réponse dans tabCat, sur lequel on boucle dans le template
-        this.tabCat = tab.slice(0);
+        // copie du tableau réponse dans categoriesArray, sur lequel on boucle dans le template
+        this.categoriesArray = tab.slice(0);
       })
       .catch((error) => {
         console.error(error);
