@@ -1,6 +1,6 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in tabCards" :key="cardIndex" @click="goCardUrl(card._id)">
+    <div class="card" v-for="(card, cardIndex) in cardsArray" :key="cardIndex" @click="goCardUrl(card._id)">
       <img class="cardLogo" :src="card.logo" alt="" />
       <div class="bandeau">
         <h1>{{ card.titre }}</h1>
@@ -14,8 +14,8 @@
 import { mapActions, mapState } from 'vuex'
 export default {
   computed: {
-    ...mapState(['tabCards']),
-    ...mapActions(['getCards'])
+    ...mapState('card', ['cardsArray']),
+    ...mapActions('card', ['getCards']),
   },
   mounted () {
     this.getCards
