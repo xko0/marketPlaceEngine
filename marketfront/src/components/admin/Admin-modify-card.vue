@@ -116,7 +116,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .blur {
   filter: blur(2px) contrast(50%);
 }

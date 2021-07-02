@@ -14,7 +14,6 @@
       </header>
     </div>
     <AdminCards :displayDeleteBtn="!displayDeleteBtn"/>
-    
   </div>
 </template>
 

@@ -1,125 +1,117 @@
 <template>
   <div>
     <main class="home">
-      <h1 id="title">
-        Search Marketplace
-      </h1>
-      <h2 id="littleTitle">Trouvez votre marketplace en un clic</h2>
+      <div>
+        <h1>Search Marketplace</h1>
+        <h2>Trouvez votre marketplace en un clic</h2>
+      </div>
       <div class="search">
-        <input class="radius searchWord" type="search" name="" placeholder="Nom de la marketplace"/>
-        <select id="cat-select" class="radius searchCategory" type="select" name="">
+        <input
+          class="radius searchWord"
+          type="search"
+          name=""
+          placeholder="Nom de la marketplace"
+        />
+        <select
+          id="cat-select"
+          class="radius searchCategory"
+          type="select"
+          name=""
+        >
           <option>--Catégories--</option>
-          <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
+          <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">
+            {{ cat.nom }}
+          </option>
         </select>
       </div>
     </main>
     <Cards />
     <aside>
-      <div id="referencement">
-        <button class="radius btnReferencement">
-          Ajoutez votre marketplace
-        </button>
-      </div>
+      <button class="radius btnReferencement">Ajoutez votre marketplace</button>
     </aside>
-    <article class="contentFormulaire">
-      <div class="formulaire radiusCard">
+    <section class="contentFormulaire">
+      <form class="formulaire radiusCard">
         <h1 class="titleForm">Etre au courant des nouvelles MarketPlace</h1>
-        <input class="inputForm radius" placeholder="votre email pour une Newletter" type="email"/>
+        <input
+          class="inputForm radius"
+          placeholder="Votre email pour une Newletter"
+          type="email"
+        />
         <button type="submit" class="btnForm radius">Envoyer</button>
-      </div>
-    </article>
-    
+      </form>
+    </section>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import Cards from './layout/Cards.vue'
+import { mapState, mapActions } from "vuex";
+import Cards from "./layout/Cards.vue";
 export default {
-  components: { 
-    Cards 
+  components: {
+    Cards,
   },
-  mounted () {
-    this.getCategories
+  mounted() {
+    this.getCategories;
   },
   computed: {
-    ...mapState('categorie', ['categoriesArray']),
-    ...mapActions('categorie', ['getCategories'])
+    ...mapState("categorie", ["categoriesArray"]),
+    ...mapActions("categorie", ["getCategories"]),
   },
-}
+};
 </script>
 
 <style scoped>
-/* title */
-main {
-  width: 100%;
+.home {
   height: 50vh;
   background: var(--bluePrimary);
-}
-img {
-  width: 5rem;
-  height: 3rem;
-  z-index: 5;
-  transform: rotateY(180deg);
-  opacity: 0.33;
-}
-#title {
+  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+.home h1 {
+  text-align: center;
   font-size: 6rem;
   color: white;
-  padding-top: 4%;
-  background: var(--bluePrimary);
 }
-#littleTitle {
-  display: flex;
-  justify-content: center;
-  font-size: 2rem;
+.home h2 {
+  text-align: center;
+  font-size: 3rem;
   color: white;
-  padding-top: 30px;
-  background: var(--bluePrimary);
 }
 /* barre de recherche */
 .search {
+  width: 100%;
   display: flex;
-  position: relative;
-  margin-top: 8%;
   justify-content: center;
-  height: 10vh;
-  background-color: transparent;
-}
-input {
-  padding: 30px;
-  background-color: white;
-  border: solid 1px var(--bluePrimary);
+  position: absolute;
+  top: 100%;
+  transform: translateY(-50%);
+  height: 8vh;
 }
 .searchWord {
+  padding-left: 30px;
   width: 40%;
+  border: solid 1px var(--bluePrimary);
+  background-color: white;
 }
 .searchCategory {
   width: 20%;
-  padding: 30px;
+  padding: 0 30px;
   background-color: white;
   border: solid 1px var(--bluePrimary);
 }
-
 /* bouton aside */
-aside {
-  display: flex;
-  justify-content: flex-end;
-  margin: 5%;
-}
-button {
-  padding: 2%;
-  background-color: var(--bluePrimary);
-  color: white;
-  font-size: 1rem;
-  border-color: var(--bluePrimary);
+.btnReferencement {
+  position: fixed;
+  top: 6vh;
+  right: 1vh;
 }
 /* formulaire */
 .contentFormulaire {
   display: flex;
   justify-content: center;
+  margin: 2vh 0 7vh 0;
 }
 .formulaire {
   width: 40%;
@@ -127,85 +119,66 @@ button {
   background-color: var(--bluePrimary);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin: 5%;
 }
 .inputForm {
   width: 80%;
-  height: 3vh;
-  margin: auto;
+  height: 5vh;
+  margin: 5% 0 7% 0;
+  padding-left: 30px;
 }
 .btnForm {
-  margin: auto;
   width: 20%;
-  color: black;
-  background-color: var(--button);
-}
-.btnReferencement {
-  width: 30vh;
-  color: black;
-  background-color: var(--button);
-  border: solid 1px var(--button);
-  position: fixed;
-  top: 5vh;
-  right: 0;
-  padding: 10px;
-  margin-right: 1vh;
 }
 .titleForm {
-  background-color: transparent;
-  margin: 2%;
+  font-size: 2rem;
   color: white;
-  letter-spacing: 0.3rem;
+  letter-spacing: 0.1rem;
   line-height: 1.6;
 }
 @media screen and (max-width: 768px) {
   /* title */
-  #title {
-    font-size: 2rem;
-    text-align: center;
+  .home {
+    height: 40vh;
   }
-  #littleTitle {
-    font-size: 1.3rem;
-    text-align: center;
+  .home h1 {
+    font-size: 3rem;
   }
-  main {
-    width: 100%;
-    height: 50%;
-    background: var(--bluePrimary);
-    margin-bottom: 5vh;
-  }
-  img {
-    display: none;
+  .home h2 {
+    font-size: 1rem;
   }
   /* barre de recherche */
-  .search {
-    height: 3vh;
-  }
   .searchWord {
-    width: 50%;
-    height: 0.5vh;
-    padding: 25px;
+    width: 60%;
+    padding-left: 15px;
   }
   .searchCategory {
-    width: 30%;
-    height: 0.5vh;
-    padding: 25px;
+    width: 40%;
+    padding-left: 15px;
   }
-  #referencement {
-    display: none;
+  /* bouton aside */
+  .btnReferencement {
+    padding: 2%;
+    position: fixed;
+    top: 1vh;
+    left: 1vh;
   }
+  /* formulaire */
   .formulaire {
-    width: 90%;
-    height: 35vh;
-    background-color: var(--bluePrimary);
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 5%;
+    width: 80%;
+    height: 25vh;
   }
-  button {
-    padding: 1%;
+  .inputForm {
+    padding-left: 15px;
+  }
+  .btnForm {
+    width: 50%;
+  }
+  .titleForm {
+    font-size: 1rem;
+    letter-spacing: 0rem;
   }
 }
 </style>
