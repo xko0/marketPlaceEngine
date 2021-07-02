@@ -33,33 +33,18 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import Cards from './layout/Cards.vue'
-import axios from 'axios'
 export default {
-  data() {
-    return {
-      categoriesArray: []
-    }
-  },
   components: { 
     Cards 
   },
   mounted () {
-    this.afficherCat();
+    this.getCategories
   },
-  methods: {
-    afficherCat() {
-      axios.get("http://localhost:3001/api/categorie")
-      .then((res) => {
-        // réponse sous forme de tableau
-        let tab = res.data;
-        // copie du tableau réponse dans categoriesArray, sur lequel on boucle dans le template
-        this.categoriesArray = tab.slice(0);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }
+  computed: {
+    ...mapState('categorie', ['categoriesArray']),
+    ...mapActions('categorie', ['getCategories'])
   },
 }
 </script>
