@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="adminHome">
     <div class="admin">
       <header class="gestionAdmin">
         <router-link to="/admincreatecard">
@@ -43,6 +43,9 @@ export default {
 </script>
 
 <style scoped>
+.adminHome {
+  padding-bottom: 7%;
+}
 .admin {
   display: flex;
   justify-content: center;

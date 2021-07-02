@@ -1,76 +1,106 @@
 <template>
   <div>
-    <Modal ref="modalName"/>
-    <form @submit.prevent="updateCard(cardResume._id)">
+    <Modal ref="modalName" />
+    <form class="radius" @submit.prevent="updateCard(cardResume._id)">
       <header>
-        <div class="imgMain">
-          <img class="imgUpdate" :src="cardResume.logo" alt="logoCard" />
-          <input type="text" placeholder="Logo" v-model="cardResume.logo"/>
-        </div>
+        <img :src="cardResume.logo" alt="logoCard" />
+        <input type="text" placeholder="Logo" v-model="cardResume.logo" />
       </header>
-      <div class="containerMain">
-        <article class="container1 radius">
-          <div class="imgScreen radius">
-            <div class="bgScreen radius">
-              <img class="screen" src="../../assets/upload.png" alt="screen1" />
-              <input type="text" placeholder="Image 1" v-model="cardResume.imgSite1"/>
-            </div>
-            <div class="bgScreen radius">
-              <img class="screen" src="../../assets/upload.png" alt="screen2" />
-              <input type="text" placeholder="Image 2" v-model="cardResume.imgSite2"/>
-            </div>
-            <div class="bgScreen radius">
-              <img class="screen" src="../../assets/upload.png" alt="screen3" />
-              <input type="text" placeholder="Image 3" v-model="cardResume.imgSite3"/>
-            </div>
+      <main>
+        <section class="resume">
+          <input v-model="cardResume.titre" type="text" placeholder="Nom de la marketplace" />
+          <textarea
+            type="text"
+            class="inputSite"
+            placeholder="Description de la marketplace"
+            v-model="cardResume.resumeMarketPlace"
+          />
+        </section>
+        <section class="infos">
+          <div class="detailsMarketPlace">
+            <label for="anneeCreation">Année de Création :</label>
+            <input
+              type="number"
+              v-model="cardResume.anneeCreation"
+              id="anneeCreation"
+            />
           </div>
-          <div class="sommary radius">
-            <h4>Résumer du site :</h4>
-            <input v-model="cardResume.titre" type="text"/>
-            <textarea type="text" class="inputSite" v-model="cardResume.resumeMarketPlace"/>
+          <div class="detailsMarketPlace">
+            <label for="localisation">Localisation :</label>
+            <input
+              type="text"
+              v-model="cardResume.localisation"
+              id="localisation"
+            />
           </div>
-        </article>
-        <aside class="container2 radius">
-          <div class="sommaryService">
-            <h4>Résumer des services :</h4>
-            <div class="detailsMarketPlace">
-              <label for="anneeCreation">Année de Création :</label>
-              <input type="number" v-model="cardResume.anneeCreation" id="anneeCreation"/>
+          <div class="detailsMarketPlace">
+            <label for="leveeFonds">Levée de fonds :</label>
+            <input
+              type="number"
+              v-model="cardResume.leveeFonds"
+              id="leveeFonds"
+            />
+          </div>
+          <div class="detailsMarketPlace">
+            <div class="categories">
+              <label for="categorie">Catégorie :</label>
+              <img
+                src="../../assets/update.png"
+                alt=""
+                @click="$refs.modalName.openModal()"
+              />
             </div>
-            <div class="detailsMarketPlace">
-              <label for="localisation">Localisation :</label>
-              <input type="text" v-model="cardResume.localisation" id="localisation"/>
-            </div>
-            <div class="detailsMarketPlace">
-              <label for="leveeFonds">Levée de fonds :</label>
-              <input type="number" v-model="cardResume.leveeFonds" id="leveeFonds"/>
-            </div>
-            <div class="detailsMarketPlace">
-              <div class="categories">
-                <label for="categorie">Catégorie :</label>
-                <img src="../../assets/update.png" alt="" @click="$refs.modalName.openModal()">
-              </div>
-              <select name="" id="" v-model="cardResume.categorie">
-                <option>--Catégories--</option>
-                <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
-              </select>
-            </div>
-            <div class="detailsMarketPlace">
-              <label for="url">Site internet :</label>
-              <input type="text" v-model="cardResume.urlMarketPlace" name="url"/>
-            </div>
+            <select name="" id="" v-model="cardResume.categorie">
+              <option>--Catégories--</option>
+              <option
+                v-for="(cat, catIndex) in categoriesArray"
+                :key="catIndex"
+              >
+                {{ cat.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="detailsMarketPlace">
+            <label for="url">Site internet :</label>
+            <input type="text" v-model="cardResume.urlMarketPlace" name="url" />
           </div>
           <button type="submit" class="radius">Modifier</button>
-        </aside>
-      </div>
+        </section>
+      </main>
+      <!-- <footer>
+        <div class="bgScreen radius">
+          <img class="screen" src="../../assets/upload.png" alt="screen1" />
+          <input
+            type="text"
+            placeholder="Image 1"
+            v-model="cardResume.imgSite1"
+          />
+        </div>
+        <div class="bgScreen radius">
+          <img class="screen" src="../../assets/upload.png" alt="screen2" />
+          <input
+            type="text"
+            placeholder="Image 2"
+            v-model="cardResume.imgSite2"
+          />
+        </div>
+        <div class="bgScreen radius">
+          <img class="screen" src="../../assets/upload.png" alt="screen3" />
+          <input
+            type="text"
+            placeholder="Image 3"
+            v-model="cardResume.imgSite3"
+          />
+        </div>
+      </footer> -->
     </form>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Modal from "../layout/CategorieModal.vue"
-import { mapActions, mapState } from 'vuex';
+import Modal from "../layout/CategorieModal.vue";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -89,28 +119,31 @@ export default {
         urlMarketPlace: "",
         logo: "",
         imgSite1: "",
-        imgSite2: ""
-      }
+        imgSite2: "",
+      },
     };
   },
-  mounted () {
-    let cardFind = this.$store.state.card.cardsArray.find(card => card._id === this.idCardUrl)
-    this.cardResume = {...cardFind}
-    this.getCategories
+  mounted() {
+    let cardFind = this.$store.state.card.cardsArray.find(
+      (card) => card._id === this.idCardUrl
+    );
+    this.cardResume = { ...cardFind };
+    this.getCategories;
   },
   computed: {
-    ...mapState('categorie', ['categoriesArray']),
-    ...mapActions('categorie', ['getCategories'])
+    ...mapState("categorie", ["categoriesArray"]),
+    ...mapActions("categorie", ["getCategories"]),
   },
   methods: {
     updateCard(idCard) {
-      axios.put(`http://localhost:3001/api/card/${idCard}`, {...this.cardResume})
-      .then(() => {
-        this.$router.push('/adminhome'); // redirection vers la page admin-home
-      })
-      .catch(error => {
-        console.error(error);
-      })
+      axios
+        .put(`http://localhost:3001/api/card/${idCard}`, { ...this.cardResume })
+        .then(() => {
+          this.$router.push("/adminhome"); // redirection vers la page admin-home
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
@@ -120,139 +153,63 @@ export default {
 .blur {
   filter: blur(2px) contrast(50%);
 }
-.imgMain {
-  height: 40vh;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--radial-gradient);
-}
-.imgUpdate {
-  width: 10%;
-  height: 30%;
-  background-color: transparent;
-}
-.containerMain {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: var(--bgColor);
-  height: 55vh;
-}
-
-.container1 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 2%;
-  margin-left: 2%;
-  width: 60%;
-  height: 90%;
-  box-shadow: var(--boxShadow);
-  background-color: var(--whiteCard);
-}
-.imgScreen {
-  background-color: transparent;
-  padding: 1%;
-  padding-left: 2%;
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-.bgScreen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 45%;
-  height: 20vh;
-  background: var(--radial-gradient);
-}
-.screen {
-  display: flex;
-  justify-content: center;
-  margin: 1%;
-  background: transparent;
-  width: 60px;
-  height: 60px;
-}
-.sommary {
-  width: 100%;
-  height: 25vh;
-  flex: fill;
-  padding: 1%;
-  overflow: hidden;
-  background-color: var(--whiteCard);
-}
-
-.container2 {
+form {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
-  width: 32%;
-  height: 90%;
-  margin-top: 2%;
-  margin-left: 2%;
-  padding: 1%;
-  box-shadow: var(--boxShadow);
-  background-color: var(--whiteCard);
 }
-.sommaryService {
-  margin-top: 3%;
-  background-color: transparent;
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   height: 30vh;
-  width: 90%;
-  margin-bottom: 1%;
-  overflow: hidden;
+  margin-top: 3%;
+}
+header img {
+  width: auto;
+  height: 90%;
+}
+main {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  height: 40vh;
+  margin: 5% 0;
+}
+.resume {
+  flex-direction: column;
+}
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.resume textarea {
+  /* height: auto;
+  width: 80%; */
+  margin-top: 2%;
 }
 .detailsMarketPlace {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5% 0;
-}
-.detailsMarketPlace img {
-  width: 25px;
-  margin: 0;
+  margin-bottom: 2%;
 }
 .categories {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 30%;
+  justify-content: flex-start;
 }
-p {
-  background-color: var(--whiteCard);
-  padding-top: 2%;
+.categories img {
+  width: 15%;
+  margin-left: 5%;
 }
-button {
-  /* margin: auto; */
-  width: 40%;
-  padding: 2%;
-  background-color: var(--button);
-  color: black;
-  font-size: 1rem;
-  border-color: var(--button);
+footer {
+  display: flex;
 }
-h4 {
-  background-color: transparent;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  text-align: center;
-}
-.inputSite {
-  width: 100%;
-  height: 50%;
-  resize: none;
-}
-.inputService {
-  width: 100%;
-  height: 75%;
-  resize: none;
-}
-select {
-  width: 182px;
-}
-
 </style>

@@ -31,13 +31,13 @@
     </aside>
     <section class="contentFormulaire">
       <form class="formulaire radiusCard">
-        <h1 class="titleForm">Etre au courant des nouvelles MarketPlace</h1>
+        <h1 class="titleForm">Etre au courant des nouvelles MarketPlaces</h1>
         <input
           class="inputForm radius"
           placeholder="Votre email pour une Newletter"
           type="email"
         />
-        <button type="submit" class="btnForm radius">Envoyer</button>
+        <button type="submit" class="btnForm radius">S'abonner</button>
       </form>
     </section>
   </div>
@@ -68,6 +68,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 7%;
 }
 .home h1 {
   text-align: center;
@@ -111,7 +112,7 @@ export default {
 .contentFormulaire {
   display: flex;
   justify-content: center;
-  margin: 2vh 0 7vh 0;
+  padding-bottom: 7%;
 }
 .formulaire {
   width: 40%;
@@ -122,6 +123,7 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
+  border-radius: 50px;
 }
 .inputForm {
   width: 80%;
@@ -142,6 +144,7 @@ export default {
   /* title */
   .home {
     height: 40vh;
+    margin-bottom: 15%;
   }
   .home h1 {
     font-size: 3rem;
@@ -160,15 +163,21 @@ export default {
   }
   /* bouton aside */
   .btnReferencement {
-    padding: 2%;
-    position: fixed;
+    padding: 0 3%;
+    height: 3.3vh;
+    position: absolute;
     top: 1vh;
     left: 1vh;
   }
   /* formulaire */
+  .contentFormulaire {
+    margin: 0;
+  }
   .formulaire {
-    width: 80%;
-    height: 25vh;
+    width: 100%;
+    height: 40vh;
+    border-radius: 0;
+    padding: 15% 0 20% 0;
   }
   .inputForm {
     padding-left: 15px;
