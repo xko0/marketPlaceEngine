@@ -20,7 +20,7 @@
           @change="searchCardsByCat(selectedCat)"
           v-model="selectedCat"
         >
-          <option id="defaultCat" selected="selected" value="">Toutes les catégories</option>
+          <option selected="selected" value="">Toutes les catégories</option>
           <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">
             {{ cat.nom }}
           </option>
@@ -84,8 +84,7 @@ export default {
       this.ifNoResult = false
       if(this.searchWord !== '') {
         this.ifSearch = 'words';
-        // let c = document.querySelector('.search select :first-child').setAttribute('selected', 'selected')
-        // console.log(c);
+        this.selectedCat = document.querySelector('.search select :first-child').value
         this.searchWordsArray = this.cardsArray.filter(card => card.titre.toUpperCase().includes(this.searchWord.toUpperCase()))
         this.noResult(this.searchWordsArray)
       } else {
@@ -96,6 +95,7 @@ export default {
       this.ifNoResult = false
       if(catName !== '') {
         this.ifSearch = 'categories';
+        this.searchWord = ''
         this.searchCatArray = this.cardsArray.filter(card => card.categorie === catName)
         this.noResult(this.searchCatArray)
       } else {
