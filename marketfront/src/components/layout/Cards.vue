@@ -1,5 +1,5 @@
 <template>
-  <div class="display" v-if="!ifSearch">
+  <div class="display">
     <div class="card" v-for="(card, cardIndex) in array" :key="cardIndex" @click="goCardUrl(card._id)">
       <img class="cardLogo" :src="card.logo" alt="" />
       <div class="bandeau">
@@ -11,24 +11,16 @@
 </template>
 
 <script>
-// import { mapActions, mapState } from 'vuex'
 export default {
   props: {
     array: {
       type: Array,
     },
     ifSearch: {
-      type: Boolean,
-      // Default: false
+      type: String,
+      Default: false
     },
   },
-  // computed: {
-  //   ...mapState('card', ['cardsArray']),
-  //   ...mapActions('card', ['getCards']),
-  // },
-  // mounted () {
-  //   this.getCards
-  // }, 
   methods: {
     goCardUrl(idCard) {
       this.$router.push(`/description/${idCard}`);

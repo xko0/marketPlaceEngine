@@ -9,6 +9,8 @@
           type="search"
           name=""
           placeholder="Nom de la marketplace"
+          v-model="searchWord"
+          @keyup="searchCardsByWords"
         />
         <select
           id="cat-select"
@@ -18,16 +20,17 @@
           @change="searchCardsByCat(selectedCat)"
           v-model="selectedCat"
         >
-          <option disabled value="">--Catégories--</option>
-          <option value="">Tout</option>
+          <option id="defaultCat" selected="selected" value="">Toutes les catégories</option>
           <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">
             {{ cat.nom }}
           </option>
         </select>
       </div>
     </main>
-    <Cards v-if="!ifSearch" :array="cardsArray" />
-    <Cards v-else :array="searchArray" />
+    <Cards v-if="ifSearch === 'cards'" :array="cardsArray" />
+    <Cards v-else-if="ifSearch === 'categories'" :array="searchCatArray" />
+    <Cards v-else-if="ifSearch === 'words'" :array="searchWordsArray" />
+    <p class="ifNoResult" v-show="ifNoResult" >Aucune marketplace ne correspond à vos critères de recherche. Proposez la votre ici</p>
     <aside>
       <div id="referencement">
         <button class="radius btnReferencement">
@@ -55,9 +58,12 @@ import Cards from "./layout/Cards.vue";
 export default {
   data() {
     return {
-      selectedCat: "",
-      ifSearch: false,
-      searchArray: [],
+      ifSearch: 'cards',
+      searchCatArray: [],
+      selectedCat: '',
+      searchWordsArray: [],
+      searchWord: '',
+      ifNoResult: false,
     };
   },
   components: {
@@ -74,14 +80,33 @@ export default {
     ...mapActions("card", ["getCards"]),
   },
   methods: {
-    searchCardsByCat(catName) {
-      if(catName !== '') {
-        this.ifSearch = true;
-        return this.searchArray = this.cardsArray.filter(card => card.categorie === catName)
+    searchCardsByWords() {
+      this.ifNoResult = false
+      if(this.searchWord !== '') {
+        this.ifSearch = 'words';
+        // let c = document.querySelector('.search select :first-child').setAttribute('selected', 'selected')
+        // console.log(c);
+        this.searchWordsArray = this.cardsArray.filter(card => card.titre.toUpperCase().includes(this.searchWord.toUpperCase()))
+        this.noResult(this.searchWordsArray)
       } else {
-        this.ifSearch = false
-      }
+        this.ifSearch = 'cards'
+      } 
     },
+    searchCardsByCat(catName) {
+      this.ifNoResult = false
+      if(catName !== '') {
+        this.ifSearch = 'categories';
+        this.searchCatArray = this.cardsArray.filter(card => card.categorie === catName)
+        this.noResult(this.searchCatArray)
+      } else {
+        this.ifSearch = 'cards'
+      } 
+    },
+    noResult(array) {
+      if(!array[0]) {
+        return this.ifNoResult = true
+      }
+    }
   },
 };
 </script>
@@ -195,6 +220,11 @@ button {
   color: white;
   letter-spacing: 0.3rem;
   line-height: 1.6;
+}
+.ifNoResult {
+  width: 100%;
+  margin-top: 5%;
+  text-align: center;
 }
 @media screen and (max-width: 768px) {
   /* title */
