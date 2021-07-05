@@ -1,6 +1,6 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in cardsArray" :key="cardIndex" @click="goCardUrl(card._id)">
+    <div class="card" v-for="(card, cardIndex) in array" :key="cardIndex" @click="goCardUrl(card._id)">
       <img class="cardLogo" :src="card.logo" alt="" />
       <div class="bandeau">
         <h1>{{ card.titre }}</h1>
@@ -11,15 +11,16 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
 export default {
-  computed: {
-    ...mapState('card', ['cardsArray']),
-    ...mapActions('card', ['getCards']),
+  props: {
+    array: {
+      type: Array,
+    },
+    ifSearch: {
+      type: String,
+      Default: false
+    },
   },
-  mounted () {
-    this.getCards
-  }, 
   methods: {
     goCardUrl(idCard) {
       this.$router.push(`/description/${idCard}`);

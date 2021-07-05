@@ -1,19 +1,36 @@
 <template>
   <div>
     <main class="home">
-      <h1 id="title">
-        Search Marketplace
-      </h1>
+      <h1 id="title">Search Marketplace</h1>
       <h2 id="littleTitle">Trouvez votre marketplace en un clic</h2>
       <div class="search">
-        <input class="radius searchWord" type="search" name="" placeholder="Nom de la marketplace"/>
-        <select id="cat-select" class="radius searchCategory" type="select" name="">
-          <option>--Catégories--</option>
-          <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
+        <input
+          class="radius searchWord"
+          type="search"
+          name=""
+          placeholder="Nom de la marketplace"
+          v-model="searchWord"
+          @keyup="searchCardsByWords"
+        />
+        <select
+          id="cat-select"
+          class="radius searchCategory"
+          type="select"
+          name=""
+          @change="searchCardsByCat(selectedCat)"
+          v-model="selectedCat"
+        >
+          <option selected="selected" value="">Toutes les catégories</option>
+          <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">
+            {{ cat.nom }}
+          </option>
         </select>
       </div>
     </main>
-    <Cards />
+    <Cards v-if="ifSearch === 'cards'" :array="cardsArray" />
+    <Cards v-else-if="ifSearch === 'categories'" :array="searchCatArray" />
+    <Cards v-else-if="ifSearch === 'words'" :array="searchWordsArray" />
+    <p class="ifNoResult" v-show="ifNoResult" >Aucune marketplace ne correspond à vos critères de recherche. Proposez la votre ici</p>
     <aside>
       <div id="referencement">
         <button class="radius btnReferencement">
@@ -24,29 +41,74 @@
     <article class="contentFormulaire">
       <div class="formulaire radiusCard">
         <h1 class="titleForm">Etre au courant des nouvelles MarketPlace</h1>
-        <input class="inputForm radius" placeholder="votre email pour une Newletter" type="email"/>
+        <input
+          class="inputForm radius"
+          placeholder="votre email pour une Newletter"
+          type="email"
+        />
         <button type="submit" class="btnForm radius">Envoyer</button>
       </div>
     </article>
-    
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import Cards from './layout/Cards.vue'
+import { mapState, mapActions } from "vuex";
+import Cards from "./layout/Cards.vue";
 export default {
-  components: { 
-    Cards 
+  data() {
+    return {
+      ifSearch: 'cards',
+      searchCatArray: [],
+      selectedCat: '',
+      searchWordsArray: [],
+      searchWord: '',
+      ifNoResult: false,
+    };
   },
-  mounted () {
-    this.getCategories
+  components: {
+    Cards,
+  },
+  mounted() {
+    this.getCategories;
+    this.getCards;
   },
   computed: {
-    ...mapState('categorie', ['categoriesArray']),
-    ...mapActions('categorie', ['getCategories'])
+    ...mapState("categorie", ["categoriesArray"]),
+    ...mapActions("categorie", ["getCategories"]),
+    ...mapState("card", ["cardsArray"]),
+    ...mapActions("card", ["getCards"]),
   },
-}
+  methods: {
+    searchCardsByWords() {
+      this.ifNoResult = false
+      if(this.searchWord !== '') {
+        this.ifSearch = 'words';
+        this.selectedCat = document.querySelector('.search select :first-child').value
+        this.searchWordsArray = this.cardsArray.filter(card => card.titre.toUpperCase().includes(this.searchWord.toUpperCase()))
+        this.noResult(this.searchWordsArray)
+      } else {
+        this.ifSearch = 'cards'
+      } 
+    },
+    searchCardsByCat(catName) {
+      this.ifNoResult = false
+      if(catName !== '') {
+        this.ifSearch = 'categories';
+        this.searchWord = ''
+        this.searchCatArray = this.cardsArray.filter(card => card.categorie === catName)
+        this.noResult(this.searchCatArray)
+      } else {
+        this.ifSearch = 'cards'
+      } 
+    },
+    noResult(array) {
+      if(!array[0]) {
+        return this.ifNoResult = true
+      }
+    }
+  },
+};
 </script>
 
 <style scoped>
@@ -158,6 +220,11 @@ button {
   color: white;
   letter-spacing: 0.3rem;
   line-height: 1.6;
+}
+.ifNoResult {
+  width: 100%;
+  margin-top: 5%;
+  text-align: center;
 }
 @media screen and (max-width: 768px) {
   /* title */
