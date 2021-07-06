@@ -30,7 +30,10 @@
     <Cards v-if="ifSearch === 'cards'" :array="cardsArray" />
     <Cards v-else-if="ifSearch === 'categories'" :array="searchCatArray" />
     <Cards v-else-if="ifSearch === 'words'" :array="searchWordsArray" />
-    <p class="ifNoResult" v-show="ifNoResult" >Aucune marketplace ne correspond à vos critères de recherche. Proposez la votre ici</p>
+    <p class="ifNoResult" v-show="ifNoResult">
+      Aucune marketplace ne correspond à vos critères de recherche. Proposez la
+      votre ici
+    </p>
     <aside>
       <div id="referencement">
         <button class="radius btnReferencement">
@@ -55,15 +58,17 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import Cards from "./layout/Cards.vue";
+
 export default {
   data() {
     return {
-      ifSearch: 'cards',
+      ifSearch: "cards",
       searchCatArray: [],
-      selectedCat: '',
+      selectedCat: "",
       searchWordsArray: [],
-      searchWord: '',
+      searchWord: "",
       ifNoResult: false,
+      regexp: /^[0-9A-Za-zàéèçù\s-]{0,30}$/,
     };
   },
   components: {
@@ -81,32 +86,43 @@ export default {
   },
   methods: {
     searchCardsByWords() {
-      this.ifNoResult = false
-      if(this.searchWord !== '') {
-        this.ifSearch = 'words';
-        this.selectedCat = document.querySelector('.search select :first-child').value
-        this.searchWordsArray = this.cardsArray.filter(card => card.titre.toUpperCase().includes(this.searchWord.toUpperCase()))
-        this.noResult(this.searchWordsArray)
+      if (this.searchWord.match(this.regexp)) {
+        this.ifNoResult = false;
+        if (this.searchWord !== "") {
+          this.ifSearch = "words";
+          this.selectedCat = document.querySelector(
+            ".search select :first-child" 
+          ).value; // raz des catégories
+          this.searchWordsArray = this.cardsArray.filter((card) =>
+            card.titre.toUpperCase().includes(this.searchWord.toUpperCase())
+          );
+          this.noResult(this.searchWordsArray);
+        } else {
+          this.ifSearch = "cards";
+        }
       } else {
-        this.ifSearch = 'cards'
-      } 
+        // si regexp non valide, on supprime le dernier caractère tappé
+        this.searchWord = this.searchWord.substring(0, this.searchWord.length - 1) 
+      }
     },
     searchCardsByCat(catName) {
-      this.ifNoResult = false
-      if(catName !== '') {
-        this.ifSearch = 'categories';
-        this.searchWord = ''
-        this.searchCatArray = this.cardsArray.filter(card => card.categorie === catName)
-        this.noResult(this.searchCatArray)
+      this.ifNoResult = false;
+      if (catName !== "") {
+        this.ifSearch = "categories";
+        this.searchWord = ""; // raz de la barre de recherche
+        this.searchCatArray = this.cardsArray.filter(
+          (card) => card.categorie === catName
+        );
+        this.noResult(this.searchCatArray);
       } else {
-        this.ifSearch = 'cards'
-      } 
+        this.ifSearch = "cards";
+      }
     },
     noResult(array) {
-      if(!array[0]) {
-        return this.ifNoResult = true
+      if (!array[0]) {
+        return (this.ifNoResult = true);
       }
-    }
+    },
   },
 };
 </script>
