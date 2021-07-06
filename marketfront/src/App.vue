@@ -2,7 +2,7 @@
   <div id="app">
     <Menu />
     <router-view></router-view>
-    <footer>Copyright SOMEMARK</footer>
+    <footer>&copy; SOMEMARK, {{ new Date().getFullYear() }}</footer>
   </div>
 </template>
 

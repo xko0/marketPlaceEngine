@@ -1,76 +1,122 @@
 <template>
   <div>
-    <Modal ref="modalName"/>
+    <Modal ref="modalName" />
     <form @submit.prevent="updateCard(cardResume._id)">
       <header>
-        <div class="imgMain">
-          <img class="imgUpdate" :src="cardResume.logo" alt="logoCard" />
-          <input type="text" placeholder="Logo" v-model="cardResume.logo"/>
+        <div class="radiusCard">
+          <img class="screen" :src="cardResume.imgSite1" alt="screen1" />
+          <input
+            type="text"
+            placeholder="Image 1"
+            v-model="cardResume.imgSite1"
+          />
+        </div>
+        <div>
+          <img id="logoCard" :src="cardResume.logo" alt="logoCard" />
+          <input type="text" placeholder="Logo" v-model="cardResume.logo" />
+        </div>
+        <div class="radiusCard">
+          <img class="screen" :src="cardResume.imgSite2" alt="screen2" />
+          <input
+            type="text"
+            placeholder="Image 2"
+            v-model="cardResume.imgSite2"
+          />
         </div>
       </header>
-      <div class="containerMain">
-        <article class="container1 radius">
-          <div class="imgScreen radius">
-            <div class="bgScreen radius">
-              <img class="screen" src="../../assets/upload.png" alt="screen1" />
-              <input type="text" placeholder="Image 1" v-model="cardResume.imgSite1"/>
+      <main class="radius">
+        <section class="resume">
+          <h3>Général</h3>
+          <div>
+            <label for="nom">Nom de la marketplace</label>
+            <input
+              v-model="cardResume.titre"
+              type="text"
+              placeholder="Nom de la marketplace"
+              id="nom"
+            />
+          </div>
+          <div>
+            <label for="description">Description</label>
+            <textarea
+              cols="20"
+              rows="8"
+              type="text"
+              class="inputSite"
+              placeholder="Description de la marketplace"
+              v-model="cardResume.resumeMarketPlace"
+            />
+          </div>
+        </section>
+        <section class="infos">
+          <h3>Chiffres Clés</h3>
+          <div class="detailsMarketPlace">
+            <label for="anneeCreation">Année de création</label>
+            <input
+              type="number"
+              v-model="cardResume.anneeCreation"
+              id="anneeCreation"
+            />
+          </div>
+          <div class="detailsMarketPlace">
+            <label for="localisation">Localisation</label>
+            <input
+              type="text"
+              v-model="cardResume.localisation"
+              id="localisation"
+            />
+          </div>
+          <div class="detailsMarketPlace">
+            <div class="categories">
+              <label for="categorie">Catégorie</label>
+              <img
+                src="../../assets/update.png"
+                alt=""
+                @click="$refs.modalName.openModal()"
+              />
             </div>
-            <div class="bgScreen radius">
-              <img class="screen" src="../../assets/upload.png" alt="screen2" />
-              <input type="text" placeholder="Image 2" v-model="cardResume.imgSite2"/>
+            <select name="" id="" v-model="cardResume.categorie">
+              <option>--Catégories--</option>
+              <option
+                v-for="(cat, catIndex) in categoriesArray"
+                :key="catIndex"
+              >
+                {{ cat.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="detailsMarketPlace">
+            <label for="url">Site internet</label>
+            <input type="text" v-model="cardResume.urlMarketPlace" name="url" />
+          </div>
+        </section>
+        <section class="fonds">
+          <h3>Levées de fonds</h3>
+          <div>
+            <div class="detailsMarketPlace">
+              <label for="annee">Année</label>
+              <input type="text" id="annee" />
             </div>
-            <div class="bgScreen radius">
-              <img class="screen" src="../../assets/upload.png" alt="screen3" />
-              <input type="text" placeholder="Image 3" v-model="cardResume.imgSite3"/>
+            <div class="detailsMarketPlace">
+              <label for="leveeFonds">Montant</label>
+              <input
+                type="number"
+                v-model="cardResume.leveeFonds"
+                id="leveeFonds"
+              />
             </div>
           </div>
-          <div class="sommary radius">
-            <h4>Résumer du site :</h4>
-            <input v-model="cardResume.titre" type="text"/>
-            <textarea type="text" class="inputSite" v-model="cardResume.resumeMarketPlace"/>
-          </div>
-        </article>
-        <aside class="container2 radius">
-          <div class="sommaryService">
-            <h4>Résumer des services :</h4>
-            <div class="detailsMarketPlace">
-              <label for="anneeCreation">Année de Création :</label>
-              <input type="number" v-model="cardResume.anneeCreation" id="anneeCreation"/>
-            </div>
-            <div class="detailsMarketPlace">
-              <label for="localisation">Localisation :</label>
-              <input type="text" v-model="cardResume.localisation" id="localisation"/>
-            </div>
-            <div class="detailsMarketPlace">
-              <label for="leveeFonds">Levée de fonds :</label>
-              <input type="number" v-model="cardResume.leveeFonds" id="leveeFonds"/>
-            </div>
-            <div class="detailsMarketPlace">
-              <div class="categories">
-                <label for="categorie">Catégorie :</label>
-                <img src="../../assets/update.png" alt="" @click="$refs.modalName.openModal()">
-              </div>
-              <select name="" id="" v-model="cardResume.categorie">
-                <option>--Catégories--</option>
-                <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">{{ cat.nom }}</option>
-              </select>
-            </div>
-            <div class="detailsMarketPlace">
-              <label for="url">Site internet :</label>
-              <input type="text" v-model="cardResume.urlMarketPlace" name="url"/>
-            </div>
-          </div>
-          <button type="submit" class="radius">Modifier</button>
-        </aside>
-      </div>
+        </section>
+      </main>
+      <button type="submit" class="radius">Modifier</button>
     </form>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Modal from "../layout/CategorieModal.vue"
-import { mapActions, mapState } from 'vuex';
+import Modal from "../layout/CategorieModal.vue";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -89,170 +135,162 @@ export default {
         urlMarketPlace: "",
         logo: "",
         imgSite1: "",
-        imgSite2: ""
-      }
+        imgSite2: "",
+      },
     };
   },
-  mounted () {
-    let cardFind = this.$store.state.card.cardsArray.find(card => card._id === this.idCardUrl)
-    this.cardResume = {...cardFind}
-    this.getCategories
+  mounted() {
+    let cardFind = this.$store.state.card.cardsArray.find(
+      (card) => card._id === this.idCardUrl
+    );
+    this.cardResume = { ...cardFind };
+    this.getCategories;
   },
   computed: {
-    ...mapState('categorie', ['categoriesArray']),
-    ...mapActions('categorie', ['getCategories'])
+    ...mapState("categorie", ["categoriesArray"]),
+    ...mapActions("categorie", ["getCategories"]),
   },
   methods: {
     updateCard(idCard) {
-      axios.put(`http://localhost:3001/api/card/${idCard}`, {...this.cardResume})
-      .then(() => {
-        this.$router.push('/adminhome'); // redirection vers la page admin-home
-      })
-      .catch(error => {
-        console.error(error);
-      })
+      axios
+        .put(`http://localhost:3001/api/card/${idCard}`, { ...this.cardResume })
+        .then(() => {
+          this.$router.push("/adminhome"); // redirection vers la page admin-home
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .blur {
   filter: blur(2px) contrast(50%);
 }
-.imgMain {
-  height: 40vh;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--radial-gradient);
-}
-.imgUpdate {
-  width: 10%;
-  height: 30%;
-  background-color: transparent;
-}
-.containerMain {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: var(--bgColor);
-  height: 55vh;
-}
-
-.container1 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 2%;
-  margin-left: 2%;
-  width: 60%;
-  height: 90%;
-  box-shadow: var(--boxShadow);
-  background-color: var(--whiteCard);
-}
-.imgScreen {
-  background-color: transparent;
-  padding: 1%;
-  padding-left: 2%;
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-.bgScreen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 45%;
-  height: 20vh;
-  background: var(--radial-gradient);
-}
-.screen {
-  display: flex;
-  justify-content: center;
-  margin: 1%;
-  background: transparent;
-  width: 60px;
-  height: 60px;
-}
-.sommary {
-  width: 100%;
-  height: 25vh;
-  flex: fill;
-  padding: 1%;
-  overflow: hidden;
-  background-color: var(--whiteCard);
-}
-
-.container2 {
+form {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
-  width: 32%;
-  height: 90%;
-  margin-top: 2%;
-  margin-left: 2%;
-  padding: 1%;
-  box-shadow: var(--boxShadow);
-  background-color: var(--whiteCard);
 }
-.sommaryService {
-  margin-top: 3%;
-  background-color: transparent;
+form button {
+  width: 10%;
+  padding: 0.5%;
+  margin-right: 20%;
+  align-self: flex-end;
+}
+/* HEADER =================================================== */
+header {
   height: 30vh;
-  width: 90%;
-  margin-bottom: 1%;
-  overflow: hidden;
+  width: 100%;
+  margin: 5vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+header div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 3%;
+}
+#logoCard {
+  height: 32vh;
+  width: auto;
+  border-radius: 30px;
+}
+header img {
+  height: 25vh;
+  width: auto;
+  border-radius: 30px;
+}
+/* MAIN ===================================================== */
+main {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 60%;
+  margin-top: 2%;
+  padding: 0;
+}
+h3 {
+  margin-bottom: 5%;
+  font-size: 1.5rem;
+}
+label {
+  width: 100%;
+  margin: 0 0 1% 2%;
+  font-size: 0.75rem;
+  color: rgb(78, 78, 78);
+}
+input {
+  padding: 1%;
+  /* margin-bottom: 5%; */
+}
+/* ::::::::::::::::::::::::::::::  */
+.resume {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.resume div {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: 3%;
+}
+.resume textarea {
+  padding: 1%;
+  resize: none;
+}
+/* ::::::::::::::::::::::::::::::: */
+.infos {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 30%;
+}
+.infos h3 {
+  width: 100%;
+  text-align: center;
+}
+select {
+  padding: 1%;
 }
 .detailsMarketPlace {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5% 0;
-}
-.detailsMarketPlace img {
-  width: 25px;
-  margin: 0;
+  flex-direction: column;
+  margin-bottom: 3%;
 }
 .categories {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  /* justify-content: flex-start; */
+}
+.categories img {
+  width: 5%;
+}
+/* :::::::::::::::::::::::::::::::: */
+.fonds {
   width: 30%;
 }
-p {
-  background-color: var(--whiteCard);
-  padding-top: 2%;
+.fonds h3 {
+  width: 100%;
+  text-align: end;
 }
-button {
-  /* margin: auto; */
+.fonds div {
+  display: flex;
+  justify-content: flex-end;
+}
+.fonds div div:first-child {
+  margin-right: 2%;
   width: 40%;
-  padding: 2%;
-  background-color: var(--button);
-  color: black;
-  font-size: 1rem;
-  border-color: var(--button);
 }
-h4 {
-  background-color: transparent;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  text-align: center;
-}
-.inputSite {
-  width: 100%;
-  height: 50%;
-  resize: none;
-}
-.inputService {
-  width: 100%;
-  height: 75%;
-  resize: none;
-}
-select {
-  width: 182px;
-}
-
 </style>
