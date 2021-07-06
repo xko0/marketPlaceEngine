@@ -27,9 +27,9 @@
         </select>
       </div>
     </main>
-    <Cards v-if="ifSearch === 'cards'" :array="cardsArray" />
-    <Cards v-else-if="ifSearch === 'categories'" :array="searchCatArray" />
-    <Cards v-else-if="ifSearch === 'words'" :array="searchWordsArray" />
+    <Cards v-if="ifSearch === 'cards'" :array="cardsArray" :goWhere="goCardUrl"/>
+    <Cards v-else-if="ifSearch === 'categories'" :array="searchCatArray" :goWhere="goCardUrl"/>
+    <Cards v-else-if="ifSearch === 'words'" :array="searchWordsArray" :goWhere="goCardUrl"/>
     <p class="ifNoResult" v-show="ifNoResult">
       Aucune marketplace ne correspond à vos critères de recherche. Proposez la
       votre ici
@@ -122,6 +122,9 @@ export default {
       if (!array[0]) {
         return (this.ifNoResult = true);
       }
+    },
+    goCardUrl(idCard) {
+      this.$router.push(`/description/${idCard}`);
     },
   },
 };

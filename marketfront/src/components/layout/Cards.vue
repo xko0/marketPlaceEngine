@@ -1,6 +1,18 @@
 <template>
   <div class="display">
-    <div class="card" v-for="(card, cardIndex) in array" :key="cardIndex" @click="goCardUrl(card._id)">
+    <div
+      class="card"
+      v-for="(card, cardIndex) in array"
+      :key="cardIndex"
+      @click="goWhere(card._id)"
+    >
+      <button
+        class="suppBtn"
+        v-show="displayDeleteBtn"
+        @click="deleteCard(card._id)"
+      >
+        <img src="../../assets/moins.png" alt="" />
+      </button>
       <img class="cardLogo" :src="card.logo" alt="" />
       <div class="bandeau">
         <h1>{{ card.titre }}</h1>
@@ -18,12 +30,19 @@ export default {
     },
     ifSearch: {
       type: String,
-      Default: false
+      Default: false,
+    },
+    goWhere: {
+      type: Function,
+    },
+    displayDeleteBtn: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
-    goCardUrl(idCard) {
-      this.$router.push(`/description/${idCard}`);
+    deleteCard(idCard) {
+      this.$store.dispatch("card/deleteCard", idCard);
     },
   },
 };
@@ -43,6 +62,7 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
 }
 .card:hover {
   transform: scale(1.1);
@@ -69,5 +89,19 @@ export default {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   text-align: center;
+}
+.suppBtn {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  bottom: 80%;
+  left: 80%;
+  z-index: 2;
+}
+.suppBtn img {
+  width: 50%;
+  height: auto;
+  margin: 0;
+  padding: 0;
 }
 </style>
