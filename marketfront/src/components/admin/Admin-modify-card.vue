@@ -1,24 +1,57 @@
 <template>
   <div>
     <Modal ref="modalName" />
-    <form class="radius" @submit.prevent="updateCard(cardResume._id)">
+    <form @submit.prevent="updateCard(cardResume._id)">
       <header>
-        <img :src="cardResume.logo" alt="logoCard" />
-        <input type="text" placeholder="Logo" v-model="cardResume.logo" />
-      </header>
-      <main>
-        <section class="resume">
-          <input v-model="cardResume.titre" type="text" placeholder="Nom de la marketplace" />
-          <textarea
+        <div class="radiusCard">
+          <img class="screen" :src="cardResume.imgSite1" alt="screen1" />
+          <input
             type="text"
-            class="inputSite"
-            placeholder="Description de la marketplace"
-            v-model="cardResume.resumeMarketPlace"
+            placeholder="Image 1"
+            v-model="cardResume.imgSite1"
           />
+        </div>
+        <div>
+          <img id="logoCard" :src="cardResume.logo" alt="logoCard" />
+          <input type="text" placeholder="Logo" v-model="cardResume.logo" />
+        </div>
+        <div class="radiusCard">
+          <img class="screen" :src="cardResume.imgSite2" alt="screen2" />
+          <input
+            type="text"
+            placeholder="Image 2"
+            v-model="cardResume.imgSite2"
+          />
+        </div>
+      </header>
+      <main class="radius">
+        <section class="resume">
+          <h3>Général</h3>
+          <div>
+            <label for="nom">Nom de la marketplace</label>
+            <input
+              v-model="cardResume.titre"
+              type="text"
+              placeholder="Nom de la marketplace"
+              id="nom"
+            />
+          </div>
+          <div>
+            <label for="description">Description</label>
+            <textarea
+              cols="20"
+              rows="8"
+              type="text"
+              class="inputSite"
+              placeholder="Description de la marketplace"
+              v-model="cardResume.resumeMarketPlace"
+            />
+          </div>
         </section>
         <section class="infos">
+          <h3>Chiffres Clés</h3>
           <div class="detailsMarketPlace">
-            <label for="anneeCreation">Année de Création :</label>
+            <label for="anneeCreation">Année de création</label>
             <input
               type="number"
               v-model="cardResume.anneeCreation"
@@ -26,7 +59,7 @@
             />
           </div>
           <div class="detailsMarketPlace">
-            <label for="localisation">Localisation :</label>
+            <label for="localisation">Localisation</label>
             <input
               type="text"
               v-model="cardResume.localisation"
@@ -34,16 +67,8 @@
             />
           </div>
           <div class="detailsMarketPlace">
-            <label for="leveeFonds">Levée de fonds :</label>
-            <input
-              type="number"
-              v-model="cardResume.leveeFonds"
-              id="leveeFonds"
-            />
-          </div>
-          <div class="detailsMarketPlace">
             <div class="categories">
-              <label for="categorie">Catégorie :</label>
+              <label for="categorie">Catégorie</label>
               <img
                 src="../../assets/update.png"
                 alt=""
@@ -61,38 +86,29 @@
             </select>
           </div>
           <div class="detailsMarketPlace">
-            <label for="url">Site internet :</label>
+            <label for="url">Site internet</label>
             <input type="text" v-model="cardResume.urlMarketPlace" name="url" />
           </div>
-          <button type="submit" class="radius">Modifier</button>
+        </section>
+        <section class="fonds">
+          <h3>Levées de fonds</h3>
+          <div>
+            <div class="detailsMarketPlace">
+              <label for="annee">Année</label>
+              <input type="text" id="annee" />
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="leveeFonds">Montant</label>
+              <input
+                type="number"
+                v-model="cardResume.leveeFonds"
+                id="leveeFonds"
+              />
+            </div>
+          </div>
         </section>
       </main>
-      <!-- <footer>
-        <div class="bgScreen radius">
-          <img class="screen" src="../../assets/upload.png" alt="screen1" />
-          <input
-            type="text"
-            placeholder="Image 1"
-            v-model="cardResume.imgSite1"
-          />
-        </div>
-        <div class="bgScreen radius">
-          <img class="screen" src="../../assets/upload.png" alt="screen2" />
-          <input
-            type="text"
-            placeholder="Image 2"
-            v-model="cardResume.imgSite2"
-          />
-        </div>
-        <div class="bgScreen radius">
-          <img class="screen" src="../../assets/upload.png" alt="screen3" />
-          <input
-            type="text"
-            placeholder="Image 3"
-            v-model="cardResume.imgSite3"
-          />
-        </div>
-      </footer> -->
+      <button type="submit" class="radius">Modifier</button>
     </form>
   </div>
 </template>
@@ -158,58 +174,123 @@ form {
   flex-direction: column;
   align-items: center;
 }
+form button {
+  width: 10%;
+  padding: 0.5%;
+  margin-right: 20%;
+  align-self: flex-end;
+}
+/* HEADER =================================================== */
 header {
+  height: 30vh;
+  width: 100%;
+  margin: 5vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+header div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 30vh;
-  margin-top: 3%;
+  margin: 0 3%;
+}
+#logoCard {
+  height: 32vh;
+  width: auto;
+  border-radius: 30px;
 }
 header img {
+  height: 25vh;
   width: auto;
-  height: 90%;
+  border-radius: 30px;
 }
+/* MAIN ===================================================== */
 main {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   width: 60%;
-  height: 40vh;
-  margin: 5% 0;
+  margin-top: 2%;
+  padding: 0;
 }
+h3 {
+  margin-bottom: 5%;
+  font-size: 1.5rem;
+}
+label {
+  width: 100%;
+  margin: 0 0 1% 2%;
+  font-size: 0.75rem;
+  color: rgb(78, 78, 78);
+}
+input {
+  padding: 1%;
+  /* margin-bottom: 5%; */
+}
+/* ::::::::::::::::::::::::::::::  */
 .resume {
+  width: 30%;
+  display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
-.info {
+.resume div {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: 3%;
+}
+.resume textarea {
+  padding: 1%;
+  resize: none;
+}
+/* ::::::::::::::::::::::::::::::: */
+.infos {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 30%;
 }
-.resume textarea {
-  /* height: auto;
-  width: 80%; */
-  margin-top: 2%;
+.infos h3 {
+  width: 100%;
+  text-align: center;
+}
+select {
+  padding: 1%;
 }
 .detailsMarketPlace {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2%;
+  flex-direction: column;
+  margin-bottom: 3%;
 }
 .categories {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
 }
 .categories img {
-  width: 15%;
-  margin-left: 5%;
+  width: 5%;
 }
-footer {
+/* :::::::::::::::::::::::::::::::: */
+.fonds {
+  width: 30%;
+}
+.fonds h3 {
+  width: 100%;
+  text-align: end;
+}
+.fonds div {
   display: flex;
+  justify-content: flex-end;
+}
+.fonds div div:first-child {
+  margin-right: 2%;
+  width: 40%;
 }
 </style>
