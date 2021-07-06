@@ -13,13 +13,13 @@
         </select>
       </header>
     </div>
-    <AdminCards :displayDeleteBtn="!displayDeleteBtn"/>
+    <Cards :displayDeleteBtn="!displayDeleteBtn" :goWhere="goToUpdateCard" :array="cardsArray"/>
     
   </div>
 </template>
 
 <script>
-import AdminCards from './Admin-card.vue'
+import Cards from '../layout/Cards.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -29,16 +29,24 @@ export default {
     }
   },
   computed: {
-    ...mapState('categorie',['categoriesArray'])
+    ...mapState("categorie", ["categoriesArray"]),
+    ...mapActions("categorie", ["getCategories"]),
+    ...mapState("card", ["cardsArray"]),
+    ...mapActions("card", ["getCards"]),
   },
   components: { 
-    AdminCards 
+    Cards 
   },
   mounted () {
     this.getCategories;
+    this.getCards;
   },
   methods: {
-    ...mapActions(['categorie/getCategories'])
+    goToUpdateCard(idCard) {
+      if(this.displayDeleteBtn) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
+      this.$router.push(`/adminupdateCard/${idCard}`);
+      }
+    },
   },
 }
 </script>
