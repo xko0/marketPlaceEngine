@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/api/card', cardRoutes);
-app.use('api/categorie', categoryRoutes);
+app.use('/api/categorie', categoryRoutes);
 
 
 
