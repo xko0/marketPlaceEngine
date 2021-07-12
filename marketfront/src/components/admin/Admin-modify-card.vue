@@ -276,9 +276,9 @@ select {
   width: 5%;
 }
 /* :::::::::::::::::::::::::::::::: */
-.fonds {
-  /* width: 30%; */
-}
+/* .fonds {
+  width: 30%;
+} */
 .fonds h3 {
   width: 100%;
   text-align: end;
