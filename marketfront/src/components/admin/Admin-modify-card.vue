@@ -3,20 +3,20 @@
     <Modal ref="modalName" />
     <form @submit.prevent="updateCard(cardResume._id)">
       <header>
-        <div class="radiusCard">
-          <img class="screen" :src="cardResume.imgSite1" alt="screen1" />
+        <div class="imgDesc radiusCard" :style="{'background': `url(${cardResume.imgSite1}) no-repeat center center`, 'background-size': '100%'}">
+          <!-- <img class="screen" :src="cardResume.imgSite1" alt="screen1" /> -->
           <input
             type="text"
             placeholder="Image 1"
             v-model="cardResume.imgSite1"
           />
         </div>
-        <div>
-          <img id="logoCard" :src="cardResume.logo" alt="logoCard" />
+        <div class="imgDesc radiusCard" :style="{'background': `url(${cardResume.logo}) no-repeat center center`, 'background-size': '100%'}">
+          <!-- <img id="logoCard" :src="cardResume.logo" alt="logoCard" /> -->
           <input type="text" placeholder="Logo" v-model="cardResume.logo" />
         </div>
-        <div class="radiusCard">
-          <img class="screen" :src="cardResume.imgSite2" alt="screen2" />
+        <div class="imgDesc radiusCard" :style="{'background': `url(${cardResume.imgSite2}) no-repeat center center`, 'background-size': '100%'}">
+          <!-- <img class="screen" :src="cardResume.imgSite2" alt="screen2" /> -->
           <input
             type="text"
             placeholder="Image 2"
@@ -173,47 +173,47 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 0 15vw;
 }
 form button {
   width: 10%;
   padding: 0.5%;
-  margin-right: 20%;
   align-self: flex-end;
+  margin-top: 2%;
 }
 /* HEADER =================================================== */
 header {
   height: 30vh;
   width: 100%;
-  margin: 5vh 0;
+  margin-top: 5vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  flex-wrap: wrap;
 }
 header div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 3%;
+  padding: 1%;
+  width: 35%;
+  height: 100%;
+  box-shadow: var(--boxShadow);
+  text-align: center;
+  position: relative;
 }
-#logoCard {
-  height: 32vh;
-  width: auto;
-  border-radius: 30px;
-}
-header img {
-  height: 25vh;
-  width: auto;
-  border-radius: 30px;
+header div:first-child, header div:last-child {
+  width: 30%;
+  height: 80%;
 }
 /* MAIN ===================================================== */
 main {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 60%;
+  width: 100%;
   margin-top: 2%;
-  padding: 0;
+}
+main section {
+  margin-top: 5vh;
+  width: 30%;
 }
 h3 {
   margin-bottom: 5%;
@@ -227,11 +227,10 @@ label {
 }
 input {
   padding: 1%;
-  /* margin-bottom: 5%; */
 }
 /* ::::::::::::::::::::::::::::::  */
 .resume {
-  width: 30%;
+  /* width: 30%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -254,7 +253,7 @@ input {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  width: 30%;
+  /* width: 30%; */
 }
 .infos h3 {
   width: 100%;
@@ -272,14 +271,13 @@ select {
 .categories {
   display: flex;
   align-items: center;
-  /* justify-content: flex-start; */
 }
 .categories img {
   width: 5%;
 }
 /* :::::::::::::::::::::::::::::::: */
 .fonds {
-  width: 30%;
+  /* width: 30%; */
 }
 .fonds h3 {
   width: 100%;
@@ -292,5 +290,22 @@ select {
 .fonds div div:first-child {
   margin-right: 2%;
   width: 40%;
+}
+
+@media screen and (max-width: 1260px) {
+  form {
+    padding: 0 5vw;
+  }
+  h3 {
+    text-align: center;
+  }
+  main {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  main section {
+    width: 70%;
+  }
 }
 </style>

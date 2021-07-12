@@ -1,10 +1,14 @@
 <template>
   <div class="display">
     <div
-      class="card"
+      class="card radiusCard"
       v-for="(card, cardIndex) in array"
       :key="cardIndex"
       @click="goWhere(card._id)"
+      :style="{
+        background: `url(${card.logo}) no-repeat center center`,
+        'background-size': '103%',
+      }"
     >
       <button
         class="suppBtn"
@@ -13,7 +17,6 @@
       >
         <img src="../../assets/moins.png" alt="" />
       </button>
-      <img class="cardLogo" :src="card.logo" alt="" />
       <div class="bandeau">
         <h1>{{ card.titre }}</h1>
         <h4>{{ card.categorie }}</h4>
@@ -71,6 +74,20 @@ export default {
 .card:hover {
   transform: scale(1.1);
 }
+.suppBtn {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  bottom: 80%;
+  left: 80%;
+  z-index: 2;
+}
+.suppBtn img {
+  width: 50%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
 .bandeau {
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.5);
@@ -93,19 +110,5 @@ export default {
   .card {
     margin-bottom: 12%;
   }
-}
-.suppBtn {
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  bottom: 80%;
-  left: 80%;
-  z-index: 2;
-}
-.suppBtn img {
-  width: 50%;
-  height: auto;
-  margin: 0;
-  padding: 0;
 }
 </style>
