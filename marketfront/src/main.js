@@ -12,7 +12,7 @@ import Home from "./components/Home";
 import UserDescription from "./components/User-description";
 import AdminupdateCard from "./components/admin/Admin-modify-card";
 import store from "./store";
-import admin from "./store/modules/admin.module";
+// import admin from "./store/modules/admin.module";
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -27,13 +27,13 @@ const router = new VueRouter({
     { path: "/log", component: Log },
     {
       path: "/adminhome",
-      beforeEnter(to, from, next) {
-        if (admin.state.isConnected === true && admin.state.jwToken) {
-          next();
-        } else {
-          router.push("/log").catch(() => {});
-        } 
-      },
+      // beforeEnter(to, from, next) {
+      //   if (admin.state.isConnected === true && admin.state.jwToken) {
+      //     next();
+      //   } else {
+      //     router.push("/log").catch(() => {});
+      //   } 
+      // },
       component: AdminHome,
     },
     {
