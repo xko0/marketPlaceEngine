@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const cardRoutes = require('./router/card');
 const categoryRoutes = require('./router/category');
+const userRoutes = require('./router/user');
 
 mongoose.connect('mongodb+srv://somemark:somemarkadmin@cluster0.kovjn.mongodb.net/marketPlaceEngine?retryWrites=true&w=majority',
     {
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 
 app.use('/api/card', cardRoutes);
 app.use('/api/categorie', categoryRoutes);
+app.use('/api/user', userRoutes);
 
 
 

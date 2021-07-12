@@ -1,17 +1,34 @@
 <template>
   <div class="menu">
     <div class="logo">
-      <router-link to="/adminhome">
+      <router-link to="/log">
         <img class="logoMenu" src="../../assets/userLogo.png" alt="LogoUser" />
       </router-link>
       <router-link to="/">
         <img class="logoMenu" src="../../assets/homeLogo.png" alt="LogoHome" />
       </router-link>
+      <router-link to="/" v-if="isConnected">
+        <img class="logoMenu" src="../../assets/deconnect.png" alt="LogoHome" @click="logOut"/>
+      </router-link>
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+import { mapState } from "vuex";
+
+export default {
+  computed: {
+    ...mapState('admin', ['isConnected']),
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('admin/logOut')
+      this.$router.push("/log");
+    }
+  },
+}
+</script>
 
 <style scoped>
 .menu {

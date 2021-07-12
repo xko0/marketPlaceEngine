@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="login-wrap">
+    <!-- <div class="login-wrap">
       <div class="login-html">
         <input
           id="tab-1"
@@ -14,42 +14,76 @@
           class="tab"
           >Inscription</label
         >
-        <div class="login-form">
-          <div class="sign-in-htm">
+        <div class="login-form"> -->
+    <form class="sign-in-htm" @submit.prevent="logIn(form)">
+      <div class="group">
+        <label for="user" class="label">Email</label>
+        <input id="user" type="email" class="input" v-model="form.email" />
+      </div>
+      <div class="group">
+        <label for="pass" class="label">Mot de passe</label>
+        <input
+          id="pass"
+          type="password"
+          class="input"
+          v-model="form.password"
+        />
+      </div>
+      <div class="hr"></div>
+      <div class="group">
+        <input type="submit" class="button" value="Connexion" />
+      </div>
+    </form>
+    <!-- <form class="sign-up-htm" @submit.prevent="signUp">
             <div class="group">
               <label for="user" class="label">Email</label>
-              <input id="user" type="email" class="input" />
+              <input
+                id="user"
+                type="email"
+                class="input"
+                v-model="form.email"
+              />
             </div>
             <div class="group">
               <label for="pass" class="label">Mot de passe</label>
-              <input id="pass" type="password" class="input" />
-            </div>
-            <div class="hr"></div>
-            <div class="group">
-              <input type="submit" class="button" value="Connexion" />
-            </div>
-          </div>
-          <div class="sign-up-htm">
-            <div class="group">
-              <label for="user" class="label">Email</label>
-              <input id="user" type="email" class="input" />
-            </div>
-            <div class="group">
-              <label for="pass" class="label">Mot de passe</label>
-              <input id="pass" type="password" class="input" />
+              <input
+                id="pass"
+                type="password"
+                class="input"
+                v-model="form.password"
+              />
             </div>
             <div class="hr"></div>
             <div class="group">
               <input type="submit" class="button" value="Inscription" />
             </div>
-          </div>
+          </form>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    logIn(user) {
+      this.$store.dispatch("admin/logIn", user);
+      if (this.$route.path !== "/adminhome") {
+        this.$router.push("/adminhome");
+      }
+    },
+  },
+};
+</script>
 
 <style scoped>
 .login-wrap {

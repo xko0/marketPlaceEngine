@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const categoryCtrl = require('../controllers/category');
 
-router.post('/', categoryCtrl.createCategory)
-router.put('/:id', categoryCtrl.updateCategory)
-router.delete('/:id', categoryCtrl.deleteCategory)
+const auth = require('../middleware/auth')
+
+router.post('/', auth, categoryCtrl.createCategory)
+router.put('/:id', auth, categoryCtrl.updateCategory)
+router.delete('/:id', auth, categoryCtrl.deleteCategory)
 router.get('/', categoryCtrl.getCategory)
 
 module.exports = router; 
