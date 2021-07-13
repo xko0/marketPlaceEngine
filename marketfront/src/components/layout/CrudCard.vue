@@ -1,141 +1,131 @@
 <template>
   <div>
-    <Modal v-if="isConnected" ref="modalName" />
-    <form @submit.prevent="updateCard(cardResume._id)">
-      <!-- <CrudCard /> -->
-      <header>
-        <div
-          :style="{
-            background: `url(${cardResume.imgSite1}) no-repeat center center`,
-            'background-size': '100%',
-          }"
-        >
+    <header>
+      <div
+        :style="{
+          background: `url(${cardResume.imgSite1}) no-repeat center center`,
+          'background-size': '100%',
+        }"
+      >
+        <input
+          type="text"
+          placeholder="Image 1"
+          v-model="cardResume.imgSite1"
+        />
+      </div>
+      <div
+        :style="{
+          background: `url(${cardResume.logo}) no-repeat center center`,
+          'background-size': '100%',
+        }"
+      >
+        <input type="text" placeholder="Logo" v-model="cardResume.logo" />
+      </div>
+      <div
+        :style="{
+          background: `url(${cardResume.imgSite2}) no-repeat center center`,
+          'background-size': '100%',
+        }"
+      >
+        <input
+          type="text"
+          placeholder="Image 2"
+          v-model="cardResume.imgSite2"
+        />
+      </div>
+    </header>
+    <main class="radius">
+      <section class="resume">
+        <h3>Général</h3>
+        <div>
+          <label for="nom">Nom de la marketplace</label>
           <input
+            v-model="cardResume.titre"
             type="text"
-            placeholder="Image 1"
-            v-model="cardResume.imgSite1"
+            placeholder="Nom de la marketplace"
+            id="nom"
           />
         </div>
-        <div
-          :style="{
-            background: `url(${cardResume.logo}) no-repeat center center`,
-            'background-size': '100%',
-          }"
-        >
-          <input type="text" placeholder="Logo" v-model="cardResume.logo" />
-        </div>
-        <div
-          :style="{
-            background: `url(${cardResume.imgSite2}) no-repeat center center`,
-            'background-size': '100%',
-          }"
-        >
-          <input
+        <div>
+          <label for="description">Description</label>
+          <textarea
+            cols="20"
+            rows="8"
             type="text"
-            placeholder="Image 2"
-            v-model="cardResume.imgSite2"
+            class="inputSite"
+            placeholder="Description de la marketplace"
+            v-model="cardResume.resumeMarketPlace"
           />
         </div>
-      </header>
-      <main class="radius">
-        <section class="resume">
-          <h3>Général</h3>
-          <div>
-            <label for="nom">Nom de la marketplace</label>
-            <input
-              v-model="cardResume.titre"
-              type="text"
-              placeholder="Nom de la marketplace"
-              id="nom"
+      </section>
+      <section class="infos">
+        <h3>Chiffres Clés</h3>
+        <div class="detailsMarketPlace">
+          <label for="anneeCreation">Année de création</label>
+          <input
+            type="number"
+            v-model="cardResume.anneeCreation"
+            id="anneeCreation"
+          />
+        </div>
+        <div class="detailsMarketPlace">
+          <label for="localisation">Localisation</label>
+          <input
+            type="text"
+            v-model="cardResume.localisation"
+            id="localisation"
+          />
+        </div>
+        <div class="detailsMarketPlace">
+          <div class="categories">
+            <label for="categorie">Catégorie</label>
+            <img
+              src="../../assets/update.png"
+              alt=""
+              @click="$refs.modalName.openModal()"
+              v-if="isConnected"
             />
           </div>
-          <div>
-            <label for="description">Description</label>
-            <textarea
-              cols="20"
-              rows="8"
-              type="text"
-              class="inputSite"
-              placeholder="Description de la marketplace"
-              v-model="cardResume.resumeMarketPlace"
-            />
-          </div>
-        </section>
-        <section class="infos">
-          <h3>Chiffres Clés</h3>
+          <select name="" id="" v-model="cardResume.categorie">
+            <option>--Catégories--</option>
+            <option v-for="(cat, catIndex) in categoriesArray" :key="catIndex">
+              {{ cat.nom }}
+            </option>
+          </select>
+        </div>
+        <div class="detailsMarketPlace">
+          <label for="url">Site internet</label>
+          <input type="text" v-model="cardResume.urlMarketPlace" name="url" />
+        </div>
+      </section>
+      <section class="fonds">
+        <h3>Levées de fonds</h3>
+        <div>
           <div class="detailsMarketPlace">
-            <label for="anneeCreation">Année de création</label>
-            <input
-              type="number"
-              v-model="cardResume.anneeCreation"
-              id="anneeCreation"
-            />
+            <label for="annee">Année</label>
+            <input type="text" id="annee" />
           </div>
           <div class="detailsMarketPlace">
-            <label for="localisation">Localisation</label>
-            <input
-              type="text"
-              v-model="cardResume.localisation"
-              id="localisation"
-            />
+            <label for="leveeFonds">Montant</label>
+            <input type="number" id="leveeFonds" />
           </div>
-          <div class="detailsMarketPlace">
-            <div class="categories">
-              <label for="categorie">Catégorie</label>
-              <img
-                src="../../assets/update.png"
-                alt=""
-                @click="$refs.modalName.openModal()"
-                v-if="isConnected"
-              />
-            </div>
-            <select name="" id="" v-model="cardResume.categorie">
-              <option>--Catégories--</option>
-              <option
-                v-for="(cat, catIndex) in categoriesArray"
-                :key="catIndex"
-              >
-                {{ cat.nom }}
-              </option>
-            </select>
-          </div>
-          <div class="detailsMarketPlace">
-            <label for="url">Site internet</label>
-            <input type="text" v-model="cardResume.urlMarketPlace" name="url" />
-          </div>
-        </section>
-        <section class="fonds">
-          <h3>Levées de fonds</h3>
-          <div>
-            <div class="detailsMarketPlace">
-              <label for="annee">Année</label>
-              <input type="text" id="annee" />
-            </div>
-            <div class="detailsMarketPlace">
-              <label for="leveeFonds">Montant</label>
-              <input type="number" id="leveeFonds" />
-            </div>
-          </div>
-          <img src="../../assets/plus.png" alt="ajoutLeveeBtn" />
-        </section>
-      </main>
-      <button type="submit" class="radius">Modifier</button>
-    <!-- <button type="submit" class="radius">Modifier</button> -->
-    </form>
+        </div>
+        <img src="../../assets/plus.png" alt="ajoutLeveeBtn" />
+      </section>
+    </main>
+    <!-- <button type="submit" class="radius">{{ validationFormBtn }}</button> -->
   </div>
 </template>
 
 <script>
-import axios from "axios";
-// import CrudCard from "../layout/CrudCard.vue";
-import Modal from "../layout/CategorieModal.vue";
+// import axios from "axios";
+// import Modal from "../layout/CategorieModal.vue";
 import { mapActions, mapState } from "vuex";
 
 export default {
-  components: {
-    Modal,
-    // CrudCard,
-  },
+//   components: {
+//     Modal,
+//   },
   data() {
     return {
       idCardUrl: this.$route.params.id,
@@ -166,16 +156,16 @@ export default {
     ...mapActions("categorie", ["getCategories"]),
   },
   methods: {
-    updateCard(idCard) {
-      axios
-        .put(`http://localhost:3001/api/card/${idCard}`, { ...this.cardResume })
-        .then(() => {
-          this.$router.push("/adminhome"); // redirection vers la page admin-home
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+    // updateCard(idCard) {
+    //   axios
+    //     .put(`http://localhost:3001/api/card/${idCard}`, { ...this.cardResume })
+    //     .then(() => {
+    //       this.$router.push("/adminhome"); // redirection vers la page admin-home
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // },
   },
 };
 </script>

@@ -20,7 +20,7 @@
 
 <script>
 import Cards from '../layout/Cards.vue'
-import { mapActions, mapState } from 'vuex'
+// import { mapActions, mapState } from 'vuex'
 
 export default {
   data() {
@@ -28,25 +28,25 @@ export default {
       displayDeleteBtn: true,
     }
   },
-  computed: {
-    ...mapState("categorie", ["categoriesArray"]),
-    ...mapActions("categorie", ["getCategories"]),
-    ...mapState("card", ["cardsArray"]),
-    ...mapActions("card", ["getCards"]),
-  },
+  // computed: {
+  //   ...mapState("categorie", ["categoriesArray"]),
+  //   ...mapActions("categorie", ["getCategories"]),
+  //   ...mapState("card", ["cardsArray"]),
+  //   ...mapActions("card", ["getCards"]),
+  // },
   components: { 
     Cards 
   },
-  mounted () {
-    this.getCategories;
-    this.getCards;
-  },
+  // mounted () {
+  //   this.getCategories;
+  //   this.getCards;
+  // },
   methods: {
-    goToUpdateCard(idCard) {
-      if(this.displayDeleteBtn) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
-      this.$router.push(`/adminupdateCard/${idCard}`);
-      }
-    },
+    // goToUpdateCard(idCard) {
+    //   if(this.displayDeleteBtn) { // Condition qui évite de changer de page quand le bouton "supprimer" est affiché
+    //   this.$router.push(`/adminupdateCard/${idCard}`);
+    //   }
+    // },
   },
 }
 </script>
