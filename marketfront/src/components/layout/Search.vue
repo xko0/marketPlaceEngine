@@ -1,6 +1,21 @@
 <template>
   <div>
     <div class="search">
+      <div v-if="isAdmin">
+        <router-link to="/admincreatecard">
+          <img
+            src="../../assets/plus.png"
+            class="icons plus"
+            alt="bouton plus"
+          />
+        </router-link>
+        <img
+          src="../../assets/moins.png"
+          class="icons moins"
+          alt="bouton moins"
+          @click="displayDeleteBtn = !displayDeleteBtn"
+        />
+      </div>
       <input
         class="radius searchWord"
         type="search"
@@ -24,7 +39,7 @@
       </select>
     </div>
 
-    <div>
+    <div v-if="!isAdmin">
       <Cards
         v-if="ifSearch === 'cards'"
         :array="cardsArray"
@@ -41,7 +56,7 @@
         :goWhere="goCardUrl"
       />
     </div>
-    <div>
+    <div v-else>
       <Cards
         :displayDeleteBtn="!displayDeleteBtn"
         v-if="ifSearch === 'cards'"
@@ -85,12 +100,16 @@ export default {
       searchWord: "",
       ifNoResult: false,
       regexp: /^[0-9A-Za-zàéèçù\s-]{0,30}$/,
-      displayDeleteBtn: Boolean
+      displayDeleteBtn: true,
+      isAdmin: false
     };
   },
   mounted() {
     this.getCategories;
     this.getCards;
+    if(this.$route.path.substring(1) === 'adminhome') {
+        this.isAdmin = true
+    }
   },
   computed: {
     ...mapState("categorie", ["categoriesArray"]),
@@ -160,6 +179,13 @@ export default {
   justify-content: center;
   height: 8vh;
   margin-bottom: 10vh;
+}
+.search div:first-child {
+    margin-right: 5vh;
+}
+.search img {
+    width: 8vh;
+    height: auto;
 }
 .searchWord {
   padding-left: 30px;

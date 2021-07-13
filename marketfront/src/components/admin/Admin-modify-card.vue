@@ -6,8 +6,7 @@
       <header>
         <div
           :style="{
-            background: `url(${cardResume.imgSite1}) no-repeat center center`,
-            'background-size': '100%',
+            backgroundImage: `url(${cardResume.imgSite1})`,
           }"
         >
           <input
@@ -17,17 +16,16 @@
           />
         </div>
         <div
+          class="headerImg"
           :style="{
-            background: `url(${cardResume.logo}) no-repeat center center`,
-            'background-size': '100%',
+            backgroundImage: `url(${cardResume.logo})`,
           }"
         >
           <input type="text" placeholder="Logo" v-model="cardResume.logo" />
         </div>
         <div
           :style="{
-            background: `url(${cardResume.imgSite2}) no-repeat center center`,
-            'background-size': '100%',
+            backgroundImage: `url(${cardResume.imgSite2})`,
           }"
         >
           <input
@@ -120,7 +118,7 @@
         </section>
       </main>
       <button type="submit" class="radius">Modifier</button>
-    <!-- <button type="submit" class="radius">Modifier</button> -->
+      <!-- <button type="submit" class="radius">Modifier</button> -->
     </form>
   </div>
 </template>
@@ -189,13 +187,13 @@ form {
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0 15vw;
+  padding: 0 15vw 15vh 15vw;
 }
 form button {
   width: 10vw;
   padding: 0.5%;
   align-self: flex-end;
-  margin-top: 2%;
+  margin-top: 1%;
 }
 /* HEADER =================================================== */
 header {
@@ -212,11 +210,14 @@ header div {
   width: 35vw;
   height: 100%;
   text-align: center;
-  position: relative;
-  border-radius: 50px;
+  border-radius: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 header div:first-child,
 header div:last-child {
+  background-size: cover;
   width: 25vw;
   height: 70%;
 }
@@ -339,7 +340,7 @@ select {
     margin-top: 0;
   }
   header div {
-    margin: 0;
+    margin: 0 5%;
     width: 100%;
     border-radius: 0px;
   }
