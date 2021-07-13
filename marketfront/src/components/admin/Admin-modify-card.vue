@@ -85,6 +85,7 @@
                 src="../../assets/update.png"
                 alt=""
                 @click="$refs.modalName.openModal()"
+                v-if="isConnected"
               />
             </div>
             <select name="" id="" v-model="cardResume.categorie">
@@ -107,20 +108,23 @@
           <div>
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <input type="text" id="annee" />
+              <input
+                type="text"
+                id="annee"
+              />
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
               <input
                 type="number"
-                v-model="cardResume.leveeFonds"
                 id="leveeFonds"
               />
             </div>
           </div>
+            <img src="../../assets/plus.png" alt="ajoutLeveeBtn">
         </section>
       </main>
-      <button type="submit" class="radius">Modifier</button>
+      <button type="submit" class="radius">{{ validationFormBtn }}</button>
     </form>
   </div>
 </template>
@@ -150,6 +154,12 @@ export default {
         imgSite2: "",
       },
     };
+  },
+  props: {
+    validationFormBtn: {
+      type: String,
+      default: "Valider"
+    }
   },
   mounted() {
     let cardFind = this.$store.state.card.cardsArray.find(
@@ -200,12 +210,12 @@ header {
   width: 100%;
   margin-top: 5vh;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 }
 header div {
   padding: 1%;
-  margin: 0.5vw;
+  margin: 1vh;
   width: 35vw;
   height: 100%;
   text-align: center;
@@ -310,10 +320,14 @@ select {
 }
 .fonds div div {
   border-right: 0px solid white;
-  width: 45%;
+  width: 40%;
 }
 .fonds div div:first-child {
   margin-right: 10%;
+}
+.fonds img {
+  margin: 0.5vh 0 2vh 85%;
+  width: 15%;
 }
 
 @media screen and (max-width: 1200px) {
@@ -331,6 +345,7 @@ select {
     margin-top: 0;
   }
   header div {
+    margin: 0;
     width: 100%;
     border-radius: none;
   }
