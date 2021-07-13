@@ -1,22 +1,34 @@
 <template>
-  <div>
+  <div class="adminMod">
     <Modal ref="modalName" />
     <form @submit.prevent="updateCard(cardResume._id)">
       <header>
-        <div class="imgDesc radiusCard" :style="{'background': `url(${cardResume.imgSite1}) no-repeat center center`, 'background-size': '100%'}">
-          <!-- <img class="screen" :src="cardResume.imgSite1" alt="screen1" /> -->
+        <div
+          :style="{
+            background: `url(${cardResume.imgSite1}) no-repeat center center`,
+            'background-size': '100%',
+          }"
+        >
           <input
             type="text"
             placeholder="Image 1"
             v-model="cardResume.imgSite1"
           />
         </div>
-        <div class="imgDesc radiusCard" :style="{'background': `url(${cardResume.logo}) no-repeat center center`, 'background-size': '100%'}">
-          <!-- <img id="logoCard" :src="cardResume.logo" alt="logoCard" /> -->
+        <div
+          :style="{
+            background: `url(${cardResume.logo}) no-repeat center center`,
+            'background-size': '100%',
+          }"
+        >
           <input type="text" placeholder="Logo" v-model="cardResume.logo" />
         </div>
-        <div class="imgDesc radiusCard" :style="{'background': `url(${cardResume.imgSite2}) no-repeat center center`, 'background-size': '100%'}">
-          <!-- <img class="screen" :src="cardResume.imgSite2" alt="screen2" /> -->
+        <div
+          :style="{
+            background: `url(${cardResume.imgSite2}) no-repeat center center`,
+            'background-size': '100%',
+          }"
+        >
           <input
             type="text"
             placeholder="Image 2"
@@ -73,6 +85,7 @@
                 src="../../assets/update.png"
                 alt=""
                 @click="$refs.modalName.openModal()"
+                v-if="isConnected"
               />
             </div>
             <select name="" id="" v-model="cardResume.categorie">
@@ -95,20 +108,23 @@
           <div>
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <input type="text" id="annee" />
+              <input
+                type="text"
+                id="annee"
+              />
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
               <input
                 type="number"
-                v-model="cardResume.leveeFonds"
                 id="leveeFonds"
               />
             </div>
           </div>
+            <img src="../../assets/plus.png" alt="ajoutLeveeBtn">
         </section>
       </main>
-      <button type="submit" class="radius">Modifier</button>
+      <button type="submit" class="radius">{{ validationFormBtn }}</button>
     </form>
   </div>
 </template>
@@ -139,6 +155,12 @@ export default {
       },
     };
   },
+  props: {
+    validationFormBtn: {
+      type: String,
+      default: "Valider"
+    }
+  },
   mounted() {
     let cardFind = this.$store.state.card.cardsArray.find(
       (card) => card._id === this.idCardUrl
@@ -167,7 +189,7 @@ export default {
 
 <style scoped>
 .blur {
-  filter: blur(2px) contrast(50%);
+  filter: blur(2px) contrast(50%) opacity(0.6);
 }
 form {
   display: flex;
@@ -177,7 +199,7 @@ form {
   padding: 0 15vw;
 }
 form button {
-  width: 10%;
+  width: 10vw;
   padding: 0.5%;
   align-self: flex-end;
   margin-top: 2%;
@@ -188,20 +210,21 @@ header {
   width: 100%;
   margin-top: 5vh;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 }
 header div {
   padding: 1%;
-  width: 35%;
+  margin: 1vh;
+  width: 35vw;
   height: 100%;
-  box-shadow: var(--boxShadow);
   text-align: center;
   position: relative;
 }
-header div:first-child, header div:last-child {
-  width: 30%;
-  height: 80%;
+header div:first-child,
+header div:last-child {
+  width: 25vw;
+  height: 70%;
 }
 /* MAIN ===================================================== */
 main {
@@ -212,25 +235,41 @@ main {
   margin-top: 2%;
 }
 main section {
-  margin-top: 5vh;
+  margin-top: 6vh;
   width: 30%;
 }
 h3 {
-  margin-bottom: 5%;
+  margin-bottom: 2vh;
   font-size: 1.5rem;
 }
 label {
   width: 100%;
-  margin: 0 0 1% 2%;
+  margin: 0 0 0.2vh 0vw;
   font-size: 0.75rem;
   color: rgb(78, 78, 78);
 }
-input {
-  padding: 1%;
+input,
+select {
+  padding: 1vh;
+  margin-bottom: 1.2vh;
+  height: 23px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+}
+textarea {
+  margin-top: 1vh;
+  padding: 1vh;
+  resize: none;
+  border: 1px solid black;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  height: 85%;
 }
 /* ::::::::::::::::::::::::::::::  */
 .resume {
-  /* width: 30%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -242,10 +281,6 @@ input {
   align-items: stretch;
   margin-bottom: 3%;
 }
-.resume textarea {
-  padding: 1%;
-  resize: none;
-}
 /* ::::::::::::::::::::::::::::::: */
 .infos {
   display: flex;
@@ -253,7 +288,6 @@ input {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  /* width: 30%; */
 }
 .infos h3 {
   width: 100%;
@@ -276,9 +310,6 @@ select {
   width: 5%;
 }
 /* :::::::::::::::::::::::::::::::: */
-/* .fonds {
-  width: 30%;
-} */
 .fonds h3 {
   width: 100%;
   text-align: end;
@@ -287,19 +318,46 @@ select {
   display: flex;
   justify-content: flex-end;
 }
-.fonds div div:first-child {
-  margin-right: 2%;
+.fonds div div {
+  border-right: 0px solid white;
   width: 40%;
 }
+.fonds div div:first-child {
+  margin-right: 10%;
+}
+.fonds img {
+  margin: 0.5vh 0 2vh 85%;
+  width: 15%;
+}
 
-@media screen and (max-width: 1260px) {
-  form {
-    padding: 0 5vw;
+@media screen and (max-width: 1200px) {
+  header div:first-child {
+    display: none;
   }
-  h3 {
-    text-align: center;
+}
+@media screen and (max-width: 767px) {
+  form button {
+    width: 40vh;
+    margin: 5vh auto 10vh auto;
+    padding: 1vh;
+  }
+  header {
+    margin-top: 0;
+  }
+  header div {
+    margin: 0;
+    width: 100%;
+    border-radius: none;
+  }
+  header div:first-child,
+  header div:last-child {
+    display: none;
+  }
+  form {
+    padding: 0;
   }
   main {
+    padding: 0 1vw;
     flex-direction: column;
     align-items: center;
     width: 100%;
