@@ -1,197 +1,291 @@
 <template>
-  <div class="userDescriptionPage">
-    <CrudCard submitBtn="Voir le site"/>
-      <!-- <header>
-        <img class="imgMain" :src="this.card.logo" alt="logoCard" />
+  <div>
+    <form>
+      <header>
+        <div
+          :style="{
+            backgroundImage: `url(${cardResume.imgSite1})`,
+          }"
+        ></div>
+        <div
+          class="headerImg"
+          :style="{
+            backgroundImage: `url(${cardResume.logo})`,
+          }"
+        ></div>
+        <div
+          :style="{
+            backgroundImage: `url(${cardResume.imgSite2})`,
+          }"
+        ></div>
       </header>
-      <div class="containerMain">
-        <article class="container1 radius">
-          <div class="imgScreen radius">
-            <img class="screen" :src="this.card.imgSite1" alt="screen1" />
-            <img class="screen" :src="this.card.imgSite2" alt="screen2" />
-            <img class="screen" :src="this.card.imgSite3" alt="screen3" />
-          </div>
-          <div class="sommary radius">
-            <h4>Brève description de la marketplace :</h4>
-            <p>{{ this.card.titre }}</p>
-            <p>
-              {{ this.card.resumeMarketPlace }}
-            </p>
-          </div>
-        </article>
-        <aside class="container2 radius">
+      <main class="radius">
+        <section class="resume">
+          <h3>Général</h3>
           <div>
-            <h4>Chiffre clé :</h4>
-            <p>
-              - Année de création : {{ this.card.anneeCreation }}
-              <br />
-              <br />
-              - Localisation : {{ this.card.localisation }}
-              <br />
-              <br />
-              - Levée de fond : {{ this.card.leveeFonds }}
-              <br />
-              <br />
-              - Categories : {{ this.card.categorie }}
-            </p>
+            <label for="nom">Nom de la marketplace</label>
+            <p>{{ cardResume.titre }}</p>
           </div>
-          <a :href="this.card.urlMarketPlace" target="_blank">
-            <button class="radius">Voir le site !</button>
-          </a>
-        </aside>
-      </div> -->
+          <div>
+            <label for="description">Description</label>
+            <p>{{ cardResume.resumeMarketPlace }}</p>
+          </div>
+        </section>
+        <section class="infos">
+          <h3>Chiffres Clés</h3>
+          <div class="detailsMarketPlace">
+            <label for="anneeCreation">Année de création</label>
+            <p>{{ cardResume.anneeCreation }}</p>
+          </div>
+          <div class="detailsMarketPlace">
+            <label for="localisation">Localisation</label>
+            <p>{{ cardResume.localisation }}</p>
+          </div>
+          <div class="detailsMarketPlace">
+            <div class="categories">
+              <label for="categorie">Catégorie</label>
+            </div>
+            <p>{{ cardResume.categorie }}</p>
+          </div>
+          <div class="detailsMarketPlace">
+            <label for="url">Site internet</label>
+            <p type="text" name="url">{{ cardResume.urlMarketPlace }}</p>
+          </div>
+        </section>
+        <section class="fonds">
+          <h3>Levées de fonds</h3>
+          <div>
+            <div class="detailsMarketPlace">
+              <label for="annee">Année</label>
+              <p type="text" id="annee"></p>
+            </div>
+            <div class="detailsMarketPlace">
+              <label for="leveeFonds">Montant</label>
+              <p type="number" id="leveeFonds">{{ cardResume.leveeFonds }}</p>
+            </div>
+          </div>
+        </section>
+      <button class="radius">
+        <a :href="cardResume.urlMarketPlace" target="_blank">Voir le site</a>
+      </button>
+      </main>
+    </form>
   </div>
 </template>
 
 <script>
-import CrudCard from "./layout/CrudCard.vue"
 export default {
-  components: {
-    CrudCard,
-  },
   data() {
     return {
-      // idCardUrl: this.$route.params.id, // on récupère l'id de la carte via l'url
-      // card: {}
-    }
+      idCardUrl: this.$route.params.id,
+      cardResume: {
+        titre: "",
+        anneeCreation: "",
+        localisation: "",
+        leveeFonds: "",
+        categorie: "",
+        resumeMarketPlace: "",
+        urlMarketPlace: "",
+        logo: "",
+        imgSite1: "",
+        imgSite2: "",
+      },
+    };
   },
-  // mounted () {
-  //   if (this.$route.path.substring(1) === "description") {
-  //     this.isDesc = true;
-  //   }
-  // },
-  // methods: {
-  //   goToWebsite(payload) {
-  //     let webSite = payload.card.urlMarketPlace
-  //   }
-  // },
-}
+  mounted() {
+    let cardFind = this.$store.state.card.cardsArray.find(
+      (card) => card._id === this.idCardUrl
+    );
+    this.cardResume = { ...cardFind };
+  },
+};
 </script>
 
 <style scoped>
-.userDescriptionPage {
-  background-color: var(--bgColor);
-  height: 95vh;
+a {
+  text-decoration: none;
+  color: black;
 }
-.imgMain {
-  width: auto;
-  height: 40vh;
-  margin: auto;
-  padding: 0;
-}
-.containerMain {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: var(--bgColor);
-}
-
-.container1 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  width: 60%;
-  height: 48vh;
-  margin: 2%;
-  box-shadow: var(--boxShadow);
-  background-color: var(--whiteCard);
-}
-.imgScreen {
-  background-color: var(--whiteCard);
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.screen {
-  width: auto;
-  height: 15vh;
-  background-color: var(--whiteCard);
-  border-radius: 10px;
-}
-.sommary {
-  width: 100%;
-  padding: 2%;
-}
-h4 {
-  padding-top: 2%;
-  padding-bottom: 2%;
-  text-align: center;
-}
-
-.container2 {
+form {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  width: 32%;
-  height: 48vh;
-  margin: 2%;
-  padding: 1%;
-  box-shadow: var(--boxShadow);
-  background-color: var(--whiteCard);
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 15vh;
 }
-.container2 a {
+form button {
+  width: 15vw;
+  padding: 1%;
+  align-self: flex-end;
+  margin-top: 5%;
+}
+/* HEADER =================================================== */
+header {
+  height: 30vh;
+  width: 80%;
+  margin-top: 5vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+header div {
+  padding: 1%;
+  margin: 2vh;
+  width: 40vw;
+  height: 100%;
+  text-align: center;
+  border-radius: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+header div:first-child,
+header div:last-child {
+  background-size: cover;
+  width: 25vw;
+  height: 70%;
+}
+/* MAIN ===================================================== */
+main {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 70vw;
+  margin: 2% 0;
+  background-color: whitesmoke;
+  box-shadow: var(--boxShadow);
+  padding: 5%;
+}
+main section {
+  width: 30%;
+}
+h3 {
+  margin-bottom: 2vh;
+  font-size: 1.5rem;
+}
+label {
+  width: 100%;
+  margin: 0.5vh 0 0.2vh 0vw;
+  font-size: 0.75rem;
+  color: rgb(78, 78, 78);
+}
+input,
+select {
+  padding: 1vh;
+  margin-bottom: 1.2vh;
+  height: 23px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+}
+textarea {
+  margin-top: 1vh;
+  padding: 1vh;
+  resize: none;
+  border: 1px solid black;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  height: 85%;
+}
+/* ::::::::::::::::::::::::::::::  */
+.resume {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.resume div {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: 3%;
+}
+/* ::::::::::::::::::::::::::::::: */
+.infos {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.infos h3 {
+  width: 100%;
   text-align: center;
 }
-p {
-  padding-top: 2%;
+select {
+  padding: 1%;
 }
-button {
-  margin: auto;
-  width: 120%;
-  padding: 10%;
-  background-color: var(--button);
-  color: black;
-  font-size: 1rem;
-  border-color: var(--button);
+.detailsMarketPlace {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3%;
 }
-@media (max-width: 767px) {
-  .userDescriptionPage {
-    display: flex;
-    flex-direction: column;
-    height: 125vh;
+.categories {
+  display: flex;
+  align-items: center;
+}
+.categories img {
+  width: 5%;
+}
+/* :::::::::::::::::::::::::::::::: */
+.fonds h3 {
+  width: 100%;
+  text-align: end;
+}
+.fonds div {
+  display: flex;
+  justify-content: flex-end;
+}
+.fonds div div {
+  border-right: 0px solid white;
+  width: 40%;
+}
+.fonds div div:first-child {
+  margin-right: 10%;
+}
+.fonds img {
+  margin: 0.5vh 0 2vh 85%;
+  width: 15%;
+}
+
+@media screen and (max-width: 1200px) {
+  header div:first-child {
+    display: none;
   }
-  .imgMain {
-    height: 15vh;
+}
+@media screen and (max-width: 768px) {
+  form button {
+    width: 40vh;
+    margin: 5vh auto 10vh auto;
+    padding: 1vh;
+  }
+  header {
+    margin-top: 0;
+  }
+  header div {
+    margin: 0 5%;
     width: 100%;
+    border-radius: 0px;
   }
-  .containerMain {
-    display: flex;
-    flex-direction: column-reverse;
+  header div:first-child,
+  header div:last-child {
+    display: none;
+  }
+  form {
+    padding: 0;
+  }
+  main {
+    padding: 0 1vw;
+    flex-direction: column;
     align-items: center;
-    height: 80vh;
-  }
-  .container1 {
-    width: 95%;
-    height: 50%;
-    background-color: transparent;
-    box-shadow: none;
-    margin: 0;
-  }
-  .sommary {
     width: 100%;
-    padding: 2%;
-    background-color: var(--whiteCard);
-    box-shadow: var(--boxShadow);
-    margin-top: 2%;
   }
-  .container2 {
-    width: 95%;
-    height: 45%;
-    margin: 0;
-  }
-  .imgScreen {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: transparent;
-  }
-  .screen {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 4%;
-    margin-bottom: 2%;
-  }
-  p {
-    padding: 5px;
+  main section {
+    width: 70%;
+    margin-top: 6vh;
   }
 }
 </style>

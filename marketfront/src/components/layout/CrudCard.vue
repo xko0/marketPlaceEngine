@@ -113,10 +113,14 @@
               <input type="number" id="leveeFonds" />
             </div>
           </div>
-          <img v-if="isConnected" src="../../assets/plus.png" alt="ajoutLeveeBtn" />
+          <img
+            v-if="isConnected"
+            src="../../assets/plus.png"
+            alt="ajoutLeveeBtn"
+          />
         </section>
-      </main>
       <button type="submit" class="radius">{{ submitBtn }}</button>
+      </main>
     </form>
   </div>
 </template>
@@ -165,7 +169,7 @@ export default {
   },
   methods: {
     onValidation() {
-      this.$emit("on-validation", { card : {...this.cardResume} });
+      this.$emit("on-validation", { card: { ...this.cardResume } });
     },
   },
 };
@@ -177,18 +181,18 @@ form {
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0 15vw 15vh 15vw;
+  padding-bottom: 15vh;
 }
 form button {
-  width: 10vw;
-  padding: 0.5%;
+  width: 15vw;
+  padding: 1%;
   align-self: flex-end;
-  margin-top: 1%;
+  margin-top: 5%;
 }
 /* HEADER =================================================== */
 header {
   height: 30vh;
-  width: 100%;
+  width: 80%;
   margin-top: 5vh;
   display: flex;
   justify-content: space-around;
@@ -196,8 +200,8 @@ header {
 }
 header div {
   padding: 1%;
-  margin: 1vh;
-  width: 35vw;
+  margin: 2vh;
+  width: 40vw;
   height: 100%;
   text-align: center;
   border-radius: 30px;
@@ -216,11 +220,13 @@ main {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 100%;
-  margin-top: 2%;
+  width: 70vw;
+  margin: 2% 0;
+  background-color: whitesmoke;
+  box-shadow: var(--boxShadow);
+  padding: 5%;
 }
 main section {
-  margin-top: 6vh;
   width: 30%;
 }
 h3 {
@@ -229,7 +235,7 @@ h3 {
 }
 label {
   width: 100%;
-  margin: 0 0 0.2vh 0vw;
+  margin: 0.5vh 0 0.2vh 0vw;
   font-size: 0.75rem;
   color: rgb(78, 78, 78);
 }
@@ -320,7 +326,7 @@ select {
     display: none;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   form button {
     width: 40vh;
     margin: 5vh auto 10vh auto;
@@ -349,6 +355,7 @@ select {
   }
   main section {
     width: 70%;
+    margin-top: 6vh;
   }
 }
 </style>

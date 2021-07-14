@@ -15,6 +15,7 @@ button {
   border: none;
   background-color: var(--button);
   width: auto;
+  box-shadow: var(--boxShadow);
 }
 
 .radiusCard {
