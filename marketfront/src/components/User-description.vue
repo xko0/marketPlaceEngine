@@ -1,6 +1,7 @@
 <template>
   <div class="userDescriptionPage">
-      <header>
+    <CrudCard submitBtn="Voir le site"/>
+      <!-- <header>
         <img class="imgMain" :src="this.card.logo" alt="logoCard" />
       </header>
       <div class="containerMain">
@@ -38,22 +39,32 @@
             <button class="radius">Voir le site !</button>
           </a>
         </aside>
-      </div>
+      </div> -->
   </div>
 </template>
 
 <script>
+import CrudCard from "./layout/CrudCard.vue"
 export default {
+  components: {
+    CrudCard,
+  },
   data() {
     return {
-      idCardUrl: this.$route.params.id, // on récupère l'id de la carte via l'url
-      card: {}
+      // idCardUrl: this.$route.params.id, // on récupère l'id de la carte via l'url
+      // card: {}
     }
   },
-  mounted () {
-    let cardFind = this.$store.state.card.cardsArray.find(card => card._id === this.idCardUrl)
-    this.card = {...cardFind}
-  },
+  // mounted () {
+  //   if (this.$route.path.substring(1) === "description") {
+  //     this.isDesc = true;
+  //   }
+  // },
+  // methods: {
+  //   goToWebsite(payload) {
+  //     let webSite = payload.card.urlMarketPlace
+  //   }
+  // },
 }
 </script>
 

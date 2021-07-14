@@ -101,14 +101,14 @@ export default {
       ifNoResult: false,
       regexp: /^[0-9A-Za-zàéèçù\s-]{0,30}$/,
       displayDeleteBtn: true,
-      isAdmin: false
+      isAdmin: false,
     };
   },
   mounted() {
     this.getCategories;
     this.getCards;
-    if(this.$route.path.substring(1) === 'adminhome') {
-        this.isAdmin = true
+    if (this.$route.path.substring(1) === "adminhome") {
+      this.isAdmin = true;
     }
   },
   computed: {
@@ -181,11 +181,11 @@ export default {
   margin-bottom: 10vh;
 }
 .search div:first-child {
-    margin-right: 5vh;
+  margin-right: 5vh;
 }
 .search img {
-    width: 8vh;
-    height: auto;
+  width: 8vh;
+  height: auto;
 }
 .searchWord {
   padding-left: 30px;
