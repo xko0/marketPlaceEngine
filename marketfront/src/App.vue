@@ -7,17 +7,24 @@
 </template>
 
 <script>
-import Menu from './components/layout/Menu.vue'
+import Menu from "./components/layout/Menu.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Menu,
-  }
-}
+  },
+  beforeCreated() {
+    if (localStorage.getItem("jwToken")) {
+      this.$store.state.admin.isConnected = true
+    } else {
+      this.$store.state.admin.isConnected = false
+    }
+  },
+};
 </script>
 
 <style>
-@import './css/layout.css';
-@import './css/variables.css';
+@import "./css/layout.css";
+@import "./css/variables.css";
 </style>

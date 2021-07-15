@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -75,11 +76,19 @@ export default {
     };
   },
   methods: {
-    logIn(user) {
-      this.$store.dispatch("admin/logIn", user);
-      if (this.$route.path !== "/adminhome") {
-        this.$router.push("/adminhome");
-      }
+    logIn() {
+      axios
+        .post("http://localhost:3001/api/user/login", this.form)
+        .then((res) => {
+          this.$store.commit("admin/IS_CONNECTED", res.data);
+        })
+        .then(() => {
+          this.$router.push("/adminhome");
+        })
+        .catch((error) => {
+          this.$router.push("/");
+          console.error(error);
+        });
     },
   },
 };
