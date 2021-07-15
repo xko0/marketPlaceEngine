@@ -14,13 +14,6 @@ export default {
   components: {
     Menu,
   },
-  beforeCreated() {
-    if (localStorage.getItem("jwToken")) {
-      this.$store.state.admin.isConnected = true
-    } else {
-      this.$store.state.admin.isConnected = false
-    }
-  },
 };
 </script>
 

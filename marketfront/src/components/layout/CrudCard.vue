@@ -191,6 +191,7 @@ form button {
   padding: 1%;
   align-self: flex-end;
   margin-top: 5%;
+  cursor: pointer;
 }
 /* HEADER =================================================== */
 header {
@@ -251,12 +252,14 @@ select {
   border-left: none;
   border-right: none;
   border-bottom: 1px solid black;
+  background-color: whitesmoke;
 }
 textarea {
   margin-top: 1vh;
   padding: 1vh;
   resize: none;
   border: 1px solid black;
+  background-color: whitesmoke;
   border-top: none;
   border-right: none;
   border-bottom: none;
