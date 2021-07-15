@@ -12,6 +12,7 @@ import Home from "./components/Home";
 import UserDescription from "./components/User-description";
 import AdminupdateCard from "./components/admin/Admin-modify-card";
 import store from "./store";
+import "./store/modules/admin.module";
 // import admin from "./store/modules/admin.module";
 
 Vue.use(VueRouter);
@@ -27,24 +28,40 @@ const router = new VueRouter({
     { path: "/log", component: Log },
     {
       path: "/adminhome",
-      // beforeEnter(to, from, next) {
-      //   if (admin.state.isConnected === true && admin.state.jwToken) {
-      //     next();
-      //   } else {
-      //     router.push("/log").catch(() => {});
-      //   } 
-      // },
       component: AdminHome,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/admincreatecard",
       component: AdminCreateCard,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/adminupdateCard/:id",
       component: AdminupdateCard,
+      meta: {
+        requiresAuth: true
+      }
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!localStorage.getItem("jwToken")) {
+      next({
+        path: "/log"
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 new Vue({

@@ -78,6 +78,7 @@ export default {
 }
 .suppBtn {
   background-color: transparent;
+  box-shadow: none;
   border: none;
   position: absolute;
   bottom: 80%;

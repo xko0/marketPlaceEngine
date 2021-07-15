@@ -7,17 +7,17 @@
 </template>
 
 <script>
-import Menu from './components/layout/Menu.vue'
+import Menu from "./components/layout/Menu.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Menu,
-  }
-}
+  },
+};
 </script>
 
 <style>
-@import './css/layout.css';
-@import './css/variables.css';
+@import "./css/layout.css";
+@import "./css/variables.css";
 </style>

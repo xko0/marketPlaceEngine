@@ -1,11 +1,11 @@
-import axios from "../../config/axios-interceptor";
+// import axios from "../../config/axios-interceptor";
 
 const admin = {
   namespaced: true,
   state: {
-    isConnected: false,
-    user: '',
-    jwToken: localStorage.getItem("jwToken"),
+    isConnected: localStorage.getItem("jwToken"), //vérifie si le jwToken du localStorage est présent, sinon isConnected = false
+    // user: '',
+    jwToken: '',
     errors: []
   },
   mutations: {
@@ -16,21 +16,10 @@ const admin = {
     },
     IS_DECONNECTED(state) {
       state.isConnected = false;
-      state.jwToken = null;
-      localStorage.setItem("jwToken", state.jwToken)
+      localStorage.removeItem("jwToken")
     },
   },
   actions: {
-    logIn({ commit }, user) {
-      axios
-        .post("http://localhost:3001/api/user/login", user)
-        .then((res) => {
-            commit("IS_CONNECTED", res.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
     logOut({ commit }) {
       commit("IS_DECONNECTED");
     },

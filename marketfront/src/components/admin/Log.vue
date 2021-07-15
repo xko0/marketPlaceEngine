@@ -1,70 +1,25 @@
 <template>
   <div>
-    <!-- <div class="login-wrap">
-      <div class="login-html">
-        <input
-          id="tab-1"
-          type="radio"
-          name="tab"
-          class="sign-in"
-          checked
-        /><label for="tab-1" class="tab">Connexion</label>
-        <input id="tab-2" type="radio" name="tab" class="sign-up" /><label
-          for="tab-2"
-          class="tab"
-          >Inscription</label
-        >
-        <div class="login-form"> -->
-    <form class="sign-in-htm" @submit.prevent="logIn(form)">
-      <div class="group">
-        <label for="user" class="label">Email</label>
-        <input id="user" type="email" class="input" v-model="form.email" />
-      </div>
-      <div class="group">
-        <label for="pass" class="label">Mot de passe</label>
-        <input
-          id="pass"
-          type="password"
-          class="input"
-          v-model="form.password"
-        />
-      </div>
-      <div class="hr"></div>
-      <div class="group">
-        <input type="submit" class="button" value="Connexion" />
-      </div>
-    </form>
-    <!-- <form class="sign-up-htm" @submit.prevent="signUp">
-            <div class="group">
-              <label for="user" class="label">Email</label>
-              <input
-                id="user"
-                type="email"
-                class="input"
-                v-model="form.email"
-              />
-            </div>
-            <div class="group">
-              <label for="pass" class="label">Mot de passe</label>
-              <input
-                id="pass"
-                type="password"
-                class="input"
-                v-model="form.password"
-              />
-            </div>
-            <div class="hr"></div>
-            <div class="group">
-              <input type="submit" class="button" value="Inscription" />
-            </div>
-          </form>
+    <form @submit.prevent="logIn(form)">
+      <section class="radiusCard">
+        <div>
+          <label for="user" class="label">Email</label>
+          <input id="user" type="email" class="input" v-model="form.email" />
         </div>
-      </div>
-    </div> -->
+        <div>
+          <label for="pass" class="label">Mot de passe</label>
+          <input type="password" class="input" v-model="form.password" />
+        </div>
+        <div>
+          <button class="radius" type="submit">Connexion</button>
+        </div>
+      </section>
+    </form>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -75,125 +30,64 @@ export default {
     };
   },
   methods: {
-    logIn(user) {
-      this.$store.dispatch("admin/logIn", user);
-      if (this.$route.path !== "/adminhome") {
-        this.$router.push("/adminhome");
-      }
+    logIn() {
+      axios
+        .post("http://localhost:3001/api/user/login", this.form)
+        .then((res) => {
+          this.$store.commit("admin/IS_CONNECTED", res.data);
+        })
+        .then(() => {
+          this.$router.push("/adminhome");
+        })
+        .catch((error) => {
+          this.$router.push("/");
+          console.error(error);
+        });
     },
   },
 };
 </script>
 
 <style scoped>
-.login-wrap {
-  margin: auto;
-  margin-top: 5%;
-  max-width: 525px;
-  min-height: 500px;
-  position: relative;
-  background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg)
-    no-repeat center;
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 20px;
+form {
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.login-html {
+form button {
+  width: 15vw;
+  padding: 3%;
+  align-self: center;
+  margin-top: 10%;
+  cursor: pointer;
+}
+input {
+  padding: 1vh;
+  margin-bottom: 1.2vh;
+  height: 23px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+  background-color: whitesmoke;
+}
+label {
   width: 100%;
-  height: 100%;
-  position: absolute;
-  padding: 15% 10%;
-  background: rgba(40, 57, 101, 0.9);
-  border-radius: 20px;
+  margin: 0.5vh 0 0.2vh 0vw;
+  font-size: 0.75rem;
+  color: rgb(78, 78, 78);
 }
-.login-html .sign-in-htm,
-.login-html .sign-up-htm {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-  transition: all 0.4s linear;
+section {
+  box-shadow: var(--boxShadow);
+  padding: 4vh;
+  background-color: whitesmoke;
 }
-.login-html .sign-in,
-.login-html .sign-up,
-.login-form .group .check {
-  display: none;
-}
-.login-html .tab,
-.login-form .group .label,
-.login-form .group .button {
-  text-transform: uppercase;
-}
-.login-html .tab {
-  font-size: 22px;
-  margin-right: 15px;
-  padding-bottom: 5px;
-  margin: 0 15px 10px 0;
-  display: inline-block;
-  border-bottom: 2px solid transparent;
-}
-.login-html .sign-in:checked + .tab,
-.login-html .sign-up:checked + .tab {
-  color: #fff;
-  border-color: #1161ee;
-}
-.login-form {
-  min-height: 345px;
-  position: relative;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-.login-form .group {
-  margin-bottom: 1.5rem;
-  margin-top: 1rem;
-}
-.login-form .group .label,
-.login-form .group .input,
-.login-form .group .button {
-  width: 100%;
-  color: #fff;
-  display: block;
-}
-.login-form .group .input,
-.login-form .group .button {
-  border: none;
-  padding: 15px 20px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
-}
-.login-form .group .label {
-  color: #aaa;
-  font-size: 12px;
-}
-.login-form .group .button {
-  background: var(--button);
-}
-.login-form .group label .icon {
-  width: 15px;
-  height: 15px;
-  border-radius: 2px;
-  position: relative;
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.1);
-}
-.login-html
-  .sign-in:checked
-  + .tab
-  + .sign-up
-  + .tab
-  + .login-form
-  .sign-in-htm {
-  transform: rotate(0);
-}
-.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
-  transform: rotate(0);
-}
-.hr {
-  height: 2px;
-  margin: 60px 0 50px 0;
-  background: rgba(255, 255, 255, 0.2);
+section div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 15px;
 }
 </style>
