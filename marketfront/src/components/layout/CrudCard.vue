@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AdminBar/>
     <Modal ref="modalName" />
     <form @submit.prevent="onValidation">
       <header>
@@ -128,10 +129,12 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import Modal from "../layout/CategorieModal.vue";
+import AdminBar from "../layout/adminBar.vue";
 
 export default {
   components: {
     Modal,
+    AdminBar
   },
   data() {
     return {
