@@ -176,6 +176,9 @@ export default {
 </script>
 
 <style scoped>
+.blur {
+  filter: blur(2px) contrast(50%) opacity(0.6);
+}
 form {
   display: flex;
   flex-direction: column;

@@ -53,7 +53,4 @@ export default {
 </script>
 
 <style scoped>
-.blur {
-  filter: blur(2px) contrast(50%) opacity(0.6);
-}
 </style>
