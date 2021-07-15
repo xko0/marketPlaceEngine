@@ -6,8 +6,7 @@
       :key="cardIndex"
       @click="goWhere(card._id)"
       :style="{
-        background: `url(${card.logo}) no-repeat center center`,
-        'background-size': '103%',
+        backgroundImage: `url(${card.logo})`,
       }"
     >
       <button
@@ -70,6 +69,9 @@ export default {
   align-items: center;
   cursor: pointer;
   position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 .card:hover {
   transform: scale(1.1);

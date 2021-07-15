@@ -1,55 +1,104 @@
 <template>
   <div>
-    <form>
+    <Modal ref="modalName" />
+    <form @submit.prevent="onValidation">
       <header>
         <div
           :style="{
             backgroundImage: `url(${cardResume.imgSite1})`,
           }"
-        ></div>
+        >
+          <input
+            type="text"
+            placeholder="Image 1"
+            v-model="cardResume.imgSite1"
+          />
+        </div>
         <div
           class="headerImg"
           :style="{
             backgroundImage: `url(${cardResume.logo})`,
           }"
-        ></div>
+        >
+          <input type="text" placeholder="Logo" v-model="cardResume.logo" />
+        </div>
         <div
           :style="{
             backgroundImage: `url(${cardResume.imgSite2})`,
           }"
-        ></div>
+        >
+          <input
+            type="text"
+            placeholder="Image 2"
+            v-model="cardResume.imgSite2"
+          />
+        </div>
       </header>
       <main class="radius">
         <section class="resume">
           <h3>Général</h3>
           <div>
             <label for="nom">Nom de la marketplace</label>
-            <p>{{ cardResume.titre }}</p>
+            <input
+              v-model="cardResume.titre"
+              type="text"
+              placeholder="Nom de la marketplace"
+              id="nom"
+            />
           </div>
           <div>
             <label for="description">Description</label>
-            <p>{{ cardResume.resumeMarketPlace }}</p>
+            <textarea
+              cols="20"
+              rows="8"
+              type="text"
+              class="inputSite"
+              placeholder="Description de la marketplace"
+              v-model="cardResume.resumeMarketPlace"
+            />
           </div>
         </section>
         <section class="infos">
           <h3>Chiffres Clés</h3>
           <div class="detailsMarketPlace">
             <label for="anneeCreation">Année de création</label>
-            <p>{{ cardResume.anneeCreation }}</p>
+            <input
+              type="number"
+              v-model="cardResume.anneeCreation"
+              id="anneeCreation"
+            />
           </div>
           <div class="detailsMarketPlace">
             <label for="localisation">Localisation</label>
-            <p>{{ cardResume.localisation }}</p>
+            <input
+              type="text"
+              v-model="cardResume.localisation"
+              id="localisation"
+            />
           </div>
           <div class="detailsMarketPlace">
             <div class="categories">
               <label for="categorie">Catégorie</label>
+              <img
+                src="../../assets/update.png"
+                alt=""
+                @click="$refs.modalName.openModal()"
+                v-if="isConnected"
+              />
             </div>
-            <p>{{ cardResume.categorie }}</p>
+            <select name="" id="" v-model="cardResume.categorie">
+              <option>--Catégories--</option>
+              <option
+                v-for="(cat, catIndex) in categoriesArray"
+                :key="catIndex"
+              >
+                {{ cat.nom }}
+              </option>
+            </select>
           </div>
           <div class="detailsMarketPlace">
             <label for="url">Site internet</label>
-            <p type="text" name="url">{{ cardResume.urlMarketPlace }}</p>
+            <input type="text" v-model="cardResume.urlMarketPlace" name="url" />
           </div>
         </section>
         <section class="fonds">
@@ -57,24 +106,33 @@
           <div>
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <p type="text" id="annee"></p>
+              <input type="text" id="annee" />
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
-              <p type="number" id="leveeFonds">{{ cardResume.leveeFonds }}</p>
+              <input type="number" id="leveeFonds" />
             </div>
           </div>
+          <img
+            v-if="isConnected"
+            src="../../assets/plus.png"
+            alt="ajoutLeveeBtn"
+          />
         </section>
-      <button class="radius">
-        <a :href="cardResume.urlMarketPlace" target="_blank">Voir le site</a>
-      </button>
+      <button type="submit" class="radius">{{ submitBtn }}</button>
       </main>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+import Modal from "../layout/CategorieModal.vue";
+
 export default {
+  components: {
+    Modal,
+  },
   data() {
     return {
       idCardUrl: this.$route.params.id,
@@ -92,19 +150,34 @@ export default {
       },
     };
   },
+  props: {
+    submitBtn: {
+      type: String,
+    },
+  },
   mounted() {
     let cardFind = this.$store.state.card.cardsArray.find(
       (card) => card._id === this.idCardUrl
     );
     this.cardResume = { ...cardFind };
+    this.getCategories;
+  },
+  computed: {
+    ...mapState("categorie", ["categoriesArray"]),
+    ...mapState("admin", ["isConnected"]),
+    ...mapActions("categorie", ["getCategories"]),
+  },
+  methods: {
+    onValidation() {
+      this.$emit("on-validation", { card: { ...this.cardResume } });
+    },
   },
 };
 </script>
 
 <style scoped>
-a {
-  text-decoration: none;
-  color: black;
+.blur {
+  filter: blur(2px) contrast(50%) opacity(0.6);
 }
 form {
   display: flex;
