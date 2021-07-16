@@ -1,9 +1,9 @@
 import axios from "axios";
-import Admin from "../store/modules/admin.module";
+// import Admin from "../store/modules/admin.module";
 
 axios.interceptors.request.use(
   (request) => {
-    const jwToken = Admin.state.jwToken;
+    const jwToken = localStorage.getItem("jwToken");
     if (jwToken) {
       request.headers["Authorization"] = `Bearer ${jwToken}`;
     }

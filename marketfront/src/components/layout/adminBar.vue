@@ -4,7 +4,7 @@
       <img src="../../assets/shopping.png" alt="">
       <p>Marketplaces</p>
     </router-link>
-    <router-link class="link" to="/categories">
+    <router-link class="link" to="/admincategories">
       <img src="../../assets/faders.png" alt="">
       <p>Catégories</p>
     </router-link>
