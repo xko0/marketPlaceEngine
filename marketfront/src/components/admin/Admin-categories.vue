@@ -5,7 +5,7 @@
       <input
         class="radius"
         type="text"
-        placeholder="ajouter une categorie"
+        placeholder="Ajouter une categorie"
         v-model="categorieResume.nom"
       />
       <button type="submit" @click="addCategory">Ajouter</button>
@@ -57,9 +57,14 @@ export default {
           this.categorieResume.nom = "";
           // on "rafraîchit" la liste des catégories:
           this.$store.dispatch("categorie/getCategories");
+
+          // affichage du message de confirmation:
           let updateCat = document.querySelector(".modal__body p");
           updateCat.innerHTML = "Catégorie créée avec succés !";
-          updateCat.setAttribute("style", "display: block");
+          updateCat.setAttribute(
+            "style",
+            "display: block; background-color: rgb(49, 211, 49);"
+          );
           setTimeout(() => {
             updateCat.setAttribute("style", "display: none");
           }, 2000);
@@ -82,7 +87,10 @@ export default {
             .then(() => {
               let updateCat = document.querySelector(".modal__body p");
               updateCat.innerHTML = "Catégorie modifiée avec succés !";
-              updateCat.setAttribute("style", "display: block");
+              updateCat.setAttribute(
+                "style",
+                "display: block; background-color: rgb(255, 208, 0);"
+              );
               setTimeout(() => {
                 updateCat.setAttribute("style", "display: none");
               }, 2000);
@@ -112,6 +120,7 @@ export default {
   padding: 0;
 }
 .addCategory input {
+  font-size: 1rem;
   padding-left: 30px;
   width: 40%;
   border: solid 1px var(--bluePrimary);
@@ -121,14 +130,23 @@ export default {
 .addCategory button {
   height: 6vh;
   width: 15vh;
-  margin-left: 2%;
+  margin-left: 5vh;
   border-radius: 30px;
+}
+.modal__body p {
+  width: 100%;
+  padding: 1%;
+  text-align: center;
+  position: fixed;
+  bottom: 5vh;
+  display: none;
 }
 .modal__body ul {
   margin: 3% 0 4% 0;
   position: relative;
 }
-.modal__body ul :nth-child(odd) {
+.modal__body ul li:nth-child(odd),
+.modal__body ul li:nth-child(odd) input {
   background-color: whitesmoke;
 }
 .modal__body ul li {
@@ -137,49 +155,26 @@ export default {
   align-items: center;
   height: 6vh;
 }
-.modal__body p {
-  width: 100%;
-  padding: 1%;
-  text-align: center;
-  background-color: rgb(49, 211, 49);
-  display: none;
-  position: absolute;
-  top: 100%;
-  z-index: 15;
-}
 .modal__body input {
+  font-size: 1rem;
   padding: 1vh;
-  margin-bottom: 1.2vh;
   height: 23px;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid black;
-  background-color: none;
-  /* background-color: whitesmoke; */
-  /* margin: 10px;
-  width: 30%;
-  height: 40px;
-  border-radius: 15px;
-  text-align: center; */
 }
-button {
+.modal__body button {
   border-radius: 15px;
   width: 100px;
   height: 35px;
   padding: 0;
   cursor: pointer;
+  box-shadow: none;
 }
 img {
   cursor: pointer;
   width: 40px;
-}
-.modal__footer {
-  text-align: center;
-}
-h1 {
-  text-align: center;
-  margin-bottom: 10px;
 }
 </style>
 

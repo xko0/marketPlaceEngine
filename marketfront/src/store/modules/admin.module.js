@@ -1,10 +1,7 @@
-// import axios from "../../config/axios-interceptor";
-
 const admin = {
   namespaced: true,
   state: {
     isConnected: localStorage.getItem("jwToken"), //vérifie si le jwToken du localStorage est présent, sinon isConnected = false
-    // user: '',
     jwToken: '',
     errors: []
   },

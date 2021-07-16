@@ -187,20 +187,20 @@ form {
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  padding-bottom: 15vh;
+  padding-bottom: 5vh;
 }
 form button {
   width: 15vw;
   padding: 1%;
   align-self: flex-end;
-  margin-top: 5%;
+  margin-top: 2%;
   cursor: pointer;
 }
 /* HEADER =================================================== */
 header {
   height: 30vh;
   width: 80%;
-  margin-top: 5vh;
+  /* margin-top: 5vh; */
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -231,7 +231,7 @@ main {
   margin: 2% 0;
   background-color: whitesmoke;
   box-shadow: var(--boxShadow);
-  padding: 5%;
+  padding: 3%;
 }
 main section {
   width: 30%;
@@ -246,18 +246,20 @@ label {
   font-size: 0.75rem;
   color: rgb(78, 78, 78);
 }
-input,
+main input,
 select {
   padding: 1vh;
-  margin-bottom: 1.2vh;
+  margin:0.8vh 0 1.2vh 0;
   height: 23px;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid black;
   background-color: whitesmoke;
+  font-size: 1rem;
 }
 textarea {
+  font-size: 1rem;
   margin-top: 1vh;
   padding: 1vh;
   resize: none;

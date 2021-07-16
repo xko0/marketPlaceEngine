@@ -57,7 +57,7 @@ export default {
   justify-content: center;
 }
 .card {
-  margin: 0 2% 5% 2%;
+  margin: 0 2% 3% 2%;
   padding: 2%;
   width: 371px;
   height: 238px;
@@ -72,6 +72,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  background-origin: content-box;
 }
 .card:hover {
   transform: scale(1.1);

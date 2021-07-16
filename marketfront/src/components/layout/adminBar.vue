@@ -1,18 +1,18 @@
 <template>
   <div class="adminBar">
-    <router-link class="link" to="/adminhome">
+    <router-link class="link home" to="/adminhome">
       <img src="../../assets/shopping.png" alt="">
       <p>Marketplaces</p>
     </router-link>
-    <router-link class="link" to="/admincategories">
+    <router-link class="link cat" to="/admincategories">
       <img src="../../assets/faders.png" alt="">
       <p>Catégories</p>
     </router-link>
-    <router-link class="link" to="users">
+    <router-link class="link users" to="users">
       <img src="../../assets/users.png" alt="">
       <p>Utilisateurs</p>
     </router-link>
-    <router-link class="link" to="propositions">
+    <router-link class="link propositions" to="propositions">
       <img src="../../assets/chats.png" alt="">
       <p>Propositions</p>
     </router-link>
@@ -20,7 +20,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted () {
+    let route = this.$route.path
+    switch(route) {
+      case "/adminhome":
+        document.querySelector('.home').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
+        break
+      case "/admincategories":
+        document.querySelector('.cat').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
+        break
+      case "/users":
+        document.querySelector('.users').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
+        break
+      case "/propositions":
+        document.querySelector('.propositions').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
+        break
+    }
+  },
+};
 </script>
 
 <style scoped>
