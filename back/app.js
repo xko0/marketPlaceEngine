@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 
@@ -24,7 +24,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json()) 
 
 app.use('/api/card', cardRoutes);
 app.use('/api/categorie', categoryRoutes);

@@ -42,7 +42,6 @@ export default {
         })
         .then(() => {
           this.$router.push("/adminhome"); // redirection vers la page admin-home
-          console.log("ok");
         })
         .catch((error) => {
           console.error(error);
