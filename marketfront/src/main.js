@@ -11,6 +11,8 @@ import Log from "./components/admin/Log";
 import Home from "./components/Home";
 import UserDescription from "./components/User-description";
 import AdminupdateCard from "./components/admin/Admin-modify-card";
+import AdminCategories from "./components/admin/Admin-categories";
+import AdminUsers from "./components/admin/Admin-users";
 import store from "./store";
 import "./store/modules/admin.module";
 // import admin from "./store/modules/admin.module";
@@ -43,6 +45,20 @@ const router = new VueRouter({
     {
       path: "/adminupdateCard/:id",
       component: AdminupdateCard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/admincategories",
+      component: AdminCategories,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/users",
+      component: AdminUsers,
       meta: {
         requiresAuth: true
       }

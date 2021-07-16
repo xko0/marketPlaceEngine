@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="searchPage">
     <div class="search">
       <div v-if="isAdmin">
         <router-link to="/admincreatecard">
@@ -77,8 +77,7 @@
       />
     </div>
     <p class="ifNoResult" v-show="ifNoResult">
-      Aucune marketplace ne correspond à vos critères de recherche. Proposez la
-      votre ici
+      Aucune marketplace ne correspond à vos critères de recherche.
     </p>
   </div>
 </template>
@@ -173,12 +172,15 @@ export default {
 </script>
 
 <style scoped>
+.searchPage {
+  padding-bottom: 5%;
+}
 .search {
   width: 100%;
   display: flex;
   justify-content: center;
   height: 8vh;
-  margin-bottom: 10vh;
+  margin-bottom: 3%;
 }
 .search div:first-child {
   margin-right: 5vh;
@@ -188,12 +190,14 @@ export default {
   height: auto;
 }
 .searchWord {
+  font-size: 1rem;
   padding-left: 30px;
   width: 40%;
   border: solid 1px var(--bluePrimary);
   background-color: white;
 }
 .searchCategory {
+  font-size: 1rem;
   width: 20%;
   padding: 0 30px;
   background-color: white;

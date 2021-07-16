@@ -111,19 +111,19 @@ form {
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  padding-bottom: 15vh;
+  padding-bottom: 5vh;
 }
 form button {
   width: 15vw;
   padding: 1%;
   align-self: flex-end;
-  margin-top: 5%;
+  margin-top: 3%;
 }
 /* HEADER =================================================== */
 header {
   height: 30vh;
   width: 80%;
-  margin-top: 5vh;
+  margin-top: 2vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -154,7 +154,7 @@ main {
   margin: 2% 0;
   background-color: whitesmoke;
   box-shadow: var(--boxShadow);
-  padding: 5%;
+  padding: 3%;
 }
 main section {
   width: 30%;
