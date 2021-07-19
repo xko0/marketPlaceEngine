@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form>
+    <section>
       <header>
         <div
           :style="{
@@ -65,11 +65,11 @@
             </div>
           </div>
         </section>
-      <button class="radius">
-        <a :href="cardResume.urlMarketPlace" target="_blank">Voir le site</a>
-      </button>
+        <a :href="cardResume.urlMarketPlace" target="_blank"
+          ><button class="radius">Voir le site</button></a
+        >
       </main>
-    </form>
+    </section>
   </div>
 </template>
 
@@ -106,16 +106,16 @@ a {
   text-decoration: none;
   color: black;
 }
-form {
+section {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
   padding-bottom: 5vh;
 }
-form button {
+section button {
   width: 15vw;
-  padding: 1%;
+  padding: 5%;
   align-self: flex-end;
   margin-top: 3%;
 }

@@ -8,7 +8,7 @@
       <img src="../../assets/faders.png" alt="">
       <p>Catégories</p>
     </router-link>
-    <router-link class="link users" to="users">
+    <router-link class="link users" to="/users">
       <img src="../../assets/users.png" alt="">
       <p>Utilisateurs</p>
     </router-link>

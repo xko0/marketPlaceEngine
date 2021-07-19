@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 exports.signup = (req, res, next) => {
   bcrypt
@@ -32,14 +32,24 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             userId: user._id,
-            token: jwt.sign(
-                {userId: user._id},
-                'RANDOM_TOKEN_SECRET',
-                { expiresIn: 24*3600 }
-            ),
+            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+              expiresIn: 24 * 3600,
+            }),
           });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch((error) => res.status(500).json({ error }));
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json({ error }));
 };
+
+exports.getUsers = (req, res, next) => {
+  User.find()
+    .then((users) => res.status(200).json(users))
+    .catch((error) => res.status(400).json({ error }));
+};
+
+exports.deleteUser = (req, res, next) => {
+  User.deleteOne({ _id: req.params.id })
+  .then(() => res.status(200).json({ message: 'utilisateur supprimé' }))
+  .catch(error => res.status(400).json({ error }));
+}

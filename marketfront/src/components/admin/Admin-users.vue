@@ -18,13 +18,25 @@
       </div>
       <button class="radius">Créer</button>
     </form>
-    
+    <div class="users__body">
+      <ul>
+        <li v-for="(user, userIndex) in usersArray" :key="userIndex">
+          <p>{{ user.email }}</p>
+          <img
+            src="../../assets/trash.png"
+            alt=""
+            @click="deleteUser(user._id)"
+          />
+        </li>
+      </ul>
+      <p></p>
+    </div>
   </div>
 </template>
 
 <script>
 import AdminBar from "../layout/adminBar.vue";
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   components: {
@@ -36,7 +48,11 @@ export default {
         email: "",
         password: "",
       },
+      usersArray: [],
     };
+  },
+  mounted() {
+    this.getUsers();
   },
   methods: {
     signUp() {
@@ -44,8 +60,27 @@ export default {
         .post("http://localhost:3001/api/user/signup", { ...this.userForm })
         .then(() => {
           console.log("creation ok");
-          this.userForm = {...""}
+          this.userForm = { ..."" };
+          this.getUsers();
         })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getUsers() {
+      axios
+        .get("http://localhost:3001/api/user")
+        .then((res) => {
+          this.usersArray = res.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    deleteUser(idUser) {
+      axios
+        .delete(`http://localhost:3001/api/user/${idUser}`)
+        .then(() => this.getUsers())
         .catch((error) => {
           console.error(error);
         });
@@ -78,5 +113,24 @@ export default {
   width: 15vh;
   margin-left: 5vh;
   border-radius: 30px;
+}
+.users__body ul {
+  margin: 3% 0 4% 0;
+  position: relative;
+}
+.users__body ul li:nth-child(odd),
+.users__body ul li:nth-child(odd) input {
+  background-color: whitesmoke;
+}
+.users__body ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6vh;
+  padding: 0 25%;
+}
+img {
+  cursor: pointer;
+  width: 40px;
 }
 </style>
