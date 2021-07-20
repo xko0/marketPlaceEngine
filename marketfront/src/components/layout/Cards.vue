@@ -1,10 +1,13 @@
 <template>
   <div class="display">
     <div
-      class="card"
+      class="card radiusCard"
       v-for="(card, cardIndex) in array"
       :key="cardIndex"
       @click="goWhere(card._id)"
+      :style="{
+        backgroundImage: `url(${card.logo})`,
+      }"
     >
       <button
         class="suppBtn"
@@ -13,7 +16,6 @@
       >
         <img src="../../assets/moins.png" alt="" />
       </button>
-      <img class="cardLogo" :src="card.logo" alt="" />
       <div class="bandeau">
         <h1>{{ card.titre }}</h1>
         <h4>{{ card.categorie }}</h4>
@@ -43,19 +45,25 @@ export default {
   methods: {
     deleteCard(idCard) {
       this.$store.dispatch("card/deleteCard", idCard);
+      this.$store.state.popup.message = "Marketplace supprimée avec succés";
+      this.$store.dispatch("popup/popUpMsgRed");
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .card {
-  margin: 8% 2% 0% 2%;
+  margin: 0 2% 3% 2%;
   padding: 2%;
   width: 371px;
   height: 238px;
-  border-radius: 15px;
-  box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--boxShadow);
   overflow: visible;
   display: flex;
   flex-direction: column;
@@ -63,35 +71,17 @@ export default {
   align-items: center;
   cursor: pointer;
   position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-origin: content-box;
 }
 .card:hover {
   transform: scale(1.1);
 }
-.cardLogo {
-  width: 371px;
-  height: 238px;
-  border-radius: 10px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-.display {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.bandeau {
-  z-index: 1;
-  margin-top: 45.3%;
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 100%;
-  position: absolute;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  text-align: center;
-}
 .suppBtn {
   background-color: transparent;
+  box-shadow: none;
   border: none;
   position: absolute;
   bottom: 80%;
@@ -103,5 +93,28 @@ export default {
   height: auto;
   margin: 0;
   padding: 0;
+}
+.bandeau {
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  transform: translateY(-100%);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  text-align: center;
+  padding: 2% 0;
+}
+.bandeau h1 {
+  font-size: 1.5rem;
+}
+.bandeau h4 {
+  font-size: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .card {
+    margin-bottom: 12%;
+  }
 }
 </style>
