@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cardRoutes = require('./router/card');
 const categoryRoutes = require('./router/category');
 const userRoutes = require('./router/user');
+const propositionRoutes = require('./router/proposition');
 
 mongoose.connect('mongodb+srv://somemark:somemarkadmin@cluster0.kovjn.mongodb.net/marketPlaceEngine?retryWrites=true&w=majority',
     {
@@ -24,13 +25,13 @@ app.use((req, res, next) => {
     next();
 });
 
-// app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) 
 
 app.use('/api/card', cardRoutes);
 app.use('/api/categorie', categoryRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/proposition', propositionRoutes);
 
 
 

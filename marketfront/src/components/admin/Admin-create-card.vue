@@ -19,7 +19,7 @@ export default {
         titre: "",
         anneeCreation: "",
         localisation: "",
-        leveeFonds: "",
+        leveeFonds: [],
         categorie: "",
         resumeMarketPlace: "",
         urlMarketPlace: "",
@@ -36,20 +36,31 @@ export default {
   methods: {
     postCard(payload) {
       this.cardResume = payload.card;
+
+      // Première lettre en majuscule
+      let word = this.cardResume.titre;
+      this.cardResume.titre =
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+
       this.verifyDuplicate = this.cardsArray.filter((card) =>
         card.titre.toUpperCase().includes(this.cardResume.titre.toUpperCase())
       );
+      // Pour éviter les doublons de marketplace:
       if (this.verifyDuplicate.length === 0) {
         axios
           .post("http://localhost:3001/api/card", { ...this.cardResume })
           .then(() => {
-            this.$router.push("/adminhome"); // redirection vers la page admin-home
+            this.$store.state.popup.message = "Marketplace créée avec succés";
+            this.$store.dispatch("popup/popUpMsgGreen");
+            this.$router.push("/adminhome");
           })
           .catch((error) => {
             console.error(error);
           });
       } else {
-        console.log('carte existante');
+        this.$store.state.popup.message =
+          "Une marketplace existe déjà avec ce nom";
+        this.$store.dispatch("popup/popUpMsgRed");
       }
     },
   },

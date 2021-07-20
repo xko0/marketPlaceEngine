@@ -20,7 +20,7 @@ export default {
         titre: "",
         anneeCreation: "",
         localisation: "",
-        leveeFonds: "",
+        leveeFonds: [],
         categorie: "",
         resumeMarketPlace: "",
         urlMarketPlace: "",
@@ -35,12 +35,20 @@ export default {
   },
   methods: {
     updateCard(payload) {
-      this.cardResume = payload.card
+      this.cardResume = payload.card;
+
+      // Première lettre en majuscule
+      let word = this.cardResume.titre;
+      this.cardResume.titre =
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+
       axios
         .put(`http://localhost:3001/api/card/${this.idCardUrl}`, {
           ...this.cardResume,
         })
         .then(() => {
+          this.$store.state.popup.message = "Marketplace modifiée avec succés";
+          this.$store.dispatch("popup/popUpMsgGreen");
           this.$router.push("/adminhome"); // redirection vers la page admin-home
         })
         .catch((error) => {

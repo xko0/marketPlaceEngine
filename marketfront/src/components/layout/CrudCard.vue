@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AdminBar/>
+    <AdminBar />
     <Modal ref="modalName" />
     <form @submit.prevent="onValidation">
       <header>
@@ -41,6 +41,7 @@
           <div>
             <label for="nom">Nom de la marketplace</label>
             <input
+              required
               v-model="cardResume.titre"
               type="text"
               placeholder="Nom de la marketplace"
@@ -50,6 +51,7 @@
           <div>
             <label for="description">Description</label>
             <textarea
+              required
               cols="20"
               rows="8"
               type="text"
@@ -81,14 +83,14 @@
             <div class="categories">
               <label for="categorie">Catégorie</label>
               <img
-                src="../../assets/update.png"
+                src="../../assets/plus.png"
                 alt=""
                 @click="$refs.modalName.openModal()"
                 v-if="isConnected"
               />
             </div>
-            <select name="" id="" v-model="cardResume.categorie">
-              <option>--Catégories--</option>
+            <select required name="" id="" v-model="cardResume.categorie">
+              <option disabled>--Catégories--</option>
               <option
                 v-for="(cat, catIndex) in categoriesArray"
                 :key="catIndex"
@@ -99,28 +101,45 @@
           </div>
           <div class="detailsMarketPlace">
             <label for="url">Site internet</label>
-            <input type="text" v-model="cardResume.urlMarketPlace" name="url" />
+            <input
+              required
+              type="text"
+              v-model="cardResume.urlMarketPlace"
+              name="url"
+            />
           </div>
         </section>
         <section class="fonds">
           <h3>Levées de fonds</h3>
-          <div>
+          <div
+            v-for="(levee, indexLevee) in leveeFondsArray"
+            :key="indexLevee"
+          >
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <input type="text" id="annee" />
+              <input
+                type="text"
+                id="annee"
+                v-model="leveeFondsArray[indexLevee].annee"
+              />
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
-              <input type="number" id="leveeFonds" />
+              <input
+                type="text"
+                id="leveeFonds"
+                v-model="leveeFondsArray[indexLevee].montant"
+              />
             </div>
           </div>
           <img
             v-if="isConnected"
             src="../../assets/plus.png"
             alt="ajoutLeveeBtn"
+            @click="addLeveeFonds"
           />
         </section>
-      <button type="submit" class="radius">{{ submitBtn }}</button>
+        <button type="submit" class="radius">{{ submitBtn }}</button>
       </main>
     </form>
   </div>
@@ -134,7 +153,7 @@ import AdminBar from "../layout/adminBar.vue";
 export default {
   components: {
     Modal,
-    AdminBar
+    AdminBar,
   },
   data() {
     return {
@@ -143,7 +162,7 @@ export default {
         titre: "",
         anneeCreation: "",
         localisation: "",
-        leveeFonds: "",
+        leveeFonds: [],
         categorie: "",
         resumeMarketPlace: "",
         urlMarketPlace: "",
@@ -151,6 +170,12 @@ export default {
         imgSite1: "",
         imgSite2: "",
       },
+      leveeFondsArray: [
+        {
+          montant: "",
+          annee: "",
+        },
+      ],
     };
   },
   props: {
@@ -173,6 +198,14 @@ export default {
   methods: {
     onValidation() {
       this.$emit("on-validation", { card: { ...this.cardResume } });
+    },
+    addLeveeFonds() {
+      this.leveeFondsArray.push({
+        annee: "",
+        montant: ""
+      })
+      this.cardResume.leveeFonds = this.leveeFondsArray.slice(0)
+      console.log(this.cardResume.leveeFonds);
     },
   },
 };
@@ -200,7 +233,6 @@ form button {
 header {
   height: 30vh;
   width: 80%;
-  /* margin-top: 5vh; */
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -239,6 +271,8 @@ main section {
 h3 {
   margin-bottom: 2vh;
   font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
 }
 label {
   width: 100%;
@@ -249,7 +283,7 @@ label {
 main input,
 select {
   padding: 1vh;
-  margin:0.8vh 0 1.2vh 0;
+  margin: 0.8vh 0 1.2vh 0;
   height: 23px;
   border-top: none;
   border-left: none;
@@ -291,10 +325,6 @@ textarea {
   justify-content: flex-start;
   align-items: stretch;
 }
-.infos h3 {
-  width: 100%;
-  text-align: center;
-}
 select {
   padding: 1%;
 }
@@ -309,13 +339,10 @@ select {
   align-items: center;
 }
 .categories img {
-  width: 5%;
+  width: 9%;
+  cursor: pointer;
 }
 /* :::::::::::::::::::::::::::::::: */
-.fonds h3 {
-  width: 100%;
-  text-align: end;
-}
 .fonds div {
   display: flex;
   justify-content: flex-end;

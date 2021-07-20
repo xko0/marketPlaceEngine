@@ -162,6 +162,8 @@ main section {
 h3 {
   margin-bottom: 2vh;
   font-size: 1.5rem;
+  text-align: center;
+  width: 100%;
 }
 label {
   width: 100%;
@@ -194,12 +196,13 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: flex-start;
 }
 .resume div {
-  display: block;
+  /* display: block; */
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   margin-bottom: 3%;
 }
 /* ::::::::::::::::::::::::::::::: */
@@ -209,10 +212,6 @@ textarea {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-}
-.infos h3 {
-  width: 100%;
-  text-align: center;
 }
 select {
   padding: 1%;
@@ -231,13 +230,10 @@ select {
   width: 5%;
 }
 /* :::::::::::::::::::::::::::::::: */
-.fonds h3 {
-  width: 100%;
-  text-align: end;
-}
 .fonds div {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }
 .fonds div div {
   border-right: 0px solid white;
@@ -245,10 +241,6 @@ select {
 }
 .fonds div div:first-child {
   margin-right: 10%;
-}
-.fonds img {
-  margin: 0.5vh 0 2vh 85%;
-  width: 15%;
 }
 
 @media screen and (max-width: 1200px) {
