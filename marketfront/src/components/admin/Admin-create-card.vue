@@ -27,6 +27,12 @@ export default {
         imgSite1: "",
         imgSite2: "",
       },
+      leveeFondsArray: [
+        {
+          montant: "",
+          annee: "",
+        },
+      ],
       verifyDuplicate: [],
     };
   },
@@ -36,7 +42,8 @@ export default {
   methods: {
     postCard(payload) {
       this.cardResume = payload.card;
-
+      this.cardResume.leveeFonds = payload.cardLeveeFonds.slice(0)
+      
       // Première lettre en majuscule
       let word = this.cardResume.titre;
       this.cardResume.titre =

@@ -36,6 +36,7 @@ export default {
   methods: {
     updateCard(payload) {
       this.cardResume = payload.card;
+      this.cardResume.leveeFonds = payload.cardLeveeFonds.slice(0);
 
       // Première lettre en majuscule
       let word = this.cardResume.titre;

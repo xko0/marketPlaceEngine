@@ -54,14 +54,14 @@
         </section>
         <section class="fonds">
           <h3>Levées de fonds</h3>
-          <div>
+          <div v-for="(levee, index) in leveeFondsArray" :key="index">
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <p type="text" id="annee"></p>
+              <p type="text" id="annee">{{ leveeFondsArray[index].annee }}</p>
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
-              <p type="number" id="leveeFonds">{{ cardResume.leveeFonds }}</p>
+              <p type="number" id="leveeFonds">{{ leveeFondsArray[index].montant }}</p>
             </div>
           </div>
         </section>
@@ -82,7 +82,7 @@ export default {
         titre: "",
         anneeCreation: "",
         localisation: "",
-        leveeFonds: "",
+        leveeFonds: [],
         categorie: "",
         resumeMarketPlace: "",
         urlMarketPlace: "",
@@ -90,6 +90,12 @@ export default {
         imgSite1: "",
         imgSite2: "",
       },
+      leveeFondsArray: [
+        {
+          montant: "",
+          annee: "",
+        },
+      ],
     };
   },
   mounted() {
@@ -97,6 +103,7 @@ export default {
       (card) => card._id === this.idCardUrl
     );
     this.cardResume = { ...cardFind };
+    this.leveeFondsArray = this.cardResume.leveeFonds.slice(0)
   },
 };
 </script>

@@ -183,11 +183,14 @@ export default {
       type: String,
     },
   },
-  mounted() {
+  mounted () {
     let cardFind = this.$store.state.card.cardsArray.find(
       (card) => card._id === this.idCardUrl
     );
     this.cardResume = { ...cardFind };
+    if(this.$route.path.includes("adminupdate")) {
+      this.leveeFondsArray = this.cardResume.leveeFonds.slice(0)
+    }
     this.getCategories;
   },
   computed: {
@@ -197,15 +200,13 @@ export default {
   },
   methods: {
     onValidation() {
-      this.$emit("on-validation", { card: { ...this.cardResume } });
+      this.$emit("on-validation", { card: { ...this.cardResume }, cardLeveeFonds: this.leveeFondsArray });
     },
     addLeveeFonds() {
       this.leveeFondsArray.push({
         annee: "",
         montant: ""
       })
-      this.cardResume.leveeFonds = this.leveeFondsArray.slice(0)
-      console.log(this.cardResume.leveeFonds);
     },
   },
 };
