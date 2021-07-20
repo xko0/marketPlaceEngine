@@ -22,7 +22,6 @@
           />
         </li>
       </ul>
-      <p></p>
     </div>
   </div>
 </template>
@@ -38,6 +37,7 @@ export default {
   },
   data() {
     return {
+      msg: "",
       show: false,
       categorieResume: {
         nom: "",
@@ -49,6 +49,11 @@ export default {
   },
   methods: {
     addCategory() {
+      
+      // Première lettre en majuscule
+      let word = this.categorieResume.nom
+      this.categorieResume.nom = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      
       return axios
         .post("http://localhost:3001/api/categorie", {
           ...this.categorieResume,
@@ -57,17 +62,9 @@ export default {
           this.categorieResume.nom = "";
           // on "rafraîchit" la liste des catégories:
           this.$store.dispatch("categorie/getCategories");
-
           // affichage du message de confirmation:
-          let updateCat = document.querySelector(".modal__body p");
-          updateCat.innerHTML = "Catégorie créée avec succés !";
-          updateCat.setAttribute(
-            "style",
-            "display: block; background-color: rgb(49, 211, 49);"
-          );
-          setTimeout(() => {
-            updateCat.setAttribute("style", "display: none");
-          }, 2000);
+          this.$store.state.popup.message = "Catégorie créée avec succés";
+          this.$store.dispatch("popup/popUpMsgGreen");
         })
         .catch((error) => {
           console.error(error);
@@ -75,6 +72,8 @@ export default {
     },
     deleteCategory(idCat) {
       this.$store.dispatch("categorie/deleteCategory", idCat);
+      this.$store.state.popup.message = "Catégorie supprimée avec succés";
+      this.$store.dispatch("popup/popUpMsgGreen");
     },
     updateCategory(idCat) {
       this.categoriesArray.filter((category) => {
@@ -85,15 +84,9 @@ export default {
               nom: category.nom,
             })
             .then(() => {
-              let updateCat = document.querySelector(".modal__body p");
-              updateCat.innerHTML = "Catégorie modifiée avec succés !";
-              updateCat.setAttribute(
-                "style",
-                "display: block; background-color: rgb(255, 208, 0);"
-              );
-              setTimeout(() => {
-                updateCat.setAttribute("style", "display: none");
-              }, 2000);
+              this.$store.state.popup.message =
+                "Catégorie modifiée avec succés";
+              this.$store.dispatch("popup/popUpMsgGreen");
             })
             .catch((error) => {
               console.error(error);

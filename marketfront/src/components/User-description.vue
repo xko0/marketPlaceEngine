@@ -54,14 +54,14 @@
         </section>
         <section class="fonds">
           <h3>Levées de fonds</h3>
-          <div>
+          <div v-for="(levee, index) in leveeFondsArray" :key="index">
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <p type="text" id="annee"></p>
+              <p type="text" id="annee">{{ leveeFondsArray[index].annee }}</p>
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
-              <p type="number" id="leveeFonds">{{ cardResume.leveeFonds }}</p>
+              <p type="number" id="leveeFonds">{{ leveeFondsArray[index].montant }}</p>
             </div>
           </div>
         </section>
@@ -82,7 +82,7 @@ export default {
         titre: "",
         anneeCreation: "",
         localisation: "",
-        leveeFonds: "",
+        leveeFonds: [],
         categorie: "",
         resumeMarketPlace: "",
         urlMarketPlace: "",
@@ -90,6 +90,12 @@ export default {
         imgSite1: "",
         imgSite2: "",
       },
+      leveeFondsArray: [
+        {
+          montant: "",
+          annee: "",
+        },
+      ],
     };
   },
   mounted() {
@@ -97,6 +103,7 @@ export default {
       (card) => card._id === this.idCardUrl
     );
     this.cardResume = { ...cardFind };
+    this.leveeFondsArray = this.cardResume.leveeFonds.slice(0)
   },
 };
 </script>
@@ -162,6 +169,8 @@ main section {
 h3 {
   margin-bottom: 2vh;
   font-size: 1.5rem;
+  text-align: center;
+  width: 100%;
 }
 label {
   width: 100%;
@@ -194,12 +203,13 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: flex-start;
 }
 .resume div {
-  display: block;
+  /* display: block; */
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   margin-bottom: 3%;
 }
 /* ::::::::::::::::::::::::::::::: */
@@ -209,10 +219,6 @@ textarea {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-}
-.infos h3 {
-  width: 100%;
-  text-align: center;
 }
 select {
   padding: 1%;
@@ -231,13 +237,10 @@ select {
   width: 5%;
 }
 /* :::::::::::::::::::::::::::::::: */
-.fonds h3 {
-  width: 100%;
-  text-align: end;
-}
 .fonds div {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }
 .fonds div div {
   border-right: 0px solid white;
@@ -245,10 +248,6 @@ select {
 }
 .fonds div div:first-child {
   margin-right: 10%;
-}
-.fonds img {
-  margin: 0.5vh 0 2vh 85%;
-  width: 15%;
 }
 
 @media screen and (max-width: 1200px) {

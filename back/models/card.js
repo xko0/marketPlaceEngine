@@ -22,9 +22,14 @@ const cardResume = mongoose.Schema({
       default: 'NC'
     },
     leveeFonds: {
-      type: Number,
+      type: Array,
       required: false,
-      default: 0
+      montant: {
+        type: Number
+      },
+      annee: {
+        type: Number
+      }
     },
     categorie: {
       type: String,

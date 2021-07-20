@@ -63,6 +63,7 @@ const router = new VueRouter({
         requiresAuth: true
       }
     },
+    { path: "/*", component: Home }
   ],
 });
 

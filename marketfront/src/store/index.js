@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import card from'./modules/card.module'
 import categorie from'./modules/categorie.module'
 import admin from'./modules/admin.module'
+import popup from'./modules/popup.module'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     card,
     categorie,
-    admin
+    admin,
+    popup,
   }
 })

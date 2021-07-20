@@ -45,6 +45,8 @@ export default {
   methods: {
     deleteCard(idCard) {
       this.$store.dispatch("card/deleteCard", idCard);
+      this.$store.state.popup.message = "Marketplace supprimée avec succés";
+      this.$store.dispatch("popup/popUpMsgRed");
     },
   },
 };
