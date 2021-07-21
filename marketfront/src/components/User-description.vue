@@ -57,11 +57,11 @@
           <div v-for="(levee, index) in leveeFondsArray" :key="index">
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <p type="text" id="annee">{{ leveeFondsArray[index].annee }}</p>
+              <p type="text" id="annee">{{ levee.annee }}</p>
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
-              <p type="number" id="leveeFonds">{{ leveeFondsArray[index].montant }}</p>
+              <p type="number" id="leveeFonds">{{ levee.montant }}</p>
             </div>
           </div>
         </section>

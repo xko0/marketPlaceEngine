@@ -98,7 +98,8 @@ export default {
       searchWordsArray: [],
       searchWord: "",
       ifNoResult: false,
-      regexp: /^[0-9A-Za-zàéèçù\s-]{0,30}$/,
+      // regexp: /^[0-9A-Za-z]{0,30}$/ équivaut à:
+      regexp: /^\w{0,30}$/,
       displayDeleteBtn: true,
       isAdmin: false,
     };

@@ -19,7 +19,11 @@
       </article>
     </div>
     <aside>
-      <button class="radius btnReferencement">Ajoutez votre marketplace</button>
+      <router-link to="/proposition">
+        <button class="radius btnReferencement">
+          Ajoutez votre marketplace
+        </button>
+      </router-link>
     </aside>
   </div>
 </template>

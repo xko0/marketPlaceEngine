@@ -1,9 +1,9 @@
 <template>
   <div>
-    <AdminBar />
+    <AdminBar v-if="isConnected" />
     <Modal ref="modalName" />
     <form @submit.prevent="onValidation">
-      <header>
+      <header v-if="isConnected">
         <div
           :style="{
             backgroundImage: `url(${cardResume.imgSite1})`,
@@ -111,35 +111,32 @@
         </section>
         <section class="fonds">
           <h3>Levées de fonds</h3>
-          <div
-            v-for="(levee, indexLevee) in leveeFondsArray"
-            :key="indexLevee"
-          >
+          <div v-for="(levee, indexLevee) in leveeFondsArray" :key="indexLevee">
             <div class="detailsMarketPlace">
               <label for="annee">Année</label>
-              <input
-                type="text"
-                id="annee"
-                v-model="leveeFondsArray[indexLevee].annee"
-              />
+              <input required type="number" id="annee" v-model="levee.annee" />
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
-              <input
-                type="text"
-                id="leveeFonds"
-                v-model="leveeFondsArray[indexLevee].montant"
-              />
+              <input required type="number" id="leveeFonds" v-model="levee.montant" />
             </div>
+            <img
+              id="moins"
+              src="../../assets/moins.png"
+              alt="supprimer une levée de fonds"
+              @click="removeLeveeFonds(indexLevee)"
+            />
           </div>
           <img
-            v-if="isConnected"
+            id="plus"
+            v-if="leveeFondsArray.length < 3"
             src="../../assets/plus.png"
-            alt="ajoutLeveeBtn"
+            alt="ajouter une levée de fonds"
             @click="addLeveeFonds"
           />
         </section>
         <button type="submit" class="radius">{{ submitBtn }}</button>
+        <slot></slot>
       </main>
     </form>
   </div>
@@ -183,13 +180,13 @@ export default {
       type: String,
     },
   },
-  mounted () {
+  mounted() {
     let cardFind = this.$store.state.card.cardsArray.find(
       (card) => card._id === this.idCardUrl
     );
     this.cardResume = { ...cardFind };
-    if(this.$route.path.includes("adminupdate")) {
-      this.leveeFondsArray = this.cardResume.leveeFonds.slice(0)
+    if (this.$route.path.includes("adminupdate")) {
+      this.leveeFondsArray = this.cardResume.leveeFonds.slice(0);
     }
     this.getCategories;
   },
@@ -200,13 +197,19 @@ export default {
   },
   methods: {
     onValidation() {
-      this.$emit("on-validation", { card: { ...this.cardResume }, cardLeveeFonds: this.leveeFondsArray });
+      this.$emit("on-validation", {
+        card: { ...this.cardResume },
+        cardLeveeFonds: this.leveeFondsArray,
+      });
     },
     addLeveeFonds() {
       this.leveeFondsArray.push({
         annee: "",
-        montant: ""
-      })
+        montant: "",
+      });
+    },
+    removeLeveeFonds(index) {
+      this.leveeFondsArray.splice(index, 1);
     },
   },
 };
@@ -347,15 +350,21 @@ select {
 .fonds div {
   display: flex;
   justify-content: flex-end;
+  /* align-items: center; */
+}
+#moins {
+  width: 10%;
+  height: 10%;
+  margin-left: 5%;
 }
 .fonds div div {
   border-right: 0px solid white;
-  width: 40%;
+  width: 30%;
 }
 .fonds div div:first-child {
   margin-right: 10%;
 }
-.fonds img {
+#plus {
   margin: 0.5vh 0 2vh 85%;
   width: 15%;
 }

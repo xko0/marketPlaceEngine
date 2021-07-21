@@ -12,7 +12,7 @@
       <img src="../../assets/users.png" alt="">
       <p>Utilisateurs</p>
     </router-link>
-    <router-link class="link propositions" to="propositions">
+    <router-link class="link propositions" to="/adminproposition">
       <img src="../../assets/chats.png" alt="">
       <p>Propositions</p>
     </router-link>
