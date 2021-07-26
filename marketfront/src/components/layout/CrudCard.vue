@@ -218,15 +218,31 @@ export default {
   },
   methods: {
     onValidation() {
-      let textarea = document.querySelector("textarea");
+      // Première lettre en majuscule
+      let word = this.cardResume.titre;
+      this.cardResume.titre =
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 
+      this.verifyDuplicate = this.$store.state.card.cardsArray.filter((card) =>
+        card.titre.toUpperCase().includes(this.cardResume.titre.toUpperCase())
+      );
+
+      let textarea = document.querySelector("textarea");
+      // Sécurité regex
       if (textarea.value.match(this.regexp)) {
-        this.$emit("on-validation", {
-          card: { ...this.cardResume },
-          cardLeveeFonds: this.leveeFondsArray,
-        });
+        // Pour éviter les doublons de marketplace:
+        if (this.verifyDuplicate.length === 0) {
+          this.$emit("on-validation", {
+            card: { ...this.cardResume },
+            cardLeveeFonds: this.leveeFondsArray,
+          });
+        } else {
+          this.$store.state.popup.message = "Une marketplace porte déjà ce nom";
+          this.$store.dispatch("popup/popUpMsgRed");
+        }
       } else {
-        this.$store.state.popup.message = "@ ; < > / _ $ [ ] { } = + * & ne sont pas autorisés";
+        this.$store.state.popup.message =
+          "@ ; < > / _ $ [ ] { } = + * & ne sont pas autorisés";
         this.$store.dispatch("popup/popUpMsgRed");
       }
     },

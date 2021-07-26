@@ -14,7 +14,6 @@
 
 <script>
 import AdminBar from "../layout/adminBar.vue";
-// import axios from "axios";
 import { mapActions, mapState } from "vuex";
 export default {
   components: { AdminBar },
@@ -22,10 +21,10 @@ export default {
     ...mapState("proposition", ["propositionsArray"]),
   },
   mounted() {
-    this.getPropositions()
+    this.getPropositions();
   },
   methods: {
-      ...mapActions('proposition', ['getPropositions']),
+    ...mapActions("proposition", ["getPropositions"]),
     goPropositionUrl(idProposition) {
       this.$router.push(`/adminproposition/${idProposition}`);
     },

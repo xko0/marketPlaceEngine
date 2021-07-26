@@ -38,11 +38,6 @@ export default {
       this.cardResume = payload.card;
       this.cardResume.leveeFonds = payload.cardLeveeFonds.slice(0);
 
-      // Première lettre en majuscule
-      let word = this.cardResume.titre;
-      this.cardResume.titre =
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-
       axios
         .put(`http://localhost:3001/api/card/${this.idCardUrl}`, {
           ...this.cardResume,
