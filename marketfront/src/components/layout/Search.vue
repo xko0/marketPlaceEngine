@@ -123,9 +123,8 @@ export default {
         this.ifNoResult = false;
         if (this.searchWord !== "") {
           this.ifSearch = "words";
-          this.selectedCat = document.querySelector(
-            ".search select :first-child"
-          ).value; // raz des catégories
+          this.selectedCat = document.querySelector(".search select :first-child").value; 
+          // raz des catégories
           this.searchWordsArray = this.cardsArray.filter((card) =>
             card.titre.toUpperCase().includes(this.searchWord.toUpperCase())
           );

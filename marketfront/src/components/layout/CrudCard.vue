@@ -52,7 +52,6 @@
             <label for="description">Description</label>
             <textarea
               required
-              pattern="/^[\w\s'\-()éèçà:,.]+$/"
               cols="20"
               rows="8"
               type="text"
@@ -67,8 +66,8 @@
             <label for="url">Site internet</label>
             <input
               required
-              pattern="^[\w\s'\/-()éèçà:,.]+$"
-              type="text"
+              type="url"
+              placeholder="https://..."
               v-model="cardResume.urlMarketPlace"
               name="url"
             />
@@ -186,8 +185,7 @@ export default {
           annee: "",
         },
       ],
-      // regexp: /^[\wéèçù\s,'-\s"\s(\s)]{0,30}$/,
-      // regexp: _[a-zA-Z0-9],
+      regexp: "^[a-zA-Z0-9 ,'éèçàù.!:()?]+$",
     };
   },
   props: {
@@ -220,10 +218,17 @@ export default {
   },
   methods: {
     onValidation() {
-      this.$emit("on-validation", {
-        card: { ...this.cardResume },
-        cardLeveeFonds: this.leveeFondsArray,
-      });
+      let textarea = document.querySelector("textarea");
+
+      if (textarea.value.match(this.regexp)) {
+        this.$emit("on-validation", {
+          card: { ...this.cardResume },
+          cardLeveeFonds: this.leveeFondsArray,
+        });
+      } else {
+        this.$store.state.popup.message = "@ ; < > / _ $ [ ] { } = + * & ne sont pas autorisés";
+        this.$store.dispatch("popup/popUpMsgRed");
+      }
     },
     addLeveeFonds() {
       this.leveeFondsArray.push({

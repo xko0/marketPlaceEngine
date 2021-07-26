@@ -39,20 +39,13 @@ export default {
       //   regexp: /^[\wéèçù\s,'-\s"\s(\s)]{0,30}$/,
       // regexp: /^[^<>/{}[\]"_@+*=$]$/,
       regexp: /^[\w\s'\-()éèçà:,.]+$/,
-      // inputOk: true,
     };
   },
-  // mounted() {
-  //   this.checkInputs();
-  // },
   computed: {
     ...mapState("card", ["cardsArray"]),
   },
   methods: {
     postProposition(payload) {
-      // console.log("avant check", this.inputOk);
-      // this.checkInputs();
-      // console.log("apres check", this.inputOk);
       this.cardResume = payload.card;
       this.cardResume.leveeFonds = payload.cardLeveeFonds.slice(0);
 
@@ -67,7 +60,6 @@ export default {
       );
 
       if (this.verifyDuplicate.length === 0) {
-        // if (this.inputOk) {
           axios
             .post("http://localhost:3001/api/proposition", {
               ...this.cardResume,
@@ -81,27 +73,11 @@ export default {
             .catch((error) => {
               console.error(error);
             });
-        // } else {
-        //   this.$store.state.popup.message =
-        //     "@ < > / \\ _ | & [ ] ne sont pas acceptés";
-        //   this.$store.dispatch("popup/popUpMsgRed");
-        // }
       } else {
         this.$store.state.popup.message = "Une marketplace porte déjà ce nom";
         this.$store.dispatch("popup/popUpMsgRed");
       }
     },
-    // checkInputs() {
-    //   let inputs = document.querySelectorAll("input, textarea");
-    //   // console.log('zero',inputs[0]);
-    //   for(let i=0; i<inputs.length; i++) {
-    //     let input = {
-    //       id: inputs[i],
-    //       check: Boolean
-    //     }
-    //     if()
-    //   }
-    // },
   },
 };
 </script>
