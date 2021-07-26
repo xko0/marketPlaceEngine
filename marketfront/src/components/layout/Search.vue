@@ -1,7 +1,7 @@
 <template>
   <div class="searchPage">
     <div class="search">
-      <div v-if="isAdmin">
+      <div v-if="isAdmin" id="btn" class="radius">
         <router-link to="/admincreatecard">
           <img
             src="../../assets/plus.png"
@@ -98,7 +98,8 @@ export default {
       searchWordsArray: [],
       searchWord: "",
       ifNoResult: false,
-      regexp: /^[0-9A-Za-zàéèçù\s-]{0,30}$/,
+      // regexp: /^[0-9A-Za-z]{0,30}$/ équivaut à:
+      regexp: /^\w{0,30}$/,
       displayDeleteBtn: true,
       isAdmin: false,
     };
@@ -122,9 +123,8 @@ export default {
         this.ifNoResult = false;
         if (this.searchWord !== "") {
           this.ifSearch = "words";
-          this.selectedCat = document.querySelector(
-            ".search select :first-child"
-          ).value; // raz des catégories
+          this.selectedCat = document.querySelector(".search select :first-child").value; 
+          // raz des catégories
           this.searchWordsArray = this.cardsArray.filter((card) =>
             card.titre.toUpperCase().includes(this.searchWord.toUpperCase())
           );
@@ -185,9 +185,21 @@ export default {
 .search div:first-child {
   margin-right: 5vh;
 }
-.search img {
+#btn {
+  background-color: var(--button);
+  box-shadow: var(--boxShadow);
+  padding: 0.5vh;
+  position: fixed;
+  left: 2vw;
+  top: 23.5vh;
+  transform: translateY(-50%);
+  display: flex;
+  z-index: 15;
+}
+#btn img {
   width: 8vh;
   height: auto;
+  cursor: pointer;
 }
 .searchWord {
   font-size: 1rem;

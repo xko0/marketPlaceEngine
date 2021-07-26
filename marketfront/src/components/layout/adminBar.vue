@@ -12,7 +12,7 @@
       <img src="../../assets/users.png" alt="">
       <p>Utilisateurs</p>
     </router-link>
-    <router-link class="link propositions" to="propositions">
+    <router-link class="link propositions" to="/adminproposition">
       <img src="../../assets/chats.png" alt="">
       <p>Propositions</p>
     </router-link>
@@ -33,7 +33,7 @@ export default {
       case "/users":
         document.querySelector('.users').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
         break
-      case "/propositions":
+      case "/adminproposition":
         document.querySelector('.propositions').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
         break
     }

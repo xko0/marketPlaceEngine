@@ -13,23 +13,50 @@
             class="inputForm radius"
             placeholder="votre email pour une Newletter"
             type="email"
+            v-model="email"
           />
-          <button type="submit" class="btnForm radius">Envoyer</button>
+          <button type="submit" class="btnForm radius" @click="sendEmail">
+            Envoyer
+          </button>
         </div>
       </article>
     </div>
     <aside>
-      <button class="radius btnReferencement">Ajoutez votre marketplace</button>
+      <router-link to="/proposition">
+        <button class="radius btnReferencement">
+          Ajoutez votre marketplace
+        </button>
+      </router-link>
     </aside>
   </div>
 </template>
 
 <script>
 import Search from "./layout/Search.vue";
+import axios from "axios";
 
 export default {
   components: {
     Search,
+  },
+  data() {
+    return {
+      email: "",
+    };
+  },
+  methods: {
+    sendEmail() {
+      axios
+        .post(`http://localhost:3001/sendemail?email=${this.email}`)
+        .then(() => {
+          this.$store.state.popup.message = "Adresse mail bien envoyée";
+          this.$store.dispatch("popup/popUpMsgGreen");
+        })
+        .catch(() => {
+          this.$store.state.popup.message = "Adresse mail non envoyée";
+          this.$store.dispatch("popup/popUpMsgRed");
+        });
+    },
   },
 };
 </script>

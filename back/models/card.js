@@ -55,11 +55,6 @@ const cardResume = mongoose.Schema({
       type: String,
       required: false,
       default: 'NC'
-    },
-    imgSite3: {
-      type: String,
-      required: false,
-      default: 'NC'
     }
 });
 module.exports = mongoose.model("Card", cardResume);

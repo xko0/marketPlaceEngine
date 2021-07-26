@@ -13,9 +13,12 @@ import UserDescription from "./components/User-description";
 import AdminupdateCard from "./components/admin/Admin-modify-card";
 import AdminCategories from "./components/admin/Admin-categories";
 import AdminUsers from "./components/admin/Admin-users";
+import UserProposition from "./components/User-proposition";
+import AdminProposition from "./components/admin/Admin-proposition";
+import AdminValidProposition from "./components/admin/Admin-valid-proposition";
+
 import store from "./store";
 import "./store/modules/admin.module";
-// import admin from "./store/modules/admin.module";
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -59,6 +62,24 @@ const router = new VueRouter({
     {
       path: "/users",
       component: AdminUsers,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/proposition",
+      component: UserProposition,
+    },
+    {
+      path: "/adminproposition",
+      component: AdminProposition,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/adminproposition/:id",
+      component: AdminValidProposition,
       meta: {
         requiresAuth: true
       }
