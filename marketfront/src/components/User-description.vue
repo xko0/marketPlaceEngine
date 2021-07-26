@@ -20,51 +20,53 @@
         ></div>
       </header>
       <main class="radius">
-        <section class="resume">
-          <h3>Général</h3>
-          <div>
-            <label for="nom">Nom de la marketplace</label>
-            <p>{{ cardResume.titre }}</p>
-          </div>
-          <div>
-            <label for="description">Description</label>
-            <p>{{ cardResume.resumeMarketPlace }}</p>
-          </div>
-        </section>
-        <section class="infos">
-          <h3>Chiffres Clés</h3>
-          <div class="detailsMarketPlace">
-            <label for="anneeCreation">Année de création</label>
-            <p>{{ cardResume.anneeCreation }}</p>
-          </div>
-          <div class="detailsMarketPlace">
-            <label for="localisation">Localisation</label>
-            <p>{{ cardResume.localisation }}</p>
-          </div>
-          <div class="detailsMarketPlace">
-            <div class="categories">
-              <label for="categorie">Catégorie</label>
+        <div>
+          <section class="resume">
+            <h3>Général</h3>
+            <div>
+              <label for="nom">Nom de la marketplace</label>
+              <p>{{ cardResume.titre }}</p>
             </div>
-            <p>{{ cardResume.categorie }}</p>
-          </div>
-          <div class="detailsMarketPlace">
-            <label for="url">Site internet</label>
-            <p type="text" name="url">{{ cardResume.urlMarketPlace }}</p>
-          </div>
-        </section>
-        <section class="fonds">
-          <h3>Levées de fonds</h3>
-          <div v-for="(levee, index) in leveeFondsArray" :key="index">
+            <div>
+              <label for="description">Description</label>
+              <p>{{ cardResume.resumeMarketPlace }}</p>
+            </div>
+          </section>
+          <section class="infos">
+            <h3>Chiffres Clés</h3>
             <div class="detailsMarketPlace">
-              <label for="annee">Année</label>
-              <p type="text" id="annee">{{ levee.annee }}</p>
+              <div class="categories">
+                <label for="categorie">Catégorie</label>
+              </div>
+              <p>{{ cardResume.categorie }}</p>
             </div>
-            <div class="detailsMarketPlace">
-              <label for="leveeFonds">Montant</label>
-              <p type="number" id="leveeFonds">{{ levee.montant }}</p>
+            <div id="annee-localisation">
+              <div class="detailsMarketPlace">
+                <img src="../assets/calendar.png" alt="" />
+                <label for="anneeCreation">Année de création</label>
+                <p>{{ cardResume.anneeCreation }}</p>
+              </div>
+              <div class="detailsMarketPlace">
+                <img src="../assets/map.png" alt="" />
+                <label for="localisation">Localisation</label>
+                <p>{{ cardResume.localisation }}</p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+          <section v-if="leveeFondsArray.length > 0" class="fonds">
+            <h3>Levées de fonds</h3>
+            <div v-for="(levee, index) in leveeFondsArray" :key="index">
+              <div class="detailsMarketPlace">
+                <label for="annee">Année</label>
+                <p type="text" id="annee">{{ levee.annee }}</p>
+              </div>
+              <div class="detailsMarketPlace">
+                <label for="leveeFonds">Montant</label>
+                <p type="number" id="leveeFonds">{{ levee.montant }}</p>
+              </div>
+            </div>
+          </section>
+        </div>
         <a :href="cardResume.urlMarketPlace" target="_blank"
           ><button class="radius">Voir le site</button></a
         >
@@ -103,7 +105,7 @@ export default {
       (card) => card._id === this.idCardUrl
     );
     this.cardResume = { ...cardFind };
-    this.leveeFondsArray = this.cardResume.leveeFonds.slice(0)
+    this.leveeFondsArray = this.cardResume.leveeFonds.slice(0);
   },
 };
 </script>
@@ -118,13 +120,13 @@ section {
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  padding-bottom: 5vh;
+  padding-bottom: 1vh;
 }
 section button {
-  width: 15vw;
-  padding: 5%;
-  align-self: flex-end;
-  margin-top: 3%;
+  width: 15vh;
+  padding: 1%;
+  display: block;
+  margin: 3% auto 0 auto;
 }
 /* HEADER =================================================== */
 header {
@@ -155,48 +157,43 @@ header div:last-child {
 /* MAIN ===================================================== */
 main {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  flex-wrap: wrap;
   width: 70vw;
   margin: 2% 0;
   background-color: whitesmoke;
   box-shadow: var(--boxShadow);
-  padding: 3%;
+  padding: 2%;
+}
+main div:first-child {
+  display: flex;
+  justify-content: space-evenly;
+}
+main section:first-child {
+  width: 35%;
 }
 main section {
-  width: 30%;
+  width: 20%;
 }
 h3 {
   margin-bottom: 2vh;
-  font-size: 1.5rem;
-  text-align: center;
+  font-size: 1.6rem;
   width: 100%;
+}
+p {
+  font-size: 1.1rem;
 }
 label {
   width: 100%;
-  margin: 0.5vh 0 0.2vh 0vw;
+  margin: 0.5vh 0;
   font-size: 0.75rem;
   color: rgb(78, 78, 78);
 }
-input,
-select {
-  padding: 1vh;
-  margin-bottom: 1.2vh;
-  height: 23px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid black;
-}
-textarea {
-  margin-top: 1vh;
-  padding: 1vh;
-  resize: none;
-  border: 1px solid black;
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
-  height: 85%;
+.detailsMarketPlace {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3%;
 }
 /* ::::::::::::::::::::::::::::::  */
 .resume {
@@ -206,60 +203,80 @@ textarea {
   align-items: flex-start;
 }
 .resume div {
-  /* display: block; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 3%;
 }
+.resume div:nth-child(odd) p {
+  text-align: justify;
+  width: 90%;
+}
 /* ::::::::::::::::::::::::::::::: */
 .infos {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: stretch;
 }
-select {
-  padding: 1%;
+.infos h3 {
+  color: transparent;
 }
-.detailsMarketPlace {
+.infos p {
+  font-size: 1.2rem;
+}
+.infos .detailsMarketPlace {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 3%;
-}
-.categories {
-  display: flex;
   align-items: center;
+  text-align: center;
 }
-.categories img {
-  width: 5%;
+#annee-localisation {
+  display: flex;
+  width: 100%;
+  margin-top: 2vh;
+}
+#annee-localisation img {
+  width: 5vh;
 }
 /* :::::::::::::::::::::::::::::::: */
+.fonds h3 {
+  text-align: end;
+}
 .fonds div {
   display: flex;
   justify-content: flex-end;
   width: 100%;
 }
-.fonds div div {
-  border-right: 0px solid white;
-  width: 40%;
+.fonds label {
+  text-align: end;
 }
-.fonds div div:first-child {
-  margin-right: 10%;
+.fonds p {
+  text-align: end;
 }
 
 @media screen and (max-width: 1200px) {
+  h3 {
+    text-align: center;
+  }
+  .infos h3 {
+    display: none;
+  }
   header div:first-child {
     display: none;
   }
+  #annee-localisation {
+    margin: 5vh 0 0 0;
+    width: 100%;
+  }
+  #annee-localisation div {
+    margin: 0 auto 2vh auto;
+    width: 80%;
+  }
 }
 @media screen and (max-width: 768px) {
-  form button {
-    width: 40vh;
-    margin: 5vh auto 10vh auto;
-    padding: 1vh;
+  section button {
+    width: 20vh;
+    margin: 5vh auto;
+    padding: 5%;
   }
   header {
     margin-top: 0;
@@ -277,13 +294,19 @@ select {
     padding: 0;
   }
   main {
+    border-radius: 0;
     padding: 0 1vw;
+    margin-bottom: 0;
     flex-direction: column;
     align-items: center;
     width: 100%;
   }
+  main div:first-child {
+    flex-direction: column;
+    align-items: center;
+  }
   main section {
-    width: 70%;
+    width: 80%;
     margin-top: 6vh;
   }
 }

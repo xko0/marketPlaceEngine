@@ -33,7 +33,7 @@ export default {
       case "/users":
         document.querySelector('.users').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
         break
-      case "/propositions":
+      case "/adminproposition":
         document.querySelector('.propositions').setAttribute('style', 'padding: 0 1%; border-bottom: 7px solid var(--button')
         break
     }

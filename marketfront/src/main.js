@@ -15,6 +15,7 @@ import AdminCategories from "./components/admin/Admin-categories";
 import AdminUsers from "./components/admin/Admin-users";
 import UserProposition from "./components/User-proposition";
 import AdminProposition from "./components/admin/Admin-proposition";
+import AdminValidProposition from "./components/admin/Admin-valid-proposition";
 
 import store from "./store";
 import "./store/modules/admin.module";
@@ -72,6 +73,13 @@ const router = new VueRouter({
     {
       path: "/adminproposition",
       component: AdminProposition,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/adminproposition/:id",
+      component: AdminValidProposition,
       meta: {
         requiresAuth: true
       }

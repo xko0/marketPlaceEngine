@@ -42,9 +42,9 @@
             <label for="nom">Nom de la marketplace</label>
             <input
               required
+              pattern="^[\w\s'\-()éèçà:,.]+$"
               v-model="cardResume.titre"
               type="text"
-              placeholder="Nom de la marketplace"
               id="nom"
             />
           </div>
@@ -56,7 +56,6 @@
               rows="8"
               type="text"
               class="inputSite"
-              placeholder="Description de la marketplace"
               v-model="cardResume.resumeMarketPlace"
             />
           </div>
@@ -64,20 +63,15 @@
         <section class="infos">
           <h3>Chiffres Clés</h3>
           <div class="detailsMarketPlace">
-            <label for="anneeCreation">Année de création</label>
+            <label for="url">Site internet</label>
             <input
-              type="number"
-              v-model="cardResume.anneeCreation"
-              id="anneeCreation"
+              required
+              type="url"
+              placeholder="https://..."
+              v-model="cardResume.urlMarketPlace"
+              name="url"
             />
-          </div>
-          <div class="detailsMarketPlace">
-            <label for="localisation">Localisation</label>
-            <input
-              type="text"
-              v-model="cardResume.localisation"
-              id="localisation"
-            />
+            <slot name="website" v-bind:cardResume="cardResume"></slot>
           </div>
           <div class="detailsMarketPlace">
             <div class="categories">
@@ -90,7 +84,6 @@
               />
             </div>
             <select required name="" id="" v-model="cardResume.categorie">
-              <option disabled>--Catégories--</option>
               <option
                 v-for="(cat, catIndex) in categoriesArray"
                 :key="catIndex"
@@ -99,14 +92,26 @@
               </option>
             </select>
           </div>
-          <div class="detailsMarketPlace">
-            <label for="url">Site internet</label>
-            <input
-              required
-              type="text"
-              v-model="cardResume.urlMarketPlace"
-              name="url"
-            />
+          <div id="annee-localisation">
+            <div class="detailsMarketPlace">
+              <img src="../../assets/calendar.png" alt="" />
+              <label for="anneeCreation">Année de création</label>
+              <input
+                type="number"
+                v-model="cardResume.anneeCreation"
+                id="anneeCreation"
+              />
+            </div>
+            <div class="detailsMarketPlace">
+              <img src="../../assets/map.png" alt="" />
+              <label for="localisation">Localisation</label>
+              <input
+                pattern="^[\w\s'\-()éèçà:,.]+$"
+                type="text"
+                v-model="cardResume.localisation"
+                id="localisation"
+              />
+            </div>
           </div>
         </section>
         <section class="fonds">
@@ -118,7 +123,12 @@
             </div>
             <div class="detailsMarketPlace">
               <label for="leveeFonds">Montant</label>
-              <input required type="number" id="leveeFonds" v-model="levee.montant" />
+              <input
+                required
+                type="number"
+                id="leveeFonds"
+                v-model="levee.montant"
+              />
             </div>
             <img
               id="moins"
@@ -129,14 +139,15 @@
           </div>
           <img
             id="plus"
-            v-if="leveeFondsArray.length < 3"
+            v-if="leveeFondsArray.length < 4"
             src="../../assets/plus.png"
             alt="ajouter une levée de fonds"
             @click="addLeveeFonds"
           />
         </section>
+
+        <slot name="btn"></slot>
         <button type="submit" class="radius">{{ submitBtn }}</button>
-        <slot></slot>
       </main>
     </form>
   </div>
@@ -155,6 +166,7 @@ export default {
   data() {
     return {
       idCardUrl: this.$route.params.id,
+      idPropositionUrl: this.$route.params.id,
       cardResume: {
         titre: "",
         anneeCreation: "",
@@ -173,6 +185,7 @@ export default {
           annee: "",
         },
       ],
+      regexp: "^[a-zA-Z0-9 ,'éèçàù.!:()?]+$",
     };
   },
   props: {
@@ -181,12 +194,20 @@ export default {
     },
   },
   mounted() {
-    let cardFind = this.$store.state.card.cardsArray.find(
-      (card) => card._id === this.idCardUrl
-    );
-    this.cardResume = { ...cardFind };
     if (this.$route.path.includes("adminupdate")) {
+      let cardFind = this.$store.state.card.cardsArray.find(
+        (card) => card._id === this.idCardUrl
+      );
+      this.cardResume = { ...cardFind };
       this.leveeFondsArray = this.cardResume.leveeFonds.slice(0);
+    }
+    if (this.$route.path.includes("adminproposition")) {
+      let propositionFind =
+        this.$store.state.proposition.propositionsArray.find(
+          (proposition) => proposition._id === this.idPropositionUrl
+        );
+      this.cardResume = { ...propositionFind };
+      this.leveeFondsArray = this.cardResume.leveeFonds;
     }
     this.getCategories;
   },
@@ -197,10 +218,33 @@ export default {
   },
   methods: {
     onValidation() {
-      this.$emit("on-validation", {
-        card: { ...this.cardResume },
-        cardLeveeFonds: this.leveeFondsArray,
-      });
+      // Première lettre en majuscule
+      let word = this.cardResume.titre;
+      this.cardResume.titre =
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+
+      this.verifyDuplicate = this.$store.state.card.cardsArray.filter((card) =>
+        card.titre.toUpperCase().includes(this.cardResume.titre.toUpperCase())
+      );
+
+      let textarea = document.querySelector("textarea");
+      // Sécurité regex
+      if (textarea.value.match(this.regexp)) {
+        // Pour éviter les doublons de marketplace:
+        if (this.verifyDuplicate.length === 0) {
+          this.$emit("on-validation", {
+            card: { ...this.cardResume },
+            cardLeveeFonds: this.leveeFondsArray,
+          });
+        } else {
+          this.$store.state.popup.message = "Une marketplace porte déjà ce nom";
+          this.$store.dispatch("popup/popUpMsgRed");
+        }
+      } else {
+        this.$store.state.popup.message =
+          "@ ; < > / _ $ [ ] { } = + * & ne sont pas autorisés";
+        this.$store.dispatch("popup/popUpMsgRed");
+      }
     },
     addLeveeFonds() {
       this.leveeFondsArray.push({
@@ -274,9 +318,8 @@ main section {
 }
 h3 {
   margin-bottom: 2vh;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   width: 100%;
-  text-align: center;
 }
 label {
   width: 100%;
@@ -329,8 +372,30 @@ textarea {
   justify-content: flex-start;
   align-items: stretch;
 }
+.infos h3 {
+  color: transparent;
+}
+#annee-localisation {
+  display: flex;
+  width: 100%;
+  margin-top: 2vh;
+}
+#annee-localisation div {
+  width: 50%;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+#annee-localisation div:first-child input {
+  width: 50%;
+}
+#annee-localisation div input {
+  width: 90%;
+  text-align: center;
+}
 select {
   padding: 1%;
+  height: 30px;
 }
 .detailsMarketPlace {
   width: 100%;
@@ -338,24 +403,30 @@ select {
   flex-direction: column;
   margin-bottom: 3%;
 }
+.detailsMarketPlace img {
+  width: 5vh;
+}
 .categories {
   display: flex;
   align-items: center;
 }
 .categories img {
-  width: 9%;
+  width: 7%;
   cursor: pointer;
 }
 /* :::::::::::::::::::::::::::::::: */
+.fonds h3 {
+  text-align: center;
+}
 .fonds div {
   display: flex;
   justify-content: flex-end;
-  /* align-items: center; */
 }
 #moins {
-  width: 10%;
+  width: 7%;
   height: 10%;
   margin-left: 5%;
+  cursor: pointer;
 }
 .fonds div div {
   border-right: 0px solid white;
@@ -365,13 +436,27 @@ select {
   margin-right: 10%;
 }
 #plus {
-  margin: 0.5vh 0 2vh 85%;
+  display: block;
+  margin: 0.5vh auto 0 auto;
   width: 15%;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {
+  main {
+    width: 85vw;
+  }
   header div:first-child {
     display: none;
+  }
+  #annee-localisation {
+    display: block;
+    margin: 2vh 0 1vh 0;
+    width: 100%;
+  }
+  #annee-localisation div {
+    margin: 0 auto 2vh auto;
+    width: 80%;
   }
 }
 @media screen and (max-width: 768px) {
@@ -400,6 +485,8 @@ select {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    border-radius: 0;
+    margin: 0;
   }
   main section {
     width: 70%;
