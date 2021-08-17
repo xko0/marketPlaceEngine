@@ -67,7 +67,7 @@ export default {
     },
     postCard() {
       axios
-        .post("http://localhost:3001/api/card", { ...this.cardResume })
+        .post(`${process.env.HTTP_REQUEST}/card`, { ...this.cardResume })
         .then(() => {
           this.$store.state.popup.message = "Marketplace créée avec succés";
           this.$store.dispatch("popup/popUpMsgGreen");

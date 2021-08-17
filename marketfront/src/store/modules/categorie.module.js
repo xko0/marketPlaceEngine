@@ -13,7 +13,7 @@ const categorie = {
   actions: {
     getCategories({ commit }) {
       return axios
-        .get("http://localhost:3001/api/categorie")
+        .get(`${process.env.HTTP_REQUEST}/categorie`)
         .then((res) => {
           commit("SAVE_CATEGORIES", res.data);
         })
@@ -23,7 +23,7 @@ const categorie = {
     },
     deleteCategory({ dispatch }, idCategory) {
       return axios
-        .delete(`http://localhost:3001/api/categorie/${idCategory}`)
+        .delete(`${process.env.HTTP_REQUEST}/categorie/${idCategory}`)
         .then(() => {
           // "recharge" la liste des cartes => affichage sans la carte supprimée
           dispatch("getCategories");

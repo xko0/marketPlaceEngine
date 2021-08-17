@@ -47,7 +47,7 @@ export default {
       this.cardResume.leveeFonds = payload.cardLeveeFonds.slice(0);
 
       axios
-        .post("http://localhost:3001/api/proposition", {
+        .post(`${process.env.HTTP_REQUEST}/proposition`, {
           ...this.cardResume,
         })
         .then(() => {

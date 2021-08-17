@@ -57,7 +57,7 @@ export default {
   methods: {
     signUp() {
       axios
-        .post("http://localhost:3001/api/user/signup", { ...this.userForm })
+        .post(`${process.env.HTTP_REQUEST}/user/signup`, { ...this.userForm })
         .then(() => {
           console.log("creation ok");
           this.userForm = { ..."" };
@@ -69,7 +69,7 @@ export default {
     },
     getUsers() {
       axios
-        .get("http://localhost:3001/api/user")
+        .get(`${process.env.HTTP_REQUEST}/user`)
         .then((res) => {
           this.usersArray = res.data;
         })
@@ -79,7 +79,7 @@ export default {
     },
     deleteUser(idUser) {
       axios
-        .delete(`http://localhost:3001/api/user/${idUser}`)
+        .delete(`${process.env.HTTP_REQUEST}/user/${idUser}`)
         .then(() => this.getUsers())
         .catch((error) => {
           console.error(error);

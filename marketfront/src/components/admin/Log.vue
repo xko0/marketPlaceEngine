@@ -32,7 +32,7 @@ export default {
   methods: {
     logIn() {
       axios
-        .post("http://localhost:3001/api/user/login", this.form)
+        .post(`${process.env.HTTP_REQUEST}/user/login`, this.form)
         .then((res) => {
           this.$store.commit("admin/IS_CONNECTED", res.data);
         })

@@ -55,7 +55,7 @@ export default {
       this.categorieResume.nom = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
       
       return axios
-        .post("http://localhost:3001/api/categorie", {
+        .post(`${process.env.HTTP_REQUEST}/categorie`, {
           ...this.categorieResume,
         })
         .then(() => {
@@ -79,7 +79,7 @@ export default {
       this.categoriesArray.filter((category) => {
         if (category._id === idCat) {
           return axios
-            .put(`http://localhost:3001/api/categorie/${idCat}`, {
+            .put(`${process.env.HTTP_REQUEST}/categorie/${idCat}`, {
               ...this.categorieResume,
               nom: category.nom,
             })

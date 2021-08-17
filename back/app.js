@@ -6,10 +6,11 @@ const categoryRoutes = require("./router/category");
 const userRoutes = require("./router/user");
 const propositionRoutes = require("./router/proposition");
 const sibApi = require("./controllers/sib")
+require('dotenv').config()
 
 mongoose
   .connect(
-    "mongodb+srv://somemark:somemarkadmin@cluster0.kovjn.mongodb.net/marketPlaceEngine?retryWrites=true&w=majority",
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.kovjn.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -41,6 +42,6 @@ app.use("/api/categorie", categoryRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/proposition", propositionRoutes);
 
-app.post("/sendemail", sibApi.sendEmail);
+app.post("/api/sendemail", sibApi.sendEmail);
 
 module.exports = app;

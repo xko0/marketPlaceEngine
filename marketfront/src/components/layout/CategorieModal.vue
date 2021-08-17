@@ -44,7 +44,7 @@ export default {
     },
     addCategory() {
       return axios
-        .post("http://localhost:3001/api/categorie", {
+        .post(`${process.env.HTTP_REQUEST}/categorie`, {
           ...this.categorieResume,
         })
         .then(() => {
@@ -59,31 +59,6 @@ export default {
           console.error(error);
         });
     },
-    // deleteCategory(idCat) {
-    //   this.$store.dispatch("categorie/deleteCategory", idCat);
-    // },
-    // updateCategory(idCat) {
-    //   this.categoriesArray.filter((category) => {
-    //     if (category._id === idCat) {
-    //       return axios
-    //         .put(`http://localhost:3001/api/categorie/${idCat}`, {
-    //           ...this.categorieResume,
-    //           nom: category.nom,
-    //         })
-    //         .then(() => {
-    //           let updateCat = document.querySelector(".modal__body p");
-    //           updateCat.innerHTML = "Catégorie modifiée avec succés !";
-    //           updateCat.setAttribute("style", "display: block");
-    //           setTimeout(() => {
-    //             updateCat.setAttribute("style", "display: none");
-    //           }, 2000);
-    //         })
-    //         .catch((error) => {
-    //           console.error(error);
-    //         });
-    //     }
-    //   });
-    // },
   },
 };
 </script>
