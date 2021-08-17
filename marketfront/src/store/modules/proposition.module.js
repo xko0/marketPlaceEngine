@@ -8,7 +8,7 @@ const proposition = {
   actions: {
     getPropositions({ state }) {
       axios
-        .get(`${process.env.HTTP_REQUEST}/proposition`)
+        .get(`${process.env.VUE_APP_HTTP_REQUEST}/proposition`)
         .then((res) => {
           state.propositionsArray = res.data;
         })
@@ -16,7 +16,7 @@ const proposition = {
     },
     deleteProposition({ dispatch }, id) {
       return axios
-        .delete(`${process.env.HTTP_REQUEST}/proposition/${id}`)
+        .delete(`${process.env.VUE_APP_HTTP_REQUEST}/proposition/${id}`)
         .then(() => {
           // "recharge" la liste des cartes => affichage sans la carte supprimée
           dispatch("getPropositions");

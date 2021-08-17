@@ -55,7 +55,7 @@ export default {
       this.categorieResume.nom = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
       
       return axios
-        .post(`${process.env.HTTP_REQUEST}/categorie`, {
+        .post(`${process.env.VUE_APP_HTTP_REQUEST}/categorie`, {
           ...this.categorieResume,
         })
         .then(() => {
@@ -79,7 +79,7 @@ export default {
       this.categoriesArray.filter((category) => {
         if (category._id === idCat) {
           return axios
-            .put(`${process.env.HTTP_REQUEST}/categorie/${idCat}`, {
+            .put(`${process.env.VUE_APP_HTTP_REQUEST}/categorie/${idCat}`, {
               ...this.categorieResume,
               nom: category.nom,
             })

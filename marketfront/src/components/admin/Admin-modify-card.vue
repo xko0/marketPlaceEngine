@@ -39,7 +39,7 @@ export default {
       this.cardResume.leveeFonds = payload.cardLeveeFonds.slice(0);
 
       axios
-        .put(`${process.env.HTTP_REQUEST}/card/${this.idCardUrl}`, {
+        .put(`${process.env.VUE_APP_HTTP_REQUEST}/card/${this.idCardUrl}`, {
           ...this.cardResume,
         })
         .then(() => {

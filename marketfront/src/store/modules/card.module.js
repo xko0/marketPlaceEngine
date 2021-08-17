@@ -13,7 +13,7 @@ const card = {
   actions: {
     getCards({ commit }) {
       return axios
-        .get(`${process.env.HTTP_REQUEST}/card`)
+        .get(`${process.env.VUE_APP_HTTP_REQUEST}/card`)
         .then((res) => {
           commit("SAVE_CARDS", res.data);
         })
@@ -23,7 +23,7 @@ const card = {
     },
     deleteCard({ dispatch }, idCard) {
       return axios
-        .delete(`${process.env.HTTP_REQUEST}/card/${idCard}`)
+        .delete(`${process.env.VUE_APP_HTTP_REQUEST}/card/${idCard}`)
         .then(() => {
           // "recharge" la liste des cartes => affichage sans la carte supprimée
           dispatch("getCards");

@@ -47,7 +47,7 @@ export default {
       this.cardResume.leveeFonds = payload.cardLeveeFonds.slice(0);
 
       axios
-        .post(`${process.env.HTTP_REQUEST}/proposition`, {
+        .post(`${process.env.VUE_APP_HTTP_REQUEST}/proposition`, {
           ...this.cardResume,
         })
         .then(() => {

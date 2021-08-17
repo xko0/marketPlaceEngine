@@ -32,7 +32,7 @@ export default {
   methods: {
     logIn() {
       axios
-        .post(`${process.env.HTTP_REQUEST}/user/login`, this.form)
+        .post(`${process.env.VUE_APP_HTTP_REQUEST}/user/login`, this.form)
         .then((res) => {
           this.$store.commit("admin/IS_CONNECTED", res.data);
         })

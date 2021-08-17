@@ -44,7 +44,7 @@ export default {
     },
     addCategory() {
       return axios
-        .post(`${process.env.HTTP_REQUEST}/categorie`, {
+        .post(`${process.env.VUE_APP_HTTP_REQUEST}/categorie`, {
           ...this.categorieResume,
         })
         .then(() => {

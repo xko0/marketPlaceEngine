@@ -47,7 +47,7 @@ export default {
   methods: {
     sendEmail() {
       axios
-        .post(`${process.env.HTTP_REQUEST}/sendemail?email=${this.email}`)
+        .post(`${process.env.VUE_APP_HTTP_REQUEST}/sendemail?email=${this.email}`)
         .then(() => {
           this.$store.state.popup.message = "Adresse mail bien envoyée";
           this.$store.dispatch("popup/popUpMsgGreen");

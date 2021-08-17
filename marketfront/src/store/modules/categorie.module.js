@@ -13,7 +13,7 @@ const categorie = {
   actions: {
     getCategories({ commit }) {
       return axios
-        .get(`${process.env.HTTP_REQUEST}/categorie`)
+        .get(`${process.env.VUE_APP_HTTP_REQUEST}/categorie`)
         .then((res) => {
           commit("SAVE_CATEGORIES", res.data);
         })
@@ -23,7 +23,7 @@ const categorie = {
     },
     deleteCategory({ dispatch }, idCategory) {
       return axios
-        .delete(`${process.env.HTTP_REQUEST}/categorie/${idCategory}`)
+        .delete(`${process.env.VUE_APP_HTTP_REQUEST}/categorie/${idCategory}`)
         .then(() => {
           // "recharge" la liste des cartes => affichage sans la carte supprimée
           dispatch("getCategories");
