@@ -305,6 +305,9 @@ label {
     flex-direction: column;
     align-items: center;
   }
+  main section:first-child {
+    width: 80%;
+  }
   main section {
     width: 80%;
     margin-top: 6vh;
