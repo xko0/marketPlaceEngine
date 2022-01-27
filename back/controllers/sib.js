@@ -1,3 +1,4 @@
+//Sending Blue API
 const SibApiV3sdk = require("sib-api-v3-sdk");
 require('dotenv').config()
 
