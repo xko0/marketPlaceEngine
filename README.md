@@ -11,7 +11,7 @@ Le projet a pour but de rassembler les différentes plateformes de services.
 ##### MEVN micro-service 
 - MongoDB
 - Express
-- VueJS (Nuxt)
+- VueJS
 - NodeJS
 
 ### Outils/lib
