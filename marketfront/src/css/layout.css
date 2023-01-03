@@ -27,6 +27,15 @@ button {
   border-radius: 50px;
 }
 
+.radius-link {
+  border-radius: 50px;
+  min-height: 50px;
+  min-width: 250px;
+}
+.radius-link:hover {
+  background-color: rgb(231, 235, 11);
+}
+
 :focus-visible {
   outline: none;
 }
@@ -38,6 +47,7 @@ html {
 body {
   min-height: 100%;
   position: relative;
+  background-color: whitesmoke;
 }
 
 footer {

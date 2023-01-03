@@ -185,7 +185,7 @@ export default {
           annee: "",
         },
       ],
-      regexp: "^[a-zA-Z0-9 ,'éèçàù.!:()?]+$",
+      regexp: "^[a-zA-Z0-9 ,'éèçàùâêû.!:()?-]+$",
     };
   },
   props: {
@@ -230,8 +230,14 @@ export default {
       let textarea = document.querySelector("textarea");
       // Sécurité regex
       if (textarea.value.match(this.regexp)) {
+        // Pour pouvoir modifier une carte sans la considirer comme un doublon:
+        if (this.$route.path.includes("adminupdate")) {
+          var cardFind = this.$store.state.card.cardsArray.find(
+            (card) => card._id === this.idCardUrl
+          )
+        }
         // Pour éviter les doublons de marketplace:
-        if (this.verifyDuplicate.length === 0) {
+        if (this.verifyDuplicate.length === 0 || cardFind.titre === this.cardResume.titre) {
           this.$emit("on-validation", {
             card: { ...this.cardResume },
             cardLeveeFonds: this.leveeFondsArray,

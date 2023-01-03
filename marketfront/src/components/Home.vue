@@ -93,6 +93,15 @@ export default {
   top: 6vh;
   right: 1vh;
 }
+.btnReferencement:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  background-color: rgb(231, 235, 11);
+}
+.btnReferencement:focus {
+  box-shadow: 0 0 0 4px whitesmoke;
+}
+
 /* formulaire */
 .contentFormulaire {
   display: flex;

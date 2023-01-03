@@ -32,8 +32,20 @@
               <p>{{ cardResume.resumeMarketPlace }}</p>
             </div>
           </section>
-          <section class="infos">
-            <h3>Chiffres Clés</h3>
+          <section v-if="leveeFondsArray.length > 0" class="fonds">
+            <h3>Levées de fonds</h3>
+            <div v-for="(levee, index) in leveeFondsArray" :key="index">
+              <div class="detailsMarketPlace">
+                <label for="annee">Année</label>
+                <p type="text" id="annee">{{ levee.annee }}</p>
+              </div>
+              <div class="detailsMarketPlace">
+                <label for="leveeFonds">Montant</label>
+                <p type="number" id="leveeFonds">{{ levee.montant }}</p>
+              </div>
+            </div>
+            <div class="infoList">
+            <h3>Informations</h3>
             <div class="detailsMarketPlace">
               <div class="categories">
                 <label for="categorie">Catégorie</label>
@@ -52,24 +64,12 @@
                 <p>{{ cardResume.localisation }}</p>
               </div>
             </div>
-          </section>
-          <section v-if="leveeFondsArray.length > 0" class="fonds">
-            <h3>Levées de fonds</h3>
-            <div v-for="(levee, index) in leveeFondsArray" :key="index">
-              <div class="detailsMarketPlace">
-                <label for="annee">Année</label>
-                <p type="text" id="annee">{{ levee.annee }}</p>
-              </div>
-              <div class="detailsMarketPlace">
-                <label for="leveeFonds">Montant</label>
-                <p type="number" id="leveeFonds">{{ levee.montant }}</p>
-              </div>
-            </div>
+          </div>
+          <a :href="cardResume.urlMarketPlace" target="_blank"
+          ><button class="radius-link">Voir le site</button></a
+        >
           </section>
         </div>
-        <a :href="cardResume.urlMarketPlace" target="_blank"
-          ><button class="radius">Voir le site</button></a
-        >
       </main>
     </section>
   </div>
@@ -112,9 +112,15 @@ export default {
 
 <style scoped>
 a {
+  padding-top: 5%;
   text-decoration: none;
   color: black;
 }
+a:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
 section {
   display: flex;
   flex-direction: column;
@@ -213,6 +219,14 @@ label {
   width: 90%;
 }
 /* ::::::::::::::::::::::::::::::: */
+
+.infoList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 3%;
+  padding-top: 30%;
+}
 .infos {
   display: flex;
   flex-direction: column;
@@ -239,18 +253,18 @@ label {
 }
 /* :::::::::::::::::::::::::::::::: */
 .fonds h3 {
-  text-align: end;
+  text-align: center;
 }
 .fonds div {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
   width: 100%;
 }
 .fonds label {
-  text-align: end;
+  text-align: center;
 }
 .fonds p {
-  text-align: end;
+  text-align: center;
 }
 
 @media screen and (max-width: 1200px) {
