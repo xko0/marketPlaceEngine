@@ -46,8 +46,15 @@ export default {
   },
   methods: {
     sendEmail() {
+      const marketPlaceList = []
+      const findMarketPlaceList = 
+        this.$store.state.card.cardsArray.forEach(card =>
+          marketPlaceList.push([card.titre, card.urlMarketPlace])
+        )
+      findMarketPlaceList
+
       axios
-        .post(`${process.env.VUE_APP_HTTP_REQUEST}/sendemail?email=${this.email}`)
+        .post(`${process.env.VUE_APP_HTTP_REQUEST}/sendemail?email=${this.email}&payload=${marketPlaceList}`)
         .then(() => {
           this.$store.state.popup.message = "Adresse mail bien envoyée";
           this.$store.dispatch("popup/popUpMsgGreen");
