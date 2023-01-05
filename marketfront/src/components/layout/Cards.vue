@@ -77,7 +77,9 @@ export default {
   background-origin: content-box;
 }
 .card:hover {
+  transition: transform 0.2s;
   transform: scale(1.1);
+  transform-origin: 100% 100;
 }
 .suppBtn {
   background-color: transparent;

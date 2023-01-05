@@ -32,27 +32,6 @@
               <p>{{ cardResume.resumeMarketPlace }}</p>
             </div>
           </section>
-          <section class="infos">
-            <h3>Chiffres Clés</h3>
-            <div class="detailsMarketPlace">
-              <div class="categories">
-                <label for="categorie">Catégorie</label>
-              </div>
-              <p>{{ cardResume.categorie }}</p>
-            </div>
-            <div id="annee-localisation">
-              <div class="detailsMarketPlace">
-                <img src="../assets/calendar.png" alt="" />
-                <label for="anneeCreation">Année de création</label>
-                <p>{{ cardResume.anneeCreation }}</p>
-              </div>
-              <div class="detailsMarketPlace">
-                <img src="../assets/map.png" alt="" />
-                <label for="localisation">Localisation</label>
-                <p>{{ cardResume.localisation }}</p>
-              </div>
-            </div>
-          </section>
           <section v-if="leveeFondsArray.length > 0" class="fonds">
             <h3>Levées de fonds</h3>
             <div v-for="(levee, index) in leveeFondsArray" :key="index">
@@ -65,11 +44,34 @@
                 <p type="number" id="leveeFonds">{{ levee.montant }}</p>
               </div>
             </div>
+            <div class="infoList">
+              <h3>Informations</h3>
+              <div class="detailsMarketPlace">
+                <div class="categories">
+                  <label for="categorie">Catégorie</label>
+                </div>
+                <p>{{ cardResume.categorie }}</p>
+              </div>
+              <div id="annee-localisation">
+                <div class="detailsMarketPlace">
+                  <img src="../assets/calendar.png" alt="" />
+                  <label for="anneeCreation">Année de création</label>
+                  <p>{{ cardResume.anneeCreation }}</p>
+                </div>
+                <div class="detailsMarketPlace">
+                  <img src="../assets/map.png" alt="" />
+                  <label for="localisation">Localisation</label>
+                  <p>{{ cardResume.localisation }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="btn-div">
+              <a :href="cardResume.urlMarketPlace" target="_blank">
+                <button class="radius-link">Voir le site</button>
+              </a>
+            </div>
           </section>
         </div>
-        <a :href="cardResume.urlMarketPlace" target="_blank"
-          ><button class="radius">Voir le site</button></a
-        >
       </main>
     </section>
   </div>
@@ -112,9 +114,15 @@ export default {
 
 <style scoped>
 a {
+  padding-top: 5%;
   text-decoration: none;
   color: black;
 }
+a:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
 section {
   display: flex;
   flex-direction: column;
@@ -155,15 +163,23 @@ header div:last-child {
   height: 70%;
 }
 /* MAIN ===================================================== */
+.btn-div {
+  display: flex;
+  justify-content: center;
+  margin-left: -40px;
+}
+
 main {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 70vw;
-  margin: 2% 0;
+  height: 55vh;
+  margin: 1% 0;
   background-color: whitesmoke;
   box-shadow: var(--boxShadow);
-  padding: 2%;
+  padding: 1%;
+  padding-top: 3%;
 }
 main div:first-child {
   display: flex;
@@ -193,7 +209,7 @@ label {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 3%;
+  margin-bottom: 0%;
 }
 /* ::::::::::::::::::::::::::::::  */
 .resume {
@@ -207,12 +223,21 @@ label {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 3%;
+  width: 130%;
 }
 .resume div:nth-child(odd) p {
   text-align: justify;
   width: 90%;
 }
 /* ::::::::::::::::::::::::::::::: */
+
+.infoList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 3%;
+  padding-top: 4.5vh;
+}
 .infos {
   display: flex;
   flex-direction: column;
@@ -239,18 +264,18 @@ label {
 }
 /* :::::::::::::::::::::::::::::::: */
 .fonds h3 {
-  text-align: end;
+  text-align: center;
 }
 .fonds div {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
   width: 100%;
 }
 .fonds label {
-  text-align: end;
+  text-align: center;
 }
 .fonds p {
-  text-align: end;
+  text-align: center;
 }
 
 @media screen and (max-width: 1200px) {

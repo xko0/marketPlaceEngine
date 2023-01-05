@@ -197,7 +197,7 @@ export default {
   z-index: 15;
 }
 #btn img {
-  width: 8vh;
+  width: 7vh;
   height: auto;
   cursor: pointer;
 }
@@ -221,6 +221,22 @@ export default {
   margin-bottom: 10vh;
 }
 @media screen and (max-width: 769px) {
+#btn {
+  background-color: var(--button);
+  box-shadow: var(--boxShadow);
+  padding: 0.5vh;
+  position: fixed;
+  left: 2vw;
+  top: 23.5vh;
+  transform: translateY(-50%);
+  display: flex;
+  z-index: 15;
+}
+#btn img {
+  width: 7vh;
+  height: auto;
+  cursor: pointer;
+}
   .search {
     margin-bottom: 5vh;
   }
@@ -231,6 +247,7 @@ export default {
   .searchCategory {
     width: 40%;
     padding-left: 15px;
+    text-overflow: ellipsis;
   }
 }
 </style>

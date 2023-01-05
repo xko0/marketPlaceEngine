@@ -3,7 +3,7 @@
     <Menu />
     <router-view></router-view>
     <PopUpMsg />
-    <footer>&copy; SOMEMARK, {{ new Date().getFullYear() }}</footer>
+    <footer>&copy; Digit-Air, {{ new Date().getFullYear() }}</footer>
   </div>
 </template>
 
