@@ -174,10 +174,12 @@ main {
   flex-direction: column;
   justify-content: space-around;
   width: 70vw;
-  margin: 2% 0;
+  height: 55vh;
+  margin: 1% 0;
   background-color: whitesmoke;
   box-shadow: var(--boxShadow);
-  padding: 2%;
+  padding: 1%;
+  padding-top: 3%;
 }
 main div:first-child {
   display: flex;
@@ -207,7 +209,7 @@ label {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 3%;
+  margin-bottom: 0%;
 }
 /* ::::::::::::::::::::::::::::::  */
 .resume {
@@ -221,6 +223,7 @@ label {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 3%;
+  width: 130%;
 }
 .resume div:nth-child(odd) p {
   text-align: justify;
@@ -233,7 +236,7 @@ label {
   display: flex;
   flex-direction: column;
   margin: 3%;
-  padding-top: 30%;
+  padding-top: 4.5vh;
 }
 .infos {
   display: flex;
