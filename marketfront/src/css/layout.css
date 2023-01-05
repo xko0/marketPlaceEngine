@@ -30,7 +30,7 @@ button {
 .radius-link {
   border-radius: 50px;
   min-height: 50px;
-  min-width: 250px;
+  min-width: 130%;
 }
 .radius-link:hover {
   background-color: rgb(231, 235, 11);

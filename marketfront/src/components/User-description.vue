@@ -45,29 +45,31 @@
               </div>
             </div>
             <div class="infoList">
-            <h3>Informations</h3>
-            <div class="detailsMarketPlace">
-              <div class="categories">
-                <label for="categorie">Catégorie</label>
-              </div>
-              <p>{{ cardResume.categorie }}</p>
-            </div>
-            <div id="annee-localisation">
+              <h3>Informations</h3>
               <div class="detailsMarketPlace">
-                <img src="../assets/calendar.png" alt="" />
-                <label for="anneeCreation">Année de création</label>
-                <p>{{ cardResume.anneeCreation }}</p>
+                <div class="categories">
+                  <label for="categorie">Catégorie</label>
+                </div>
+                <p>{{ cardResume.categorie }}</p>
               </div>
-              <div class="detailsMarketPlace">
-                <img src="../assets/map.png" alt="" />
-                <label for="localisation">Localisation</label>
-                <p>{{ cardResume.localisation }}</p>
+              <div id="annee-localisation">
+                <div class="detailsMarketPlace">
+                  <img src="../assets/calendar.png" alt="" />
+                  <label for="anneeCreation">Année de création</label>
+                  <p>{{ cardResume.anneeCreation }}</p>
+                </div>
+                <div class="detailsMarketPlace">
+                  <img src="../assets/map.png" alt="" />
+                  <label for="localisation">Localisation</label>
+                  <p>{{ cardResume.localisation }}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <a :href="cardResume.urlMarketPlace" target="_blank"
-          ><button class="radius-link">Voir le site</button></a
-        >
+            <div class="btn-div">
+              <a :href="cardResume.urlMarketPlace" target="_blank">
+                <button class="radius-link">Voir le site</button>
+              </a>
+            </div>
           </section>
         </div>
       </main>
@@ -161,6 +163,12 @@ header div:last-child {
   height: 70%;
 }
 /* MAIN ===================================================== */
+.btn-div {
+  display: flex;
+  justify-content: center;
+  margin-left: -40px;
+}
+
 main {
   display: flex;
   flex-direction: column;

@@ -7,6 +7,7 @@ import categorie from'./modules/categorie.module'
 import admin from'./modules/admin.module'
 import popup from'./modules/popup.module'
 import proposition from'./modules/proposition.module'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -17,5 +18,6 @@ export default new Vuex.Store({
     admin,
     popup,
     proposition
-  }
+  },
+  plugins: [createPersistedState()]
 })

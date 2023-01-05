@@ -133,7 +133,7 @@ export default {
   padding-left: 30px;
 }
 .btnForm {
-  width: 20%;
+  width: 30%;
 }
 .titleForm {
   font-size: 2rem;
