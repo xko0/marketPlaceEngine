@@ -141,7 +141,7 @@ export default {
   letter-spacing: 0.1rem;
   line-height: 1.6;
 }
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 998px) {
   /* title */
   .home {
     height: 40vh;
@@ -155,7 +155,48 @@ export default {
   /* bouton aside */
   .btnReferencement {
     padding: 0 3%;
-    height: 3.3vh;
+    height: 5vh;
+    position: absolute;
+    top: 1vh;
+    left: 1vh;
+  }
+  /* formulaire */
+  .contentFormulaire {
+    margin: 0;
+    padding: 0;
+  }
+  .formulaire {
+    width: 100%;
+    height: 40vh;
+    border-radius: 0;
+    padding: 15% 0 20% 0;
+  }
+  .inputForm {
+    width: 80%;
+    padding: 10px 0 10px 15px;
+  }
+  .btnForm {
+    width: 50%;
+  }
+  .titleForm {
+    font-size: 1rem;
+    letter-spacing: 0rem;
+  }
+}
+@media screen and (max-height: 650px) {
+  .home {
+    height: 40vh;
+  }
+  .home h1 {
+    font-size: 3rem;
+  }
+  .home h2 {
+    font-size: 1rem;
+  }
+  /* bouton aside */
+  .btnReferencement {
+    padding: 0 3%;
+    height: 5vh;
     position: absolute;
     top: 1vh;
     left: 1vh;
