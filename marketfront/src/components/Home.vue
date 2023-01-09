@@ -18,6 +18,9 @@
           <button type="submit" class="btnForm radius" @click="sendEmail">
             Envoyer
           </button>
+          <button type="submit" class="btnForm radius" @click="searchMarket">
+            search
+          </button>
         </div>
       </article>
     </div>
@@ -63,6 +66,16 @@ export default {
           this.$store.state.popup.message = "Adresse mail non envoyée";
           this.$store.dispatch("popup/popUpMsgRed");
         });
+    },
+    async searchMarket() {
+      console.log("test")
+      await axios.get(`${process.env.VUE_APP_HTTP_REQUEST}/crawler`)
+        .then(
+          console.log("ok"),
+      )
+        .catch((error) => {
+        console.error(error)
+      })
     },
   },
 };
