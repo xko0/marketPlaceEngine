@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Search from "./layout/Search.vue";
+import Search from "./layout/Search2.vue";
 import axios from "axios";
 
 export default {
@@ -67,15 +67,16 @@ export default {
           this.$store.dispatch("popup/popUpMsgRed");
         });
     },
-    async searchMarket() {
+    searchMarket() {
       console.log("test")
-      await axios.get(`${process.env.VUE_APP_HTTP_REQUEST}/crawler`)
-        .then(
-          console.log("ok"),
-      )
+      axios.get(`${process.env.VUE_APP_HTTP_REQUEST}/crawler`)
+      .then((response) => {
+          console.log("progressing")
+          console.log(response)
+        })
         .catch((error) => {
-        console.error(error)
-      })
+          console.error(error)
+        })
     },
   },
 };
