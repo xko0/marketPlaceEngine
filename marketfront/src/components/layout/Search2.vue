@@ -21,14 +21,15 @@
         type="search"
         name=""
         placeholder="ex: Consultant marketing, UX designer, ReactJS..."
+        @change="wordsToSearch(searchWord)"
         v-model="searchWord"
       />
-      <button type="submit" class="btn2 btnForm radius" @click="searchMarket">
+      <button type="submit" class="btn2 btnForm radius" @click="searchMarket()">
         search
       </button>
     </div>
     <div class="search-list">
-      <p>Platforms recherchées: </p>
+      <p>Platformes recherchées: </p>
       <div
         class="platform-card"
         v-for="(card, cardIndex) in cardsArray"
@@ -54,6 +55,7 @@
 import { mapState, mapActions } from "vuex";
 import axios from 'axios';
 
+var searchWordsArray = []
 export default {
   data() {
     return {
@@ -81,12 +83,25 @@ export default {
     ...mapActions("card", ["getCards"]),
   },
   methods: {
+    wordsToSearch(words) {
+      searchWordsArray = []
+      searchWordsArray.push(words)
+      searchWordsArray.forEach((str, index) => searchWordsArray[index] = str.replace(/\s+|,\s+/g, "+"))
+      console.log(searchWordsArray)
+    },
     searchMarket() {
-      var link = `https://www.malt.fr/s?q=`
-      console.log(encodeURIComponent(link+"ruby+on+rails"))
-      
-      console.log("test")
-      axios.get(`${process.env.VUE_APP_HTTP_REQUEST}/crawler`)
+      this.getCards;
+      // var link = `https://www.malt.fr/s?q=`
+      // console.log(encodeURIComponent(link))
+      // console.log("test")
+      console.log("words are:", encodeURIComponent(searchWordsArray))
+      console.log("adress is", this.cardsArray [0].urlMarketPlace)
+
+      axios.get(`${process.env.VUE_APP_HTTP_REQUEST}/crawler/joi`,{
+        params: {
+            argument: searchWordsArray
+        }
+      })
       .then((response) => {
           console.log("progressing")
           console.log(response)

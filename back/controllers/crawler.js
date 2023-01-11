@@ -51,14 +51,16 @@ exports.crawler = (req, res, next) => {
         result.push(links[i]);
       }
     }
-    res.status(200).json({ message: 'Scraping in progress...', result })
+    res.status(200).json({ message: 'Scraping done...', result })
     console.log(result)
+    console.log(req.query.argument)
     //getProfileInfos(result);
   }
 
   // request(options, callback);
-  rp('https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&scraper=generic-extractor&format=json&country=FR&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby+on+rails')
+  rp(`https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&scraper=generic-extractor&format=json&country=FR&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3D${req.query.argument}`)
   .then((response) => {
+    console.log(req.params.argument)
     // console.log(JSON.parse(response))
     var resultJSON = JSON.parse(response)
     var links = resultJSON.body.links
