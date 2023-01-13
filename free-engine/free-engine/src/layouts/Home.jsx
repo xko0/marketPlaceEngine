@@ -1,13 +1,19 @@
 import React from 'react'
 import Navbar from '../components/navbar/Navbar'
 import Banner from '../components/banner/Banner'
+import SearchBar from '../components/searchbar/Searchbar'
+import Cards from '../components/cards/Cards'
 
 export default function Home() {
   return (
     <>
       <Navbar/>
       <Banner />
-      <div>Home</div>
+      <SearchBar />
+      <div>
+        Recherches Malt :
+      </div>
+      <Cards />
     </>
   )
 }
