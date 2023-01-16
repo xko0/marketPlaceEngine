@@ -145,9 +145,10 @@ exports.crawler = (req, res, next) => {
 //________________________________________________________________________________
 
   async function scrapeData() {
-    let html = await rp("https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby%2Bon%2Brails&ajax_wait=true");
+    let html = await rp(`https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3D${req.query.argument}&ajax_wait=true`);
     let $ = cheerio.load(html);
     let data = []
+    console.log(req.query.argument)
     for ( let i =0; i < $('section.profile-card').length; i++) {
       let childrenData = [];
       childrenData.push($(`section.profile-card:nth-child(${i+1}) > a:nth-child(1) > div:nth-child(2) > 

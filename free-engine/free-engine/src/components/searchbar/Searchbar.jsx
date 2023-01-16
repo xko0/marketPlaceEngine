@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+import { observer } from "mobx-react-lite"
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -9,11 +11,14 @@ import Container from '@mui/material/Container';
 import "./searchbar.css"
 import { useFreelancesStore } from '../../context/FreelancesContext';
 
-export default function SearchBar() {
+export const SearchBar = observer (() => {
   const freelancesStore = useFreelancesStore()
+  const [specialty, setSpecialty] = useState("")
+  const [location, setLocation] = useState("")
 
-  function getFreelances() {
-    freelancesStore.getFreelances()
+  function getFreelances(specialty) {
+    let encodedSpecialty = encodeURI(specialty)
+    freelancesStore.getFreelances(encodedSpecialty)
   }
 
   return (
@@ -26,10 +31,26 @@ export default function SearchBar() {
             borderRadius: "5px"
           }}
         >
-          <TextField fullWidth label="Recherchez un freelance" id="fullWidth" />
+          <TextField 
+            fullWidth label="Recherchez un freelance par spécialité" 
+            id="fullWidth"
+            value={specialty}
+            onChange={(e) => {setSpecialty(e.target.value)}}
+          />
         </Box>
         <Stack direction="row" spacing={2} sx={{ width: "60%", marginTop: "2vh"}}>
-          <Autocomplete
+        <TextField 
+            sx={{
+              width: "60%",
+              backgroundColor: "whitesmoke",
+              borderRadius: "5px"
+            }}
+            label="Ville (France par defaut si vide)"
+            id="free-solo-demo"
+            value={location}
+            onChange={(e) => {setLocation(e.target.value)}}
+          />
+          {/* <Autocomplete
             id="free-solo-demo"
             freeSolo
             sx={{ width: "70%",
@@ -37,8 +58,13 @@ export default function SearchBar() {
               borderRadius: "5px"
             }}
             options={villesDeFrance.map((option) => option.title)}
-            renderInput={(params) => <TextField {...params} label="Ville" />}>
-          </Autocomplete>
+            renderInput={(params) => <TextField 
+              {...params} 
+              label="Ville (recherche en France si laissé vide)" 
+              value={location}
+              onChange={(e) => {setLocation(e.target.value)}}
+            />}>
+          </Autocomplete> */}
           <Button variant="contained" 
             endIcon={<SendIcon />}
             sx={{ 
@@ -46,7 +72,7 @@ export default function SearchBar() {
               minWidth: "120px", 
               backgroundColor: "rgba(73,115,255,1)"
             }}
-            onClick={() => {getFreelances()}}
+            onClick={() => {getFreelances(specialty, location)}}
           >
             Chercher
           </Button>
@@ -54,17 +80,17 @@ export default function SearchBar() {
       </Container>
     </>
   );
-}
+});
 
-const villesDeFrance = [
-  { title: 'Paris', pays: "france" },
-  { title: 'Marseille', pays: "france" },
-  { title: 'Lyon', pays: "france" },
-  { title: 'Toulouse', pays: "france" },
-  { title: 'Nice', pays: "france" },
-  { title: 'Nantes', pays: "france" },
-  { title: 'Montpellier', pays: "france" },
-  { title: 'Strasbourg', pays: "france" },
-  { title: 'Bordeaux', pays: "france" },
-  { title: 'Lille', pays: "france" }
-];
+// const villesDeFrance = [
+//   { title: 'Paris', pays: "france" },
+//   { title: 'Marseille', pays: "france" },
+//   { title: 'Lyon', pays: "france" },
+//   { title: 'Toulouse', pays: "france" },
+//   { title: 'Nice', pays: "france" },
+//   { title: 'Nantes', pays: "france" },
+//   { title: 'Montpellier', pays: "france" },
+//   { title: 'Strasbourg', pays: "france" },
+//   { title: 'Bordeaux', pays: "france" },
+//   { title: 'Lille', pays: "france" }
+// ];
