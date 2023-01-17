@@ -7,7 +7,7 @@ exports.crawler = (req, res, next) => {
   //  var profileInfos = []
   // // var message = ""
   // // var options = {
-  // //   url: 'https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&scraper=generic-extractor&format=json&country=FR&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby+on+rails'
+  // //   url: 'https://api.crawlbase.com/?token=&device=desktop&scraper=generic-extractor&format=json&country=FR&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby+on+rails'
   // // };
   
   // // var getProfileInfos = (linksList) => {
@@ -15,7 +15,7 @@ exports.crawler = (req, res, next) => {
   // //     var encodeLink = encodeURI(linksList[i])
   // //     console.log(encodeLink)
   // //     var option = {
-  // //       url: `https://api.crawlbase.com/?token=clHjnuwKh4i-iOKRGSdPjA&device=desktop&scraper=generic-extractor&format=json&url=${encodeLink}`
+  // //       url: `https://api.crawlbase.com/?token=&device=desktop&scraper=generic-extractor&format=json&url=${encodeLink}`
   // //     }
   // //     request(option, infoscallback)
   // //   }
@@ -46,9 +46,9 @@ exports.crawler = (req, res, next) => {
   // // }
 
   // // request(options, callback);
-  // // "https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&scraper=generic-extractor&format=json&country=FR&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby+on+rails"
-  // "https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby%2Bon%2Brails&ajax_wait=true&screenshot=true"
-  // rp(`https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby%2Bon%2Brails&ajax_wait=true&screenshot=true`)
+  // // "https://api.crawlbase.com/?token=&device=desktop&scraper=generic-extractor&format=json&country=FR&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby+on+rails"
+  // "https://api.crawlbase.com/?token=&device=desktop&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby%2Bon%2Brails&ajax_wait=true&screenshot=true"
+  // rp(`https://api.crawlbase.com/?token=&device=desktop&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3Druby%2Bon%2Brails&ajax_wait=true&screenshot=true`)
   //   .then((response) => {
   //     //console.log(req.params.argument)
   //     //console.log(JSON.parse(response))
@@ -78,7 +78,7 @@ exports.crawler = (req, res, next) => {
   //   for (var i = 0; i < linksList.length; i++) {
   //     var encodeLink = encodeURI(linksList[i])
   //     console.log(encodeLink)
-  //     var url = `https://api.crawlbase.com/?token=clHjnuwKh4i-iOKRGSdPjA&device=desktop&scraper=generic-extractor&format=json&url=${encodeLink}`
+  //     var url = `https://api.crawlbase.com/?token=&device=desktop&scraper=generic-extractor&format=json&url=${encodeLink}`
   //     while (true) {
   //         try {
   //         let response = await rp(url) 
@@ -107,7 +107,7 @@ exports.crawler = (req, res, next) => {
   // //     if (i + 1 < linksList.length + 2) {
   // //       var encodeLink = encodeURI(linksList[i])
   // //       console.log(encodeLink)
-  // //       var url = `https://api.crawlbase.com/?token=clHjnuwKh4i-iOKRGSdPjA&device=desktop&scraper=generic-extractor&format=json&url=${encodeLink}`
+  // //       var url = `https://api.crawlbase.com/?token=&device=desktop&scraper=generic-extractor&format=json&url=${encodeLink}`
   // //       rp(url)
   // //         .then((response) => {
   // //           console.log(response)
@@ -144,12 +144,40 @@ exports.crawler = (req, res, next) => {
 //scraping with puppeteer or cheerio
 //________________________________________________________________________________
 
-  async function scrapeData() {
-    let html = await rp(`https://api.crawlbase.com/?token=552anrPuCZJX9BYX-bZXYw&device=desktop&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3D${req.query.argument}&ajax_wait=true`);
+
+  async function scrapeFreelanceData() {
+    let html = await rp(`https://api.crawlbase.com/?token=${process.env.CRAWLER_API_KEY}&url=https%3A%2F%2Fplateforme.freelance.com%2Fs%3Fq%3DReactJS`);
     let $ = cheerio.load(html);
     let data = []
-    console.log(req.query.argument)
-    for ( let i =0; i < $('section.profile-card').length; i++) {
+
+    for ( let i = 0; i < $('div.py-0').length; i++) {
+      let childrenData = [];
+      childrenData.push($(`div.py-0:nth-child(${i+1}) > div:nth-child(1) > figure:nth-child(1) > figcaption:nth-child(2)`).html())
+      data.push(childrenData)
+    }
+    await res.status(200).send(data)
+    return data;
+  }
+
+  async function scrapeFiverrData() {
+    let html = await rp(`https://api.crawlbase.com/?token=${process.env.CRAWLER_API_KEY}&url=https%3A%2F%2Fplateforme.freelance.com%2Fs%3Fq%3DReactJS`);
+    let $ = cheerio.load(html);
+    let data = []
+  
+    for ( let i = 0; i < $('div.py-0').length; i++) {
+      let childrenData = [];
+      childrenData.push($(`div.py-0:nth-child(${i+1}) > div:nth-child(1) > figure:nth-child(1) > figcaption:nth-child(2)`).html())
+      data.push(childrenData)
+    }
+    await res.status(200).send(data)
+    return data;
+  }
+
+  async function scrapeMaltData() {
+    let html = await rp(`https://api.crawlbase.com/?token=${process.env.CRAWLER_API_KEY}&url=https%3A%2F%2Fwww.malt.fr%2Fs%3Fq%3D${req.query.argument}&ajax_wait=true`);
+    let $ = cheerio.load(html);
+    let data = []
+    for ( let i = 0; i < $('section.profile-card').length; i++) {
       let childrenData = [];
       childrenData.push($(`section.profile-card:nth-child(${i+1}) > a:nth-child(1) > div:nth-child(2) > 
         div:nth-child(1) > p:nth-child(1) > span:nth-child(1) > strong:nth-child(1)`).html());
@@ -159,10 +187,12 @@ exports.crawler = (req, res, next) => {
         div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1)`).html());
       childrenData.push($(`section.profile-card:nth-child(${i+1}) > a:nth-child(1)`).map((i, el) => $(el).attr('href')).get());
       childrenData.push($(`section.profile-card:nth-child(${i+1})`).find('img').map((i, el) => $(el).attr('src')).get());
+      childrenData.push($(`section.profile-card:nth-child(${i+1}) > a:nth-child(1) > div:nth-child(1) > 
+        div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > p:nth-child(1) > span:nth-child(2)`).html())
       data.push(childrenData);
     }
     await res.status(200).send(data)
     return data;
   }
-  scrapeData()
+  scrapeMaltData()
 }

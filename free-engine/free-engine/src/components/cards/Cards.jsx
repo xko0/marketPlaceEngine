@@ -30,7 +30,7 @@ export const Cards = observer(() => {
       const endIndex = startIndex + itemsPerPage;
       const currentItems = freelancesMalt.filter((_, i) => i >= startIndex && i < endIndex);
       return currentItems.map((freelance, index) => (
-        <Grid key={index} item xs={2}>
+        <Grid key={index} item xs={12} sm={6} md={4} lg={3} xl={2}>
           <Card key={index} sx={{ maxWidth: 345, margin: "2vh"}} onClick={() => window.open(`https://www.malt.fr${freelance[3]}`, '_blank')}>
             <CardMedia
               sx={{ height: 240 }}
@@ -38,6 +38,9 @@ export const Cards = observer(() => {
               title="Profile picture"
             />
             <CardContent sx={{ height: 100 }}>
+            <Typography variant="body2" color="text.secondary">
+                {freelance[5]}
+              </Typography>
               <Typography gutterBottom variant="h5" component="div">
                 {freelance[1] != null ? freelance[1] : `Infos sur malt.fr`}
               </Typography>
@@ -61,12 +64,18 @@ export const Cards = observer(() => {
 
   return (
     <>
+      <Typography gutterBottom variant="body" component="div" marginLeft={"2vh"} sx={{ color: "white" }}>
+        {freelancesMalt == null ? "Aucun" : freelancesMalt.length} resulstats sur Malt.fr
+      </Typography>
       <Grid container spacing={1}>
         {getCards()}
       </Grid>
-      {currentPage <= totalPages && currentPage >= 2 && <Button onClick={() => setCurrentPage(currentPage - 1)}>Page précédente</Button>}
-
-      {currentPage < totalPages && <Button onClick={() => setCurrentPage(currentPage + 1)}>Page suivante</Button>}
+      {currentPage <= totalPages && currentPage >= 2 && 
+        <Button onClick={() => setCurrentPage(currentPage - 1)} sx={{ color: "white" }}>Page précédente</Button>
+      }
+      {currentPage < totalPages && 
+        <Button onClick={() => setCurrentPage(currentPage + 1)} sx={{ color: "white" }}>Page suivante</Button>
+      }
     </>
   );
 });

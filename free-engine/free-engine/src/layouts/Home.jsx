@@ -11,12 +11,7 @@ export default function Home() {
       <Navbar/>
       <Banner />
       <SearchBar />
-      <div>
-        Recherches Malt :
-      </div>
-      <Grid item xs={1}>
-        <Cards />
-      </Grid>
+      <Cards />
     </>
   )
 }
