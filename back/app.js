@@ -6,7 +6,6 @@ const categoryRoutes = require("./router/category");
 const userRoutes = require("./router/user");
 const propositionRoutes = require("./router/proposition");
 const sibApi = require("./controllers/sib")
-const crawlApi = require("./controllers/crawler")
 
 require('dotenv').config()
 
@@ -43,7 +42,6 @@ app.use("/api/card", cardRoutes);
 app.use("/api/categorie", categoryRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/proposition", propositionRoutes);
-app.get("/api/crawler", crawlApi.crawler);
 app.post("/api/sendemail", sibApi.sendEmail);
 
 module.exports = app;
